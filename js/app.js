@@ -11,7 +11,7 @@ var SearchBar = React.createClass({
     this.props.searchHandler(this.refs.searchKey.getDOMNode().value);
   },  
 
-  render: function () {
+  render: function() {
     return (
       <input type="search" ref="searchKey" onChange={this.searchHandler} />
     );
@@ -31,8 +31,8 @@ var BizListItem = React.createClass({
 });
 
 var BizList = React.createClass({
-  render: function () {
-    var businesses = this.props.businesses.map(function(biz) {
+  render: function() {
+    var items = this.props.businesses.map(function(biz) {
           return (
             <BizListItem key={biz.id} biz={biz} />
           )
@@ -40,36 +40,43 @@ var BizList = React.createClass({
 
     return (
       <ul>
-        {businesses}
+        {items}
       </ul>
     );
   }
 });
 
 var HomePage = React.createClass({
+  getInitialState: function() {
+    return {businesses: []}
+  },
+
+  componentDidMount: function() {
+    var _this = this;
+
+    this.props.service.findAll().done(function(results) {
+      _this.setState({searchKey: '', businesses: results});
+    });
+  },
+
   searchHandler: function(key) {
-    alert('Search key: ' + key);
+    this.props.service.findByName(key).done(function(result) {
+      this.setState({searchKey: key, businesses: result});
+    }.bind(this));
   }, 
 
   render: function() {
-    var businesses= [
-      {id: 1, name: "Dean's Downtown", address: "316 Main St, Houston, TX"},
-      {id: 2, name: "Roma's Pizza", address: "233 Main St, Houston, TX"},
-      {id: 3, name: "Fusion Taco", address: "801 Congress, Houston, TX"},
-      {id: 4, name: "Frank's Pizza", address: "417 Travis St, Houston, TX"}
-    ];
-
     return (
       <div>
         <Header text="List of Biz" />
         <SearchBar searchHandler={this.searchHandler} />
-        <BizList businesses={businesses} />
+        <BizList businesses={this.state.businesses} />
       </div>
     );
   }
 });
 
 React.render(
-  <HomePage />,
+  <HomePage service={bizService} />,
   document.body
 );
