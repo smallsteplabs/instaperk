@@ -1,2 +1,1 @@
-# instaperk-app
-InstaPerk mobile hybrid app
+Instaperk app
