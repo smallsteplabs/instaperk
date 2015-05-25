@@ -6,13 +6,25 @@ var Header = React.createClass({
   }
 });
 
+var SearchBar = React.createClass({
+  searchHandler: function() {
+    this.props.searchHandler(this.refs.searchKey.getDOMNode().value);
+  },  
+
+  render: function () {
+    return (
+      <input type="search" ref="searchKey" onChange={this.searchHandler} />
+    );
+  }   
+});
+
 var BizListItem = React.createClass({
   render: function () {
     var biz = this.props.biz;
 
     return (
       <li>
-        <strong>{biz.name}</strong> {biz.address}
+        <strong>{biz.name}</strong> {biz.address} <a href="#">Save</a>
       </li>
     );
   }
@@ -35,7 +47,11 @@ var BizList = React.createClass({
 });
 
 var HomePage = React.createClass({
-  render: function () {
+  searchHandler: function(key) {
+    alert('Search key: ' + key);
+  }, 
+
+  render: function() {
     var businesses= [
       {id: 1, name: "Dean's Downtown", address: "316 Main St, Houston, TX"},
       {id: 2, name: "Roma's Pizza", address: "233 Main St, Houston, TX"},
@@ -45,7 +61,8 @@ var HomePage = React.createClass({
 
     return (
       <div>
-        <Header text="Instaperk"/>
+        <Header text="List of Biz" />
+        <SearchBar searchHandler={this.searchHandler} />
         <BizList businesses={businesses} />
       </div>
     );
