@@ -24,17 +24,22 @@ var BizListItem = React.createClass({
 
     return (
       <li>
-        <strong>{biz.name}</strong> {biz.address} <a href="#">Save</a>
+        <strong>{biz.name}</strong> {biz.address} <button>{this.props.saved ? 'Saved' : 'Save'}</button>
       </li>
     );
   }
 });
 
 var BizList = React.createClass({
+  getInitialState: function() {
+    return {saves: []}
+  },
+
   render: function() {
+    var _this = this;
     var items = this.props.businesses.map(function(biz) {
           return (
-            <BizListItem key={biz.id} biz={biz} />
+            <BizListItem key={biz.id} biz={biz} saved={_this.state.saves.indexOf(biz.id) !== -1} />
           )
         });
 
