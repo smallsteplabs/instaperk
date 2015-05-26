@@ -16,7 +16,6 @@ bizService = (function() {
   findByName = function(searchKey) {
     var deferred = $.Deferred();
     var results = businesses.filter(function(biz) {
-      console.log(biz.name);
       return biz.name.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
     });
     deferred.resolve(results);

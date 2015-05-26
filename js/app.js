@@ -1,7 +1,10 @@
 var Header = React.createClass({
   render: function () {
     return (
-      <h1 className="title">{this.props.text}</h1>
+      <header className="bar bar-nav">
+        <a href="#" className={"icon icon-left-nav pull-left" + (this.props.back === "true" ? "" : " hidden")}></a>
+        <h1 className="title">{this.props.text}</h1>
+      </header>
     );
   }
 });
@@ -13,7 +16,9 @@ var SearchBar = React.createClass({
 
   render: function() {
     return (
-      <input type="search" ref="searchKey" onChange={this.searchHandler} />
+      <div className="bar bar-standard bar-header-secondary">
+        <input type="search" ref="searchKey" onChange={this.searchHandler}/>
+      </div>
     );
   }   
 });
@@ -25,11 +30,17 @@ var BizListItem = React.createClass({
   },
 
   render: function () {
-    var biz = this.props.biz;
+    var biz = this.props.biz,
+        saved = this.props.saved;
 
     return (
-      <li>
-        <strong>{biz.name}</strong> {biz.address} <button onClick={this.toggleSave}>{this.props.saved ? 'Saved' : 'Save'}</button>
+      <li className="table-view-cell media">
+        {biz.name}
+        <button className={"btn pull-right" + (saved ? ' btn-positive' : '') } onClick={this.toggleSave}>
+          <span className={"icon icon-star" + (saved ? '-filled' : '')}></span>
+          {saved ? 'Saved' : 'Save'}
+        </button>
+        <p>{biz.address}</p>
       </li>
     );
   }
@@ -45,7 +56,6 @@ var BizList = React.createClass({
         index = _saves.indexOf(id);
     if (index == -1) _saves.push(id); else _saves.splice(index, 1);
     this.setState({saves: _saves});
-    console.log(this.state.saves);
   },
 
   render: function() {
@@ -62,7 +72,7 @@ var BizList = React.createClass({
         });
 
     return (
-      <ul>
+      <ul className="table-view">
         {items}
       </ul>
     );
@@ -91,9 +101,11 @@ var HomePage = React.createClass({
   render: function() {
     return (
       <div>
-        <Header text="List of Biz" />
+        <Header text="List of Biz" back="false" />
         <SearchBar searchHandler={this.searchHandler} />
-        <BizList businesses={this.state.businesses} />
+        <div className="content">
+          <BizList businesses={this.state.businesses} />
+        </div>
       </div>
     );
   }
