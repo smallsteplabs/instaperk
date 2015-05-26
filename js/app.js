@@ -19,12 +19,17 @@ var SearchBar = React.createClass({
 });
 
 var BizListItem = React.createClass({
+  toggleSave: function(e) {
+    e.preventDefault();
+    this.props.onToggleSave(this.props.biz.id);
+  },
+
   render: function () {
     var biz = this.props.biz;
 
     return (
       <li>
-        <strong>{biz.name}</strong> {biz.address} <button>{this.props.saved ? 'Saved' : 'Save'}</button>
+        <strong>{biz.name}</strong> {biz.address} <button onClick={this.toggleSave}>{this.props.saved ? 'Saved' : 'Save'}</button>
       </li>
     );
   }
@@ -35,11 +40,24 @@ var BizList = React.createClass({
     return {saves: []}
   },
 
+  toggleSave: function(id) {
+    var _saves = this.state.saves,
+        index = _saves.indexOf(id);
+    if (index == -1) _saves.push(id); else _saves.splice(index, 1);
+    this.setState({saves: _saves});
+    console.log(this.state.saves);
+  },
+
   render: function() {
     var _this = this;
     var items = this.props.businesses.map(function(biz) {
           return (
-            <BizListItem key={biz.id} biz={biz} saved={_this.state.saves.indexOf(biz.id) !== -1} />
+            <BizListItem
+              key={biz.id}
+              biz={biz}
+              saved={_this.state.saves.indexOf(biz.id) !== -1}
+              onToggleSave={_this.toggleSave}
+            />
           )
         });
 
