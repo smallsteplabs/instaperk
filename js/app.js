@@ -10,11 +10,11 @@ var Header = React.createClass({
 });
 
 var SearchBar = React.createClass({
-  searchHandler: function() {
+  searchHandler: function () {
     this.props.searchHandler(this.refs.searchKey.getDOMNode().value);
   },  
 
-  render: function() {
+  render: function () {
     return (
       <div className="bar bar-standard bar-header-secondary">
         <input type="search" ref="searchKey" onChange={this.searchHandler}/>
@@ -24,7 +24,7 @@ var SearchBar = React.createClass({
 });
 
 var BizListItem = React.createClass({
-  toggleSave: function(e) {
+  toggleSave: function (e) {
     e.preventDefault();
     this.props.onToggleSave(this.props.biz.id);
   },
@@ -48,20 +48,20 @@ var BizListItem = React.createClass({
 });
 
 var BizList = React.createClass({
-  getInitialState: function() {
+  getInitialState: function () {
     return {saves: []}
   },
 
-  toggleSave: function(id) {
+  toggleSave: function (id) {
     var _saves = this.state.saves,
         index = _saves.indexOf(id);
     if (index == -1) _saves.push(id); else _saves.splice(index, 1);
     this.setState({saves: _saves});
   },
 
-  render: function() {
+  render: function () {
     var _this = this;
-    var items = this.props.businesses.map(function(biz) {
+    var items = this.props.businesses.map(function (biz) {
           return (
             <BizListItem
               key={biz.id}
@@ -81,25 +81,25 @@ var BizList = React.createClass({
 });
 
 var HomePage = React.createClass({
-  getInitialState: function() {
+  getInitialState: function () {
     return {businesses: []}
   },
 
-  componentDidMount: function() {
+  componentDidMount: function () {
     var _this = this;
 
-    this.props.service.findAll().done(function(results) {
+    this.props.service.findAll().done(function (results) {
       _this.setState({searchKey: '', businesses: results});
     });
   },
 
-  searchHandler: function(key) {
-    this.props.service.findByName(key).done(function(result) {
+  searchHandler: function (key) {
+    this.props.service.findByName(key).done(function (result) {
       this.setState({searchKey: key, businesses: result});
     }.bind(this));
   }, 
 
-  render: function() {
+  render: function () {
     return (
       <div>
         <Header text="List of Biz" back="false" />
