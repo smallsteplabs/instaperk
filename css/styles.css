@@ -9,13 +9,13 @@
 .media-object.big {
   width: 80px;
   height: 80px;
-  border-radius: 40px;
+  border-radius: 8px;
 }
 
 .media-object.small {
   width: 50px;
   height: 50px;
-  border-radius: 25px;
+  border-radius: 5px;
 }
 
 .table-view-cell h1 {

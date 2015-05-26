@@ -35,6 +35,7 @@ var BizListItem = React.createClass({
 
     return (
       <li className="table-view-cell media">
+        <img className="media-object small pull-left" src={"img/biz" + biz.id + '.jpg'} />
         {biz.name}
         <button className={"btn pull-right" + (saved ? ' btn-positive' : '') } onClick={this.toggleSave}>
           <span className={"icon icon-star" + (saved ? '-filled' : '')}></span>
