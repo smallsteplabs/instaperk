@@ -10,14 +10,20 @@ var Header = React.createClass({
 });
 
 var Navigation = React.createClass({
+  handleClick: function (tab) {
+    actions.changeTab(tab);
+  },
+
   render: function () {
+    var tab = this.props.tab;
+
     return (
       <nav className="bar bar-tab">
-        <a className="tab-item active" href="#">
+        <a onClick={function () { actions.changeTab('search'); }} className={'tab-item' + (tab == 'search' ? ' active' : '')}>
           <span className="icon icon-search"></span>
           <span className="tab-label">Search</span>
         </a>
-        <a className="tab-item" href="#">
+        <a onClick={function () { actions.changeTab('saves'); }} className={'tab-item' + (tab == 'saves' ? ' active' : '')}>
           <span className="icon icon-star-filled"></span>
           <span className="tab-label">Saves</span>
         </a>
@@ -130,11 +136,27 @@ var HomePage = React.createClass({
 });
 
 var App = React.createClass({
+  getInitialState: function () {
+    return {tab: 'search'}
+  },
+
+  componentDidMount: function () {
+    var _this = this;
+
+    store.on('change:tab', function (tab) {
+      _this.setState({ tab: tab });
+    });
+  },
+
   render: function () {
+    var tab = this.state.tab;
+
     return (
       <div>
-        <HomePage service={bizService} />
-        <Navigation />
+        {tab == 'search' &&
+          <HomePage service={bizService} />
+        }
+        <Navigation tab={tab} />
       </div>
     );
   }
