@@ -9,6 +9,23 @@ var Header = React.createClass({
   }
 });
 
+var Navigation = React.createClass({
+  render: function () {
+    return (
+      <nav className="bar bar-tab">
+        <a className="tab-item active" href="#">
+          <span className="icon icon-search"></span>
+          <span className="tab-label">Search</span>
+        </a>
+        <a className="tab-item" href="#">
+          <span className="icon icon-star-filled"></span>
+          <span className="tab-label">Saves</span>
+        </a>
+      </nav>
+    );
+  }
+});
+
 var SearchBar = React.createClass({
   searchHandler: function () {
     this.props.searchHandler(this.refs.searchKey.getDOMNode().value);
@@ -107,6 +124,7 @@ var HomePage = React.createClass({
         <div className="content">
           <BizList businesses={this.state.businesses} />
         </div>
+        <Navigation />
       </div>
     );
   }
