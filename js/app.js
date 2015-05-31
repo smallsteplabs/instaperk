@@ -124,6 +124,16 @@ var HomePage = React.createClass({
         <div className="content">
           <BizList businesses={this.state.businesses} />
         </div>
+      </div>
+    );
+  }
+});
+
+var App = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <HomePage service={bizService} />
         <Navigation />
       </div>
     );
@@ -131,6 +141,5 @@ var HomePage = React.createClass({
 });
 
 React.render(
-  <HomePage service={bizService} />,
-  document.body
+  <App />, document.body
 );
