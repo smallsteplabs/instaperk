@@ -5,11 +5,20 @@ bizService = (function() {
         l = businesses.length;
     for (var i = 0; i < l; i++) {
       if (bizs[i].id == id) {
-        biz = bizs[i];
+        biz = businesses[i];
         break;
       }
     }
     deferred.resolve(biz);
+    return deferred.promise();
+  },
+
+  findByIds = function(ids) {
+    var deferred = $.Deferred();
+    var results = businesses.filter(function(biz) {
+      return ids.indexOf(biz.id) > -1;
+    });
+    deferred.resolve(results);
     return deferred.promise();
   },
 
@@ -38,6 +47,7 @@ bizService = (function() {
   // The public API
   return {
     findById: findById,
+    findByIds: findByIds,
     findByName: findByName,
     findAll: findAll
   };

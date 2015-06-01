@@ -118,6 +118,52 @@ var HomePage = React.createClass({
   }
 });
 
+var SavesPage = React.createClass({
+  getInitialState: function () {
+    return { businesses: [] }
+  },
+
+  componentDidMount: function () {
+    var _this = this;
+
+    this.props.service.findByIds(store.saves).done(function (results) {
+      _this.setState({ businesses: results });
+    });
+
+    store.on('change:saves', function (saves) {
+      _this.props.service.findByIds(saves).done(function (results) {
+        _this.setState({ businesses: results });
+      });
+    });
+  },
+
+  render: function () {
+    return (
+      <div>
+        <Header text="Saved Businesses" back="false" />
+        <div className="content">
+          {this.state.businesses.length == 0 &&
+            <div className="content-padded">
+              <h6 style={{textAlign:'center'}}>You have no saved businesses yet.</h6>
+              <p style={{textAlign:'center'}}>
+                <span className="icon icon-search" style={{fontSize:100,color:'#ddd'}}></span>
+              </p>
+              <button
+                className="btn btn-block btn-primary btn-outlined"
+                onClick={function () { actions.changeTab('search') }}>
+                Find Your Favorite Biz
+              </button>
+            </div>
+          }
+          {this.state.businesses.length > 0 &&
+            <BizList businesses={this.state.businesses} />
+          }
+        </div>
+      </div>
+    );
+  }
+});
+
 var App = React.createClass({
   getInitialState: function () {
     return {
@@ -140,12 +186,14 @@ var App = React.createClass({
 
   render: function () {
     var tab = this.state.tab;
-    console.log('Rendering...');
 
     return (
       <div>
         {tab == 'search' &&
-          <HomePage service={bizService}  />
+          <HomePage service={bizService} />
+        }
+        {tab == 'saves' &&
+          <SavesPage service={bizService} />
         }
         <Navigation tab={tab} />
       </div>
