@@ -10,20 +10,18 @@ var Header = React.createClass({
 });
 
 var Navigation = React.createClass({
-  handleClick: function (tab) {
-    actions.changeTab(tab);
-  },
-
   render: function () {
     var tab = this.props.tab;
 
     return (
       <nav className="bar bar-tab">
-        <a onClick={function () { actions.changeTab('search'); }} className={'tab-item' + (tab == 'search' ? ' active' : '')}>
+        <a onClick={function () { actions.changeTab('search') }}
+          className={'tab-item' + (tab == 'search' ? ' active' : '')}>
           <span className="icon icon-search"></span>
           <span className="tab-label">Search</span>
         </a>
-        <a onClick={function () { actions.changeTab('saves'); }} className={'tab-item' + (tab == 'saves' ? ' active' : '')}>
+        <a onClick={function () { actions.changeTab('saves') }}
+          className={'tab-item' + (tab == 'saves' ? ' active' : '')}>
           <span className="icon icon-star-filled"></span>
           <span className="tab-label">Saves</span>
         </a>
@@ -47,20 +45,17 @@ var SearchBar = React.createClass({
 });
 
 var BizListItem = React.createClass({
-  toggleSave: function (e) {
-    e.preventDefault();
-    this.props.onToggleSave(this.props.biz.id);
-  },
-
   render: function () {
     var biz = this.props.biz,
         saved = this.props.saved;
 
     return (
       <li className="table-view-cell media">
-        <img className="media-object small pull-left" src={"img/biz" + biz.id + '.jpg'} />
+        <img className="media-object small pull-left"
+          src={"img/biz" + biz.id + '.jpg'} />
         {biz.name}
-        <button className={"btn pull-right" + (saved ? ' btn-positive' : '') } onClick={this.toggleSave}>
+        <button className={"btn pull-right" + (saved ? ' btn-positive' : '') }
+          onClick={function () { actions.toggleSave(biz.id) }}>
           <span className={"icon icon-star" + (saved ? '-filled' : '')}></span>
           {saved ? 'Saved' : 'Save'}
         </button>
@@ -71,17 +66,6 @@ var BizListItem = React.createClass({
 });
 
 var BizList = React.createClass({
-  getInitialState: function () {
-    return {saves: []}
-  },
-
-  toggleSave: function (id) {
-    var _saves = this.state.saves,
-        index = _saves.indexOf(id);
-    if (index == -1) _saves.push(id); else _saves.splice(index, 1);
-    this.setState({saves: _saves});
-  },
-
   render: function () {
     var _this = this;
     var items = this.props.businesses.map(function (biz) {
@@ -89,8 +73,7 @@ var BizList = React.createClass({
             <BizListItem
               key={biz.id}
               biz={biz}
-              saved={_this.state.saves.indexOf(biz.id) !== -1}
-              onToggleSave={_this.toggleSave}
+              saved={store.saves.indexOf(biz.id) !== -1}
             />
           )
         });
@@ -137,7 +120,10 @@ var HomePage = React.createClass({
 
 var App = React.createClass({
   getInitialState: function () {
-    return {tab: 'search'}
+    return {
+      tab: store.tab,
+      saves: store.saves
+    }
   },
 
   componentDidMount: function () {
@@ -146,15 +132,20 @@ var App = React.createClass({
     store.on('change:tab', function (tab) {
       _this.setState({ tab: tab });
     });
+
+    store.on('change:saves', function (saves) {
+      _this.setState({ saves: saves });
+    });
   },
 
   render: function () {
     var tab = this.state.tab;
+    console.log('Rendering...');
 
     return (
       <div>
         {tab == 'search' &&
-          <HomePage service={bizService} />
+          <HomePage service={bizService}  />
         }
         <Navigation tab={tab} />
       </div>
