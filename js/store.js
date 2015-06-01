@@ -2,7 +2,7 @@ var store = fluxify.createStore({
   id: 'store',
 
   initialState: {
-    tab: 'saves',
+    tab: 'search',
     saves: []
   },
 
