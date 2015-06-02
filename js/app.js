@@ -76,7 +76,7 @@ var BizListItem = React.createClass({
             {showRedeemButton &&
               <span>&nbsp;
                 <button className="btn btn-primary"
-                  onClick={function () { alert('Redeem Perk'); }}>
+                  onClick={function () { notify('Redeem Perk'); }}>
                   <span className="icon icon-download"></span> redeem
                 </button>
               </span>
@@ -305,5 +305,5 @@ var App = React.createClass({
 });
 
 React.render(
-  <App />, document.body
+  <App />, document.getElementById('app')
 );

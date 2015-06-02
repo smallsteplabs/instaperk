@@ -4,7 +4,7 @@ bizService = (function() {
         biz = null;
         l = businesses.length;
     for (var i = 0; i < l; i++) {
-      if (bizs[i].id == id) {
+      if (businesses[i].id == id) {
         biz = businesses[i];
         break;
       }
