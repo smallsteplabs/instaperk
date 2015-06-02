@@ -54,6 +54,7 @@ var BizListItem = React.createClass({
     var biz = this.props.biz,
         saved = this.props.saved,
         hasPerk = this.props.hasPerk;
+        showRedeemButton = this.props.showRedeemButton;
 
     return (
       <li className="table-view-cell media">
@@ -72,6 +73,14 @@ var BizListItem = React.createClass({
               onClick={function () { actions.toggleSave(biz.id) }}>
               <span className={"icon icon-star" + (saved ? '-filled' : '')}></span> {saved ? 'saved' : 'save'}
             </button>
+            {showRedeemButton &&
+              <span>&nbsp;
+                <button className="btn btn-primary"
+                  onClick={function () { alert('Redeem Perk'); }}>
+                  <span className="icon icon-download"></span> redeem
+                </button>
+              </span>
+            }
           </p>
         </div>
       </li>
@@ -82,6 +91,7 @@ var BizListItem = React.createClass({
 var BizList = React.createClass({
   render: function () {
     var _this = this;
+    var showRedeemButton = typeof this.props.showRedeemButton !== 'undefined';
     var items = this.props.businesses.map(function (biz) {
           return (
             <BizListItem
@@ -89,6 +99,7 @@ var BizList = React.createClass({
               biz={biz}
               saved={store.saves.indexOf(biz.id) !== -1}
               hasPerk={store.perks.indexOf(biz.id) !== -1}
+              showRedeemButton={showRedeemButton}
             />
           )
         });
@@ -240,7 +251,7 @@ var HomePage = React.createClass({
             </div>
           }
           {this.state.businesses.length > 0 &&
-            <BizList businesses={this.state.businesses} />
+            <BizList businesses={this.state.businesses} showRedeemButton={true} />
           }
         </div>
       </div>
