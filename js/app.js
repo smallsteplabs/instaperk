@@ -15,6 +15,11 @@ var Navigation = React.createClass({
 
     return (
       <nav className="bar bar-tab">
+        <a onClick={function () { actions.changeTab('home') }}
+          className={'tab-item' + (tab == 'home' ? ' active' : '')}>
+          <span className="icon icon-home"></span>
+          <span className="tab-label">Home</span>
+        </a>
         <a onClick={function () { actions.changeTab('search') }}
           className={'tab-item' + (tab == 'search' ? ' active' : '')}>
           <span className="icon icon-search"></span>
@@ -86,7 +91,7 @@ var BizList = React.createClass({
   }
 });
 
-var HomePage = React.createClass({
+var SearchPage = React.createClass({
   getInitialState: function () {
     return {businesses: []}
   },
@@ -151,7 +156,72 @@ var SavesPage = React.createClass({
               <button
                 className="btn btn-block btn-primary btn-outlined"
                 onClick={function () { actions.changeTab('search') }}>
-                Find Your Favorite Biz
+                Find Your Favorite Places
+              </button>
+            </div>
+          }
+          {this.state.businesses.length > 0 &&
+            <BizList businesses={this.state.businesses} />
+          }
+        </div>
+      </div>
+    );
+  }
+});
+
+var HomePage = React.createClass({
+  getInitialState: function () {
+    return { businesses: [] }
+  },
+
+  componentDidMount: function () {
+    var _this = this;
+
+    if (store.perks.length > 0) {
+      _this.props.service.findByIds(store.perks).done(function (results) {
+        _this.setState({ businesses: results });
+      });
+    }
+
+    store.on('change:saves', function (saves) {
+      _this.props.service.findByIds(saves).done(function (results) {
+        _this.setState({ businesses: results });
+      });
+    });
+  },
+
+  render: function () {
+    var _new = this.props.new;
+
+    return (
+      <div>
+        <Header text={_new ? 'Instaperk' : 'My Feed'} back="false" />
+        <div className="content">
+          {this.state.businesses.length == 0 && _new &&
+            <div className="content-padded">
+              <h2 style={{textAlign:'center'}}>
+                Instaperk notifies perks from places you love.
+              </h2>
+              <p style={{textAlign:'center'}}>
+                <span className="icon icon-star-filled" style={{fontSize:100,color:'#ddd'}}></span>
+              </p>
+              <button
+                className="btn btn-block btn-primary btn-outlined"
+                onClick={function () { actions.changeTab('search') }}>
+                Find Your Favorite Places
+              </button>
+            </div>
+          }
+          {this.state.businesses.length == 0 && !_new &&
+            <div className="content-padded">
+              <h5 style={{textAlign:'center'}}>No saved places with running perks.</h5>
+              <p style={{textAlign:'center'}}>
+                <span className="icon icon-search" style={{fontSize:100,color:'#ddd'}}></span>
+              </p>
+              <button
+                className="btn btn-block btn-primary btn-outlined"
+                onClick={function () { actions.changeTab('search') }}>
+                Find More Places
               </button>
             </div>
           }
@@ -168,7 +238,8 @@ var App = React.createClass({
   getInitialState: function () {
     return {
       tab: store.tab,
-      saves: store.saves
+      saves: store.saves,
+      perks: store.perks
     }
   },
 
@@ -182,6 +253,10 @@ var App = React.createClass({
     store.on('change:saves', function (saves) {
       _this.setState({ saves: saves });
     });
+
+    store.on('change:perks', function (perks) {
+      _this.setState({ perks: perks });
+    });
   },
 
   render: function () {
@@ -189,8 +264,11 @@ var App = React.createClass({
 
     return (
       <div>
+        {tab == 'home' &&
+          <HomePage service={bizService} new={this.state.saves.length == 0} />
+        }
         {tab == 'search' &&
-          <HomePage service={bizService} />
+          <SearchPage service={bizService} />
         }
         {tab == 'saves' &&
           <SavesPage service={bizService} />
