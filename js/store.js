@@ -2,9 +2,9 @@ var store = fluxify.createStore({
   id: 'store',
 
   initialState: {
-    tab: 'home',
+    tab: 'search',
     saves: [],
-    perks: []
+    perks: [1]
   },
 
   actionCallbacks: {

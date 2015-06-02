@@ -52,19 +52,28 @@ var SearchBar = React.createClass({
 var BizListItem = React.createClass({
   render: function () {
     var biz = this.props.biz,
-        saved = this.props.saved;
+        saved = this.props.saved,
+        hasPerk = this.props.hasPerk;
 
     return (
       <li className="table-view-cell media">
         <img className="media-object small pull-left"
           src={"img/biz" + biz.id + '.jpg'} />
-        {biz.name}
-        <button className={"btn pull-right" + (saved ? ' btn-positive' : '') }
-          onClick={function () { actions.toggleSave(biz.id) }}>
-          <span className={"icon icon-star" + (saved ? '-filled' : '')}></span>
-          {saved ? 'Saved' : 'Save'}
-        </button>
-        <p>{biz.address}</p>
+        <div className="media-body">
+          {hasPerk &&
+            <span className="badge badge-positive pull-right">-01:40</span>
+          }
+          {biz.name}
+          <p className="normal">
+            {biz.address}
+          </p>
+          <p>
+            <button className={"btn btn-outlined" + (saved ? ' btn-positive' : '') }
+              onClick={function () { actions.toggleSave(biz.id) }}>
+              <span className={"icon icon-star" + (saved ? '-filled' : '')}></span> {saved ? 'saved' : 'save'}
+            </button>
+          </p>
+        </div>
       </li>
     );
   }
@@ -79,6 +88,7 @@ var BizList = React.createClass({
               key={biz.id}
               biz={biz}
               saved={store.saves.indexOf(biz.id) !== -1}
+              hasPerk={store.perks.indexOf(biz.id) !== -1}
             />
           )
         });
@@ -178,16 +188,20 @@ var HomePage = React.createClass({
     var _this = this;
 
     if (store.perks.length > 0) {
-      _this.props.service.findByIds(store.perks).done(function (results) {
+      _this.props.service.findByIds(store.saves.filter(function (id) {
+        return store.perks.indexOf(id) > -1
+      })).done(function (results) {
         _this.setState({ businesses: results });
+      });
+
+      store.on('change:saves', function (saves) {
+        _this.props.service.findByIds(saves.filter(function (id) {
+          return store.perks.indexOf(id) > -1
+        })).done(function (results) {
+          _this.setState({ businesses: results });
+        });
       });
     }
-
-    store.on('change:saves', function (saves) {
-      _this.props.service.findByIds(saves).done(function (results) {
-        _this.setState({ businesses: results });
-      });
-    });
   },
 
   render: function () {
