@@ -136,7 +136,7 @@ var SearchPage = React.createClass({
   render: function () {
     return (
       <div>
-        <Header text="List of Biz" back="false" />
+        <Header text="Find Places" back="false" />
         <SearchBar searchHandler={this.searchHandler} />
         <Navigation tab={this.props.tab} />
         <div className="content">
