@@ -62,7 +62,9 @@ var BizListItem = React.createClass({
           src={"img/biz" + biz.id + '.jpg'} />
         <div className="media-body">
           {hasPerk &&
-            <span className="badge badge-positive pull-right">-01:40</span>
+            <span className="badge badge-positive pull-right">
+              <CountdownTimer initialTimeRemaining={6000000} />
+            </span>
           }
           {biz.name}
           <p className="normal">
