@@ -136,6 +136,7 @@ var SearchPage = React.createClass({
       <div>
         <Header text="List of Biz" back="false" />
         <SearchBar searchHandler={this.searchHandler} />
+        <Navigation tab={this.props.tab} />
         <div className="content">
           <BizList businesses={this.state.businesses} />
         </div>
@@ -167,6 +168,7 @@ var SavesPage = React.createClass({
     return (
       <div>
         <Header text="Saved Businesses" back="false" />
+        <Navigation tab={this.props.tab} />
         <div className="content">
           {this.state.businesses.length == 0 &&
             <div className="content-padded">
@@ -254,6 +256,7 @@ var HomePage = React.createClass({
             <BizList businesses={this.state.businesses} showRedeemButton={true} />
           }
         </div>
+        <Navigation tab={this.props.tab} />
       </div>
     );
   }
@@ -290,15 +293,22 @@ var App = React.createClass({
     return (
       <div>
         {tab == 'home' &&
-          <HomePage service={bizService} new={this.state.saves.length == 0} />
+          <HomePage
+            service={bizService}
+            new={this.state.saves.length == 0}
+            {...this.state}
+          />
         }
         {tab == 'search' &&
-          <SearchPage service={bizService} />
+          <SearchPage service={bizService}
+            {...this.state}
+          />
         }
         {tab == 'saves' &&
-          <SavesPage service={bizService} />
+          <SavesPage service={bizService}
+            {...this.state}
+          />
         }
-        <Navigation tab={tab} />
       </div>
     );
   }
