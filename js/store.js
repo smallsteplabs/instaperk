@@ -13,7 +13,7 @@ var store = fluxify.createStore({
 
   initialState: {
     tab: 'home',
-    saves: [],
+    favorites: [],
     perks: [1]
   },
 
@@ -23,12 +23,12 @@ var store = fluxify.createStore({
     },
 
     toggleSave: function (updater, id) {
-      var _saves = store.saves.slice();
-      var index = _saves.indexOf(id);
+      var _favorites = store.favorites.slice();
+      var index = _favorites.indexOf(id);
       var saving = index == -1;;
 
-      if (!saving) _saves.splice(index, 1); else _saves.push(id);
-      updater.set({ saves: _saves });
+      if (!saving) _favorites.splice(index, 1); else _favorites.push(id);
+      updater.set({ favorites: _favorites });
 
       if (saving) {
         bizService.findById(id).done(function (biz) {

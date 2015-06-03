@@ -25,10 +25,10 @@ var Navigation = React.createClass({
           <span className="icon icon-search"></span>
           <span className="tab-label">Search</span>
         </a>
-        <a onClick={function () { actions.changeTab('saves') }}
-          className={'tab-item' + (tab == 'saves' ? ' active' : '')}>
+        <a onClick={function () { actions.changeTab('favorites') }}
+          className={'tab-item' + (tab == 'favorites' ? ' active' : '')}>
           <span className="icon icon-star-filled"></span>
-          <span className="tab-label">Saves</span>
+          <span className="tab-label">Favorites</span>
         </a>
       </nav>
     );
@@ -99,7 +99,7 @@ var BizList = React.createClass({
             <BizListItem
               key={biz.id}
               biz={biz}
-              saved={store.saves.indexOf(biz.id) !== -1}
+              saved={store.favorites.indexOf(biz.id) !== -1}
               hasPerk={store.perks.indexOf(biz.id) !== -1}
               showRedeemButton={showRedeemButton}
             />
@@ -147,7 +147,7 @@ var SearchPage = React.createClass({
   }
 });
 
-var SavesPage = React.createClass({
+var FavoritesPage = React.createClass({
   getInitialState: function () {
     return { businesses: [] }
   },
@@ -155,12 +155,12 @@ var SavesPage = React.createClass({
   componentDidMount: function () {
     var _this = this;
 
-    this.props.service.findByIds(store.saves).done(function (results) {
+    this.props.service.findByIds(store.favorites).done(function (results) {
       _this.setState({ businesses: results });
     });
 
-    store.on('change:saves', function (saves) {
-      _this.props.service.findByIds(saves).done(function (results) {
+    store.on('change:favorites', function (favorites) {
+      _this.props.service.findByIds(favorites).done(function (results) {
         _this.setState({ businesses: results });
       });
     });
@@ -169,12 +169,12 @@ var SavesPage = React.createClass({
   render: function () {
     return (
       <div>
-        <Header text="Saved Businesses" back="false" />
+        <Header text="Favorite Places" back="false" />
         <Navigation tab={this.props.tab} />
         <div className="content">
           {this.state.businesses.length == 0 &&
             <div className="content-padded">
-              <h6 style={{textAlign:'center'}}>You have no saved businesses yet.</h6>
+              <h6 style={{textAlign:'center'}}>You haven't chosen your favorite places yet.</h6>
               <p style={{textAlign:'center'}}>
                 <span className="icon icon-search" style={{fontSize:100,color:'#ddd'}}></span>
               </p>
@@ -239,14 +239,14 @@ var HomePage = React.createClass({
     var _this = this;
 
     if (store.perks.length > 0) {
-      _this.props.service.findByIds(store.saves.filter(function (id) {
+      _this.props.service.findByIds(store.favorites.filter(function (id) {
         return store.perks.indexOf(id) > -1
       })).done(function (results) {
         _this.setState({ businesses: results });
       });
 
-      store.on('change:saves', function (saves) {
-        _this.props.service.findByIds(saves.filter(function (id) {
+      store.on('change:favorites', function (favorites) {
+        _this.props.service.findByIds(favorites.filter(function (id) {
           return store.perks.indexOf(id) > -1
         })).done(function (results) {
           _this.setState({ businesses: results });
@@ -279,7 +279,7 @@ var HomePage = React.createClass({
           }
           {this.state.businesses.length == 0 && !_new &&
             <div className="content-padded">
-              <h5 style={{textAlign:'center'}}>No saved places with running perks.</h5>
+              <h5 style={{textAlign:'center'}}>No favorite place with running perks.</h5>
               <p style={{textAlign:'center'}}>
                 <span className="icon icon-search" style={{fontSize:100,color:'#ddd'}}></span>
               </p>
@@ -305,7 +305,7 @@ var App = React.createClass({
   getInitialState: function () {
     return {
       tab: store.tab,
-      saves: store.saves,
+      favorites: store.favorites,
       perks: store.perks
     }
   },
@@ -317,8 +317,8 @@ var App = React.createClass({
       _this.setState({ tab: tab });
     });
 
-    store.on('change:saves', function (saves) {
-      _this.setState({ saves: saves });
+    store.on('change:favorites', function (favorites) {
+      _this.setState({ favorites: favorites });
     });
 
     store.on('change:perks', function (perks) {
@@ -334,7 +334,7 @@ var App = React.createClass({
         {tab == 'home' &&
           <HomePage
             service={bizService}
-            new={this.state.saves.length == 0}
+            new={this.state.favorites.length == 0}
             {...this.state}
           />
         }
@@ -343,8 +343,8 @@ var App = React.createClass({
             {...this.state}
           />
         }
-        {tab == 'saves' &&
-          <SavesPage service={bizService}
+        {tab == 'favorites' &&
+          <FavoritesPage service={bizService}
             {...this.state}
           />
         }
