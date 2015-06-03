@@ -202,16 +202,19 @@ var PerkModal = React.createClass({
           <a className="icon icon-close pull-right"
             onClick={function () { $('#perk').removeClass('active'); }}>
           </a>
-          <h1 className="title">Dean's Downtown</h1>
+          <h1 className="title">Redeem a Perk</h1>
         </header>
 
         <div className="content">
           <img className="img img-responsive" src="img/perk1.jpg" />
           <div className="content-padded">
+            <span className="badge badge-positive pull-right">
+              <CountdownTimer initialTimeRemaining={6000000} />
+            </span>
+            <h4>
+              Dean's Downtown
+            </h4>
             <h3>
-              <span className="badge badge-positive pull-right">
-                <CountdownTimer initialTimeRemaining={6000000} />
-              </span>
               Dean's Old Fashions 50% off
             </h3>
             <h4><strike>$6</strike> $3</h4>
@@ -261,7 +264,7 @@ var HomePage = React.createClass({
         <div className="content">
           {this.state.businesses.length == 0 && _new &&
             <div className="content-padded">
-              <h2 style={{textAlign:'center'}}>
+              <h2 className="centered">
                 Instaperk notifies perks from places you love.
               </h2>
               <p style={{textAlign:'center'}}>

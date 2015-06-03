@@ -1,9 +1,9 @@
-.bar-header-secondary {
-  background: #ddd;
+.centered {
+  text-align: center;
 }
 
-.bar-tab ~ .content .table-view {
-  margin-bottom: 50px;
+.bar-header-secondary {
+  background: #ddd;
 }
 
 .content > .table-view:first-child {
@@ -24,6 +24,10 @@
   width: 50px;
   height: 50px;
   border-radius: 5px;
+}
+
+.table-view-cell {
+  padding-right: 15px;
 }
 
 .table-view-cell h1 {
