@@ -77,8 +77,8 @@ var BizListItem = React.createClass({
             </button>
             {showRedeemButton &&
               <span>&nbsp;
-                <button className="btn btn-primary"
-                  onClick={function () { notify('Redeem Perk'); }}>
+                <button className="btn btn-primary" href="#perk"
+                  onClick={function () { $('#perk').addClass('active'); }}>
                   <span className="icon icon-download"></span> redeem
                 </button>
               </span>
@@ -194,6 +194,39 @@ var SavesPage = React.createClass({
   }
 });
 
+var PerkModal = React.createClass({
+  render: function () {
+    return (
+      <div id="perk" className="modal">
+        <header className="bar bar-nav">
+          <a className="icon icon-close pull-right"
+            onClick={function () { $('#perk').removeClass('active'); }}>
+          </a>
+          <h1 className="title">Dean's Downtown</h1>
+        </header>
+
+        <div className="content">
+          <img className="img img-responsive" src="img/perk1.jpg" />
+          <div className="content-padded">
+            <h3>
+              <span className="badge badge-positive pull-right">
+                <CountdownTimer initialTimeRemaining={6000000} />
+              </span>
+              Dean's Old Fashions 50% off
+            </h3>
+            <h4><strike>$6</strike> $3</h4>
+            <div className="card">
+              <div className="content-padded">
+                <p>Show This When Making Your Purchase</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
 var HomePage = React.createClass({
   getInitialState: function () {
     return { businesses: [] }
@@ -259,6 +292,7 @@ var HomePage = React.createClass({
           }
         </div>
         <Navigation tab={this.props.tab} />
+        <PerkModal />
       </div>
     );
   }

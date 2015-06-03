@@ -60,3 +60,7 @@ input[type=search] {
 #notification .btn-link {
   color: #ccc;
 }
+
+.modal .content > img {
+  width: 100%;
+}
