@@ -12,9 +12,17 @@ var store = fluxify.createStore({
   id: 'store',
 
   initialState: {
-    tab: 'home',
+    tab: 'search',
     favorites: [],
-    perks: [1]
+    perks: [{
+      id: 1,
+      bizId: 1,
+      name: 'Insta Hour',
+      description: "Get 50% off all drinks $10 and under all day and night.\nSunday thru Thursday.",
+      startIn: 60,
+      duration: 120,
+      started: false
+    }]
   },
 
   actionCallbacks: {

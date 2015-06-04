@@ -58,33 +58,35 @@ var BizListItem = React.createClass({
 
     return (
       <li className="table-view-cell media">
-        <img className="media-object small pull-left"
-          src={"img/biz" + biz.id + '.jpg'} />
-        <div className="media-body">
-          {hasPerk &&
-            <span className="badge badge-positive pull-right">
-              <CountdownTimer initialTimeRemaining={6000000} />
-            </span>
-          }
-          {biz.name}
-          <p className="normal">
-            {biz.address}
-          </p>
-          <p>
-            <button className={"btn btn-outlined" + (saved ? ' btn-positive' : '') }
-              onClick={function () { actions.toggleSave(biz.id) }}>
-              <span className={"icon icon-star" + (saved ? '-filled' : '')}></span> {saved ? 'saved' : 'save'}
-            </button>
-            {showRedeemButton &&
-              <span>&nbsp;
-                <button className="btn btn-primary" href="#perk"
-                  onClick={function () { $('#perk').addClass('active'); }}>
-                  <span className="icon icon-download"></span> redeem
-                </button>
+        <a className="navigate-right">
+          <img className="media-object small pull-left"
+            src={"img/biz" + biz.id + '.jpg'} />
+          <div className="media-body">
+            {hasPerk &&
+              <span className="badge badge-positive pull-right">
+                <CountdownTimer initialTimeRemaining={6000000} />
               </span>
             }
-          </p>
-        </div>
+            {biz.name}
+            <p className="normal">
+              {biz.address}
+            </p>
+            <p>
+              <button className={"btn btn-outlined" + (saved ? ' btn-positive' : '') }
+                onClick={function () { actions.toggleSave(biz.id) }}>
+                <span className={"icon icon-star" + (saved ? '-filled' : '')}></span> {saved ? 'saved' : 'save'}
+              </button>
+              {showRedeemButton &&
+                <span>&nbsp;
+                  <button className="btn btn-primary" href="#perk"
+                    onClick={function () { $('#perk').addClass('active'); }}>
+                    <span className="icon icon-download"></span> redeem
+                  </button>
+                </span>
+              }
+            </p>
+          </div>
+        </a>
       </li>
     );
   }
@@ -110,6 +112,20 @@ var BizList = React.createClass({
       <ul className="table-view">
         {items}
       </ul>
+    );
+  }
+});
+
+var BizPage = React.createClass({
+  render: function () {
+    var biz = this.props.biz;
+    return (
+      <div>
+        <Header text="Dean's Downtown" back={true} />
+        <Navigation tab={this.props.tab} />
+        <div className="content">
+        </div>
+      </div>
     );
   }
 });
@@ -301,7 +317,7 @@ var HomePage = React.createClass({
   }
 });
 
-var App = React.createClass({
+var MainPage = React.createClass({
   getInitialState: function () {
     return {
       tab: store.tab,
@@ -350,6 +366,21 @@ var App = React.createClass({
         }
       </div>
     );
+  }
+});
+
+
+var App = React.createClass({
+  mixins: [PageSlider],
+
+  componentDidMount: function () {
+    router.addRoute('', function () {
+      this.slidePage(<MainPage key="main" />);
+    }.bind(this));
+    router.addRoute('biz', function () {
+      this.slidePage(<BizPage {...this.state} key="biz" />);
+    }.bind(this));
+    router.start();
   }
 });
 
