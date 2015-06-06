@@ -7,12 +7,13 @@ var PageSlider = {
         }
     },
     componentDidUpdate: function() {
-        var skippedCurrentFrame = false,
+        var transitionEnd = $.browser.webkit ? 'webkitTransitionEnd' : 'transitionend',
+            skippedCurrentFrame = false,
             pageEl = this.getDOMNode().lastChild,
             pages = this.state.pages,
             l = pages.length,
             transitionEndHandler = function() {
-                pageEl.removeEventListener('transitionend', transitionEndHandler);
+                pageEl.removeEventListener(transitionEnd, transitionEndHandler);
                 pages.shift();
                 this.setState({pages: pages});
             }.bind(this),
@@ -23,7 +24,7 @@ var PageSlider = {
                 } else if (l > 0) {
                     pages[l - 1].props.position = "center transition";
                     this.setState({pages: pages, animating: false});
-                    pageEl.addEventListener('transitionend', transitionEndHandler);
+                    pageEl.addEventListener(transitionEnd, transitionEndHandler);
                 }
             };
 
