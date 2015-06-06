@@ -58,7 +58,7 @@ var BizListItem = React.createClass({
 
     return (
       <li className="table-view-cell media">
-        <a className="navigate-right">
+        <a href="#biz" className="navigate-right">
           <img className="media-object small pull-left"
             src={"img/biz" + biz.id + '.jpg'} />
           <div className="media-body">
@@ -73,13 +73,13 @@ var BizListItem = React.createClass({
             </p>
             <p>
               <button className={"btn btn-outlined" + (saved ? ' btn-positive' : '') }
-                onClick={function () { actions.toggleSave(biz.id) }}>
+                onClick={function () { actions.toggleSave(biz.id); return(false); }}>
                 <span className={"icon icon-star" + (saved ? '-filled' : '')}></span> {saved ? 'saved' : 'save'}
               </button>
               {showRedeemButton &&
                 <span>&nbsp;
-                  <button className="btn btn-primary" href="#perk"
-                    onClick={function () { $('#perk').addClass('active'); }}>
+                  <button className="btn btn-primary"
+                    onClick={function () { $('#perk').addClass('active'); return(false); }}>
                     <span className="icon icon-download"></span> redeem
                   </button>
                 </span>
@@ -120,9 +120,8 @@ var BizPage = React.createClass({
   render: function () {
     var biz = this.props.biz;
     return (
-      <div>
-        <Header text="Dean's Downtown" back={true} />
-        <Navigation tab={this.props.tab} />
+      <div className={"page " + this.props.position}>
+        <Header text="Dean's Downtown" back="true" />
         <div className="content">
         </div>
       </div>
@@ -346,7 +345,7 @@ var MainPage = React.createClass({
     var tab = this.state.tab;
 
     return (
-      <div>
+      <div className={"page " + this.props.position}>
         {tab == 'home' &&
           <HomePage
             service={bizService}
