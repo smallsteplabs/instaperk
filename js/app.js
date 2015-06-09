@@ -2,7 +2,9 @@ var Header = React.createClass({
   render: function () {
     return (
       <header className="bar bar-nav">
-        <a href="#" className={"icon icon-left-nav pull-left" + (this.props.back === "true" ? "" : " hidden")}></a>
+        <a href="#" onClick={function () { window.history.go(-1); return(false); }} 
+          className={"icon icon-left-nav pull-left" + (this.props.back === "true" ? "" : " hidden")}>
+        </a>
         <h1 className="title">{this.props.text}</h1>
       </header>
     );
@@ -130,6 +132,9 @@ var BizPage = React.createClass({
       <div className={"page " + this.props.position}>
         <header className="bar bar-tall" style={headerStyle}>
           <a href="#" className="icon icon-left-nav pull-left"></a>
+          <a href={"#perk/" + biz.id} className="btn btn-outlined pull-right">
+            Insta Hour
+          </a>
           <div className="caption">
             <div className="content-padded">
               <h1>{biz.name}</h1>
@@ -162,17 +167,39 @@ var BizPage = React.createClass({
               <img className="media-object pull-left big" src={bizImage} />
               <img className="media-object pull-left big" src={bizImage} />
             </li>
-            <li className="table-view-cell media">
-              <span className="media-object pull-left"></span>
-              <div className="media-body">
-                <a href={"#redeem/" + biz.id} className="btn btn-primary btn-block btn-outlined">
-                  Start Insta Hour
-                </a>
-                <p>Get 50% off all drinks $10 and under, all day and night,
-                Sunday thru Thursday.</p>
-              </div>
-            </li>
           </ul>
+        </div>
+      </div>
+    );
+  }
+});
+
+var PerkPage = React.createClass({
+  render: function () {
+    var biz, headerStyle;
+    bizService.findById(this.props.bizId).done(function (result) {
+      biz = result;
+      bizImage = '/img/biz' + biz.id + '.jpg';
+      headerStyle = {
+        backgroundImage: 'url(' + bizImage + ')'
+      };
+    });
+    return (
+      <div className={"page " + this.props.position}>
+        <Header text="Insta Hour" back="true" />
+        <div className="content">
+          <div className="content-padded centered">
+            <img src="/img/logo1.png" style={{ width: '60%' }} />
+            <h4>
+              Get 50% off all drinks $10 and under,
+              all day and night, Sunday thru Thursday.
+            </h4>
+            <p>
+              <a href={"#redeem/" + biz.id} className="btn btn-primary btn-block">
+                Start Insta Hour
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -428,6 +455,9 @@ var App = React.createClass({
     }.bind(this));
     router.addRoute('biz/:id', function (id) {
       this.slidePage(<BizPage {...this.state} key={"biz" + id} bizId={id} />);
+    }.bind(this));
+    router.addRoute('perk/:id', function (id) {
+      this.slidePage(<PerkPage {...this.state} key={"perk" + id} bizId={id} />);
     }.bind(this));
     router.start();
   }
