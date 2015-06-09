@@ -58,7 +58,7 @@ var BizListItem = React.createClass({
 
     return (
       <li className="table-view-cell media">
-        <a href="#biz" className="navigate-right">
+        <a href={"#biz/" + biz.id} className="navigate-right">
           <img className="media-object small pull-left"
             src={"img/biz" + biz.id + '.jpg'} />
           <div className="media-body">
@@ -118,16 +118,20 @@ var BizList = React.createClass({
 
 var BizPage = React.createClass({
   render: function () {
-    var biz = this.props.biz;
-    var headerStyle = {
-      backgroundImage: 'url(/img/biz1.jpg)'
-    };
+    var biz, headerStyle;
+    bizService.findById(this.props.bizId).done(function (result) {
+      biz = result;
+      bizImage = '/img/biz' + biz.id + '.jpg';
+      headerStyle = {
+        backgroundImage: 'url(' + bizImage + ')'
+      };
+    });
     return (
       <div className={"page " + this.props.position}>
         <header className="bar bar-tall" style={headerStyle}>
           <a href="#" className="icon icon-left-nav pull-left"></a>
-          <h1 className="title">Dean's Downtown</h1>
-          <p className="subtitle">316 Main St, Houston, TX</p>
+          <h1 className="title">{biz.name}</h1>
+          <p className="subtitle">{biz.address}</p>
         </header>
         <div className="content">
           <ul className="table-view">
@@ -151,13 +155,13 @@ var BizPage = React.createClass({
               </div>
             </li>
             <li className="table-view-cell media">
-              <img className="media-object pull-left big" src="/img/biz1.jpg" />
-              <img className="media-object pull-left big" src="/img/biz1.jpg" />
+              <img className="media-object pull-left big" src={bizImage} />
+              <img className="media-object pull-left big" src={bizImage} />
             </li>
             <li className="table-view-cell media">
               <span className="media-object pull-left"></span>
               <div className="media-body">
-                <a href="#redeem" className="btn btn-primary btn-block btn-outlined">
+                <a href={"#redeem/" + biz.id} className="btn btn-primary btn-block btn-outlined">
                   Start Insta Hour
                 </a>
                 <p>Get 50% off all drinks $10 and under, all day and night,
@@ -418,8 +422,8 @@ var App = React.createClass({
     router.addRoute('', function () {
       this.slidePage(<MainPage key="main" />);
     }.bind(this));
-    router.addRoute('biz', function () {
-      this.slidePage(<BizPage {...this.state} key="biz" />);
+    router.addRoute('biz/:id', function (id) {
+      this.slidePage(<BizPage {...this.state} key={"biz" + id} bizId={id} />);
     }.bind(this));
     router.start();
   }
