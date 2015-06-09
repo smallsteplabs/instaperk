@@ -130,8 +130,12 @@ var BizPage = React.createClass({
       <div className={"page " + this.props.position}>
         <header className="bar bar-tall" style={headerStyle}>
           <a href="#" className="icon icon-left-nav pull-left"></a>
-          <h1 className="title">{biz.name}</h1>
-          <p className="subtitle">{biz.address}</p>
+          <div className="caption">
+            <div className="content-padded">
+              <h1>{biz.name}</h1>
+              <p>{biz.address}</p>
+            </div>
+          </div>
         </header>
         <div className="content">
           <ul className="table-view">

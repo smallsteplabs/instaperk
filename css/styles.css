@@ -7,35 +7,38 @@
 }
 
 .bar-tall {
-  height: 12em;
-  background-color: '#ccc';
+  height: 10em;
+  background-color: #aaa;
   background-position: top center;
   background-repeat: no-repeat;
   background-size: 100%;
 }
 .bar-tall ~ .content {
-  padding-top: 12em;
+  padding-top: 10em;
 }
 
 .bar-tall .icon {
   color: #fff;
 }
 
-.bar-tall .title {
-  text-align: left;
-  bottom: 0.8em;
-  color: #fff;
-  text-shadow: 1px 1px #333;
-  font-size: 1.3em;
-  padding: 10px 15px;
-}
-.bar-tall .subtitle {
+.bar-tall .caption {
   position: absolute;
-  padding: 10px 5px;
   bottom: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  margin-left: -10px;
+}
+
+.bar-tall h1 {
+  position: relative;
+  text-align: left;
   margin-bottom: 0;
   color: #fff;
-  text-shadow: 1px 1px #333;
+  font-size: 1.3em;
+  font-weight: normal;
+}
+.bar-tall p {
+  margin-bottom: 0;
+  color: #fff;
   font-size: 0.5em;
 }
 
