@@ -6,6 +6,39 @@
   background: #ddd;
 }
 
+.bar-tall {
+  height: 12em;
+  background-color: '#ccc';
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.bar-tall ~ .content {
+  padding-top: 12em;
+}
+
+.bar-tall .icon {
+  color: #fff;
+}
+
+.bar-tall .title {
+  text-align: left;
+  bottom: 0.8em;
+  color: #fff;
+  text-shadow: 1px 1px #333;
+  font-size: 1.3em;
+  padding: 10px 15px;
+}
+.bar-tall .subtitle {
+  position: absolute;
+  padding: 10px 5px;
+  bottom: 0;
+  margin-bottom: 0;
+  color: #fff;
+  text-shadow: 1px 1px #333;
+  font-size: 0.5em;
+}
+
 .content > .table-view:first-child {
   margin-top: -2px;
 }

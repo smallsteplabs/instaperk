@@ -52,8 +52,6 @@ var PageSlider = {
         page.props.position = position;
         pages.push(page);
 
-        console.log(pages.length);
-
         this.setState({history: history, pages: pages, animating: position!=="center"});
 
     },

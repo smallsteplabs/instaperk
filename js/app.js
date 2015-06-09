@@ -119,10 +119,52 @@ var BizList = React.createClass({
 var BizPage = React.createClass({
   render: function () {
     var biz = this.props.biz;
+    var headerStyle = {
+      backgroundImage: 'url(/img/biz1.jpg)'
+    };
     return (
       <div className={"page " + this.props.position}>
-        <Header text="Dean's Downtown" back="true" />
+        <header className="bar bar-tall" style={headerStyle}>
+          <a href="#" className="icon icon-left-nav pull-left"></a>
+          <h1 className="title">Dean's Downtown</h1>
+          <p className="subtitle">316 Main St, Houston, TX</p>
+        </header>
         <div className="content">
+          <ul className="table-view">
+            <li className="table-view-cell">
+              <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
+            </li>
+            <li className="table-view-cell media">
+              <span className="media-object pull-left icon icon-phone"></span>
+              <div className="media-body">
+                <p>
+                  p: <a href="tel:713-222-3333">(832) 564-0918</a>
+                </p>
+              </div>
+            </li>
+            <li className="table-view-cell media">
+              <span className="media-object pull-left icon icon-email"></span>
+              <div className="media-body">
+                <p>
+                  e: <a href="mailto:social@deansdowntown.com">social@deansdowntown.com</a>
+                </p>
+              </div>
+            </li>
+            <li className="table-view-cell media">
+              <img className="media-object pull-left big" src="/img/biz1.jpg" />
+              <img className="media-object pull-left big" src="/img/biz1.jpg" />
+            </li>
+            <li className="table-view-cell media">
+              <span className="media-object pull-left"></span>
+              <div className="media-body">
+                <a href="#redeem" className="btn btn-primary btn-block btn-outlined">
+                  Start Insta Hour
+                </a>
+                <p>Get 50% off all drinks $10 and under, all day and night,
+                Sunday thru Thursday.</p>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     );
