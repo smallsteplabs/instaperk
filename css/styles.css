@@ -67,6 +67,15 @@
   border-radius: 5px;
 }
 
+.media-body p > .icon {
+  line-height: 1.1em;
+  margin-left: 5px;
+}
+
+.media-object.icon {
+  color: #ccc;
+}
+
 .table-view-cell > .badge {
   top: 20%;
 }
@@ -110,5 +119,10 @@ input[type=search] {
 }
 
 .text-positive {
-  color: green;
+  color: #4CD964;
+}
+
+.badge.small {
+  width: px;
+  height: 16px;
 }

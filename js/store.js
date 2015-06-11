@@ -1,8 +1,8 @@
 var notify = function (message) {
   $('#message').text(message);
-  $('#notification').animate({opacity: 1});
+  $('#notification').show('fast');
   setTimeout(function () {
-    $('#notification').animate({opacity: 0}, function () {
+    $('#notification').hide('fast', function () {
       $('#message').text('');
     });
   }, 4000);

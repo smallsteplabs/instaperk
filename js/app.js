@@ -3,7 +3,7 @@ var Header = React.createClass({
     return (
       <header className="bar bar-nav">
         <a href="#" onClick={function () { window.history.go(-1); return(false); }} 
-          className={"icon icon-left-nav pull-left" + (this.props.back === "true" ? "" : " hidden")}>
+          className={"icon icon-arrow-left2 pull-left" + (this.props.back === "true" ? "" : " hidden")}>
         </a>
         <h1 className="title">{this.props.text}</h1>
       </header>
@@ -19,7 +19,7 @@ var Navigation = React.createClass({
       <nav className="bar bar-tab">
         <a onClick={function () { actions.changeTab('home') }}
           className={'tab-item' + (tab == 'home' ? ' active' : '')}>
-          <span className="icon icon-home"></span>
+          <span className="icon icon-home3"></span>
           <span className="tab-label">Home</span>
         </a>
         <a onClick={function () { actions.changeTab('search') }}
@@ -29,8 +29,8 @@ var Navigation = React.createClass({
         </a>
         <a onClick={function () { actions.changeTab('favorites') }}
           className={'tab-item' + (tab == 'favorites' ? ' active' : '')}>
-          <span className="icon icon-star-filled"></span>
-          <span className="tab-label">Favorites</span>
+          <span className="icon icon-bookmark"></span>
+          <span className="tab-label">Saves</span>
         </a>
       </nav>
     );
@@ -59,9 +59,6 @@ var BizListItem = React.createClass({
 
     return (
       <li className="table-view-cell media">
-        {hasPerk &&
-          <span className="badge badge-primary pull-right">has perk</span>
-        }
         <a href={"#biz/" + biz.id} className="navigate-right">
           <img className="media-object small pull-left"
             src={"img/biz" + biz.id + '.jpg'} />
@@ -73,8 +70,11 @@ var BizListItem = React.createClass({
             <p>
               <button className={"btn btn-outlined" + (saved ? ' btn-positive' : '') }
                 onClick={function () { actions.toggleSave(biz.id); return(false); }}>
-                <span className={"icon icon-star" + (saved ? '-filled' : '')}></span> {saved ? 'saved' : 'save'}
+                <span className="icon icon-bookmark"></span> {saved ? 'saved' : 'save'}
               </button>
+              {hasPerk &&
+                <span className="icon icon-clock"></span>
+              }
             </p>
           </div>
         </a>
@@ -118,7 +118,7 @@ var BizPage = React.createClass({
     return (
       <div className={"page " + this.props.position}>
         <header className="bar bar-tall" style={headerStyle}>
-          <a href="#" className="icon icon-left-nav pull-left"></a>
+          <a href="#" className="icon icon-arrow-left2 pull-left"></a>
           <div className="caption">
             <div className="content-padded">
               <h1>{biz.name}</h1>
@@ -135,33 +135,30 @@ var BizPage = React.createClass({
               <span className="media-object pull-left icon icon-phone"></span>
               <div className="media-body">
                 <p>
-                  p: <a href="tel:713-222-3333">(832) 564-0918</a>
+                  <a href="tel:713-222-3333">(832) 564-0918</a>
                 </p>
               </div>
             </li>
             <li className="table-view-cell media">
-              <span className="media-object pull-left icon icon-email"></span>
+              <span className="media-object pull-left icon icon-envelop"></span>
               <div className="media-body">
                 <p>
-                  e: <a href="mailto:social@deansdowntown.com">social@deansdowntown.com</a>
+                  <a href="mailto:social@deansdowntown.com">social@deansdowntown.com</a>
                 </p>
               </div>
             </li>
-            <li className="table-view-cell media">
+            <li className="table-view-cell">
               <img className="media-object pull-left big" src={bizImage} />
               <img className="media-object pull-left big" src={bizImage} />
             </li>
             {biz.id == 1 &&
-              <li className="table-view-cell media">
-                <span className="media-object pull-left icon icon-email"></span>
-                <div className="media-body">
-                  <p>
-                    <a href={"#/biz/" + biz.id + "/perk"} className="btn btn-block btn-primary">
-                      Start Insta Hour
-                    </a>
-                  </p>
-                  <p>{store.perks[0].description}</p>
-                </div>
+              <li className="table-view-cell">
+                <p>
+                  <a href={"#/biz/" + biz.id + "/perk"} className="btn btn-block btn-primary">
+                    <span className="icon icon-clock"></span> Start Insta Hour
+                  </a>
+                </p>
+                <p>{store.perks[0].description}</p>
               </li>
             }
           </ul>
@@ -400,7 +397,7 @@ var HomePage = React.createClass({
                 Instaperk notifies perks from places you love.
               </h2>
               <p style={{textAlign:'center'}}>
-                <span className="icon icon-star-filled" style={{fontSize:100,color:'#ddd'}}></span>
+                <span className="icon icon-bookmark" style={{fontSize:100,color:'#ddd'}}></span>
               </p>
               <button
                 className="btn btn-block btn-primary btn-outlined"
