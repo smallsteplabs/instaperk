@@ -132,7 +132,7 @@ var BizPage = React.createClass({
       <div className={"page " + this.props.position}>
         <header className="bar bar-tall" style={headerStyle}>
           <a href="#" className="icon icon-left-nav pull-left"></a>
-          <a href={"#perk/" + biz.id} className="btn btn-outlined pull-right">
+          <a href={"#/biz/" + biz.id + "/perk"} className="btn btn-outlined pull-right">
             Insta Hour
           </a>
           <div className="caption">
@@ -175,30 +175,76 @@ var BizPage = React.createClass({
 });
 
 var PerkPage = React.createClass({
+  getInitialState: function () {
+    return ({
+      started: false,
+      completed: false
+    });
+  },
+
+  componentWillMount: function () {
+    var _this = this;
+
+    store.on('change:perks', function (perks) {
+      if (perks[0].startIn == 0) {
+        _this.setState({ started: true });
+      }
+      if (perks[0].duration == 0) {
+        _this.setState({ completed: true });
+      }
+    });
+  },
+
   render: function () {
-    var biz, headerStyle;
-    bizService.findById(this.props.bizId).done(function (result) {
-      biz = result;
-      bizImage = '/img/biz' + biz.id + '.jpg';
+    var perk = store.perks[0],
+      bizImage = '/img/biz' + this.props.bizId + '.jpg',
       headerStyle = {
         backgroundImage: 'url(' + bizImage + ')'
       };
-    });
+
     return (
       <div className={"page " + this.props.position}>
-        <Header text="Insta Hour" back="true" />
+        <Header text={perk.name} back="true" />
         <div className="content">
           <div className="content-padded centered">
-            <img src="/img/logo1.png" style={{ width: '60%' }} />
-            <h4>
-              Get 50% off all drinks $10 and under,
-              all day and night, Sunday thru Thursday.
-            </h4>
-            <p>
-              <a href={"#redeem/" + biz.id} className="btn btn-primary btn-block">
-                Start Insta Hour
-              </a>
-            </p>
+            <img src="/img/logo1.png" style={{ width: '50%' }} />
+            <h4>{perk.description}</h4>
+            <br />
+
+            {!this.state.started &&
+              <div>
+                <p>Perk starts in</p>
+                <h4>
+                  <CountdownTimer
+                    initialTimeRemaining={perk.startIn * 1000}
+                    completeCallback={function () { actions.startPerk(1) }}
+                  />
+                </h4>
+              </div>
+            }
+
+            {this.state.started && !this.state.completed &&
+              <div>
+                <p>Perk ends in</p>
+                <h4>
+                  <CountdownTimer
+                    initialTimeRemaining={perk.duration * 1000}
+                    completeCallback={function () { actions.endPerk(1) }}
+                  />
+                </h4>
+                <p>
+                  <a href={"#biz/" + perk.bizId + "/perk/redeem"} className="btn btn-primary btn-block">
+                    Start Insta Hour
+                  </a>
+                </p>
+              </div>
+            }
+
+            {this.state.completed &&
+              <div>
+                <p>Perk has ended</p>
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -456,8 +502,11 @@ var App = React.createClass({
     router.addRoute('biz/:id', function (id) {
       this.slidePage(<BizPage {...this.state} key={"biz" + id} bizId={id} />);
     }.bind(this));
-    router.addRoute('perk/:id', function (id) {
+    router.addRoute('/biz/:id/perk', function (id) {
       this.slidePage(<PerkPage {...this.state} key={"perk" + id} bizId={id} />);
+    }.bind(this));
+    router.addRoute('/biz/:id/perk/redeem', function (id) {
+      console.log('Redeeming...');
     }.bind(this));
     router.start();
   }

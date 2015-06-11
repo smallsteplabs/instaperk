@@ -19,9 +19,8 @@ var store = fluxify.createStore({
       bizId: 1,
       name: 'Insta Hour',
       description: "Get 50% off all drinks $10 and under all day and night.\nSunday thru Thursday.",
-      startIn: 60,
-      duration: 120,
-      started: false
+      startIn: 2,
+      duration: 30
     }]
   },
 
@@ -43,6 +42,21 @@ var store = fluxify.createStore({
           notify('You will now be notified of perks from ' + biz.name);
         });
       }
+    },
+
+    startPerk: function (updater, id) {
+      var _perks = store.perks.slice();
+      _perks[0].startIn = 0;
+      updater.set({ perks: _perks });
+      notify(_perks[0].name + ' has started.');
+    },
+
+    endPerk: function (updater, id) {
+      var _perks = store.perks.slice();
+      _perks[0].startIn = 0;
+      _perks[0].duration = 0;
+      updater.set({ perks: _perks });
+      notify(_perks[0].name + ' has ended.');
     }
   }
 });
@@ -54,5 +68,13 @@ var actions = {
 
   toggleSave: function (id) {
     fluxify.doAction('toggleSave', id);
+  },
+
+  startPerk: function (id) {
+    fluxify.doAction('startPerk', id);
+  },
+
+  endPerk: function (id) {
+    fluxify.doAction('endPerk', id);
   }
-}
+};
