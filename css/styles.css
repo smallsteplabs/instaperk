@@ -86,7 +86,9 @@ input[type=search] {
   z-index: 100;
   position: absolute;
   bottom: 52px;
+  width: 100%;
   background-color: #333;
+  padding: 5px 0;
 }
 
 #notification p {
@@ -96,8 +98,13 @@ input[type=search] {
 
 #notification .btn-link {
   color: #ccc;
+  padding: 0;
 }
 
 .modal .content > img {
   width: 100%;
+}
+
+.text-positive {
+  color: green;
 }
