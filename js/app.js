@@ -132,9 +132,6 @@ var BizPage = React.createClass({
       <div className={"page " + this.props.position}>
         <header className="bar bar-tall" style={headerStyle}>
           <a href="#" className="icon icon-left-nav pull-left"></a>
-          <a href={"#/biz/" + biz.id + "/perk"} className="btn btn-outlined pull-right">
-            Insta Hour
-          </a>
           <div className="caption">
             <div className="content-padded">
               <h1>{biz.name}</h1>
@@ -167,6 +164,19 @@ var BizPage = React.createClass({
               <img className="media-object pull-left big" src={bizImage} />
               <img className="media-object pull-left big" src={bizImage} />
             </li>
+            {biz.id == 1 &&
+              <li className="table-view-cell media">
+                <span className="media-object pull-left icon icon-email"></span>
+                <div className="media-body">
+                  <p>
+                    <a href={"#/biz/" + biz.id + "/perk"} className="btn btn-block btn-primary">
+                      Start Insta Hour
+                    </a>
+                  </p>
+                  <p>{store.perks[0].description}</p>
+                </div>
+              </li>
+            }
           </ul>
         </div>
       </div>
@@ -184,6 +194,13 @@ var PerkPage = React.createClass({
 
   componentWillMount: function () {
     var _this = this;
+
+    if (store.perks[0].startIn == 0) {
+      this.setState({ started: true });
+    }
+    if (store.perks[0].duration == 0) {
+      this.setState({ completed: true });
+    }
 
     store.on('change:perks', function (perks) {
       if (perks[0].startIn == 0) {
@@ -207,7 +224,7 @@ var PerkPage = React.createClass({
         <Header text={perk.name} back="true" />
         <div className="content">
           <div className="content-padded centered">
-            <img src="/img/logo1.png" style={{ width: '50%' }} />
+            <img src="/img/logo1.png" style={{ width: '40%' }} />
             <h4>{perk.description}</h4>
             <br />
 
@@ -226,17 +243,18 @@ var PerkPage = React.createClass({
             {this.state.started && !this.state.completed &&
               <div>
                 <p>Perk ends in</p>
-                <h4>
+                <h1>
                   <CountdownTimer
                     initialTimeRemaining={perk.duration * 1000}
                     completeCallback={function () { actions.endPerk(1) }}
                   />
-                </h4>
-                <p>
-                  <a href={"#biz/" + perk.bizId + "/perk/redeem"} className="btn btn-primary btn-block">
-                    Start Insta Hour
-                  </a>
-                </p>
+                </h1>
+                <br />
+                <div className="card">
+                  <div className="content-padded">
+                    <p>Show this to the bartender when making your purchase.</p>
+                  </div>
+                </div>
               </div>
             }
 
@@ -504,9 +522,6 @@ var App = React.createClass({
     }.bind(this));
     router.addRoute('/biz/:id/perk', function (id) {
       this.slidePage(<PerkPage {...this.state} key={"perk" + id} bizId={id} />);
-    }.bind(this));
-    router.addRoute('/biz/:id/perk/redeem', function (id) {
-      console.log('Redeeming...');
     }.bind(this));
     router.start();
   }
