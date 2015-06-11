@@ -186,29 +186,18 @@ var BizPage = React.createClass({
 
 var PerkPage = React.createClass({
   getInitialState: function () {
-    return ({
-      started: false,
-      completed: false
-    });
+    return ({ started: false, completed: false });
   },
 
   componentWillMount: function () {
     var _this = this;
 
-    if (store.perks[0].startIn == 0) {
-      this.setState({ started: true });
-    }
-    if (store.perks[0].duration == 0) {
-      this.setState({ completed: true });
-    }
+    this.setState({ started: store.perks[0].startIn == 0 ? true : false });
+    this.setState({ completed: store.perks[0].duration == 0 ? true : false });
 
     store.on('change:perks', function (perks) {
-      if (perks[0].startIn == 0) {
-        _this.setState({ started: true });
-      }
-      if (perks[0].duration == 0) {
-        _this.setState({ completed: true });
-      }
+      _this.setState({ started: perks[0].startIn == 0 ? true : false });
+      _this.setState({ completed: perks[0].duration == 0 ? true : false });
     });
   },
 
@@ -230,20 +219,20 @@ var PerkPage = React.createClass({
 
             {!this.state.started &&
               <div>
-                <p>Perk starts in</p>
-                <h4>
+                <p>Next perk starts in</p>
+                <h3>
                   <CountdownTimer
                     initialTimeRemaining={perk.startIn * 1000}
                     completeCallback={function () { actions.startPerk(1) }}
                   />
-                </h4>
+                </h3>
               </div>
             }
 
             {this.state.started && !this.state.completed &&
               <div>
                 <p>Perk ends in</p>
-                <h1>
+                <h1 className="text-positive">
                   <CountdownTimer
                     initialTimeRemaining={perk.duration * 1000}
                     completeCallback={function () { actions.endPerk(1) }}

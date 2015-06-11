@@ -20,7 +20,7 @@ var store = fluxify.createStore({
       name: 'Insta Hour',
       description: "Get 50% off all drinks $10 and under all day and night.\nSunday thru Thursday.",
       startIn: 10,
-      duration: 60
+      duration: 30
     }]
   },
 
@@ -53,8 +53,8 @@ var store = fluxify.createStore({
 
     endPerk: function (updater, id) {
       var _perks = store.perks.slice();
-      _perks[0].startIn = 0;
-      _perks[0].duration = 0;
+      _perks[0].startIn = 25 * 60 * 60;
+      _perks[0].duration = 30;
       updater.set({ perks: _perks });
       notify(_perks[0].name + ' has ended.');
     }
