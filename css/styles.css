@@ -67,6 +67,10 @@
   border-radius: 5px;
 }
 
+.table-view-cell > .badge {
+  top: 20%;
+}
+
 .table-view-cell h1 {
   font-size: 20px;
   font-weight: normal;

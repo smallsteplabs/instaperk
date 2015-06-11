@@ -56,19 +56,16 @@ var BizListItem = React.createClass({
     var biz = this.props.biz,
         saved = this.props.saved,
         hasPerk = this.props.hasPerk;
-        showRedeemButton = this.props.showRedeemButton;
 
     return (
       <li className="table-view-cell media">
+        {hasPerk &&
+          <span className="badge badge-primary pull-right">has perk</span>
+        }
         <a href={"#biz/" + biz.id} className="navigate-right">
           <img className="media-object small pull-left"
             src={"img/biz" + biz.id + '.jpg'} />
           <div className="media-body">
-            {hasPerk &&
-              <span className="badge badge-positive pull-right">
-                <CountdownTimer initialTimeRemaining={6000000} />
-              </span>
-            }
             {biz.name}
             <p className="normal">
               {biz.address}
@@ -78,14 +75,6 @@ var BizListItem = React.createClass({
                 onClick={function () { actions.toggleSave(biz.id); return(false); }}>
                 <span className={"icon icon-star" + (saved ? '-filled' : '')}></span> {saved ? 'saved' : 'save'}
               </button>
-              {showRedeemButton &&
-                <span>&nbsp;
-                  <button className="btn btn-primary"
-                    onClick={function () { $('#perk').addClass('active'); return(false); }}>
-                    <span className="icon icon-download"></span> redeem
-                  </button>
-                </span>
-              }
             </p>
           </div>
         </a>
@@ -97,15 +86,13 @@ var BizListItem = React.createClass({
 var BizList = React.createClass({
   render: function () {
     var _this = this;
-    var showRedeemButton = typeof this.props.showRedeemButton !== 'undefined';
     var items = this.props.businesses.map(function (biz) {
           return (
             <BizListItem
               key={biz.id}
               biz={biz}
               saved={store.favorites.indexOf(biz.id) !== -1}
-              hasPerk={store.perks.indexOf(biz.id) !== -1}
-              showRedeemButton={showRedeemButton}
+              hasPerk={store.perks[0].bizId == biz.id}
             />
           )
         });
@@ -385,14 +372,14 @@ var HomePage = React.createClass({
 
     if (store.perks.length > 0) {
       _this.props.service.findByIds(store.favorites.filter(function (id) {
-        return store.perks.indexOf(id) > -1
+        return store.perks[0].bizId == id
       })).done(function (results) {
         _this.setState({ businesses: results });
       });
 
       store.on('change:favorites', function (favorites) {
         _this.props.service.findByIds(favorites.filter(function (id) {
-          return store.perks.indexOf(id) > -1
+          return store.perks[0].bizId == id
         })).done(function (results) {
           _this.setState({ businesses: results });
         });
@@ -436,7 +423,7 @@ var HomePage = React.createClass({
             </div>
           }
           {this.state.businesses.length > 0 &&
-            <BizList businesses={this.state.businesses} showRedeemButton={true} />
+            <BizList businesses={this.state.businesses} />
           }
         </div>
         <Navigation tab={this.props.tab} />
