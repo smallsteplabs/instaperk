@@ -389,13 +389,14 @@ var HomePage = React.createClass({
 
     return (
       <div>
-        <Header text={_new ? 'Instaperk' : 'My Feed'} back="false" />
+        <Header text={_new ? 'InstaPerk' : 'My Feed'} back="false" />
         <div className="content">
           {this.state.businesses.length == 0 && _new &&
             <div className="content-padded">
-              <h2 className="centered">
-                Instaperk notifies perks from places you love.
-              </h2>
+              <br />
+              <h1 className="centered">
+                Perks from places you love.
+              </h1>
               <p style={{textAlign:'center'}}>
                 <span className="icon icon-bookmark" style={{fontSize:100,color:'#ddd'}}></span>
               </p>
