@@ -7,14 +7,14 @@
 }
 
 .bar-tall {
-  height: 11em;
+  height: 10em;
   background-color: #aaa;
   background-position: top center;
   background-repeat: no-repeat;
   background-size: 100%;
 }
 .bar-tall ~ .content {
-  padding-top: 11em;
+  padding-top: 10em;
 }
 
 .bar-tall > .icon {
@@ -51,6 +51,10 @@
   margin-top: -2px;
 }
 
+.table-view.no-nav .table-view-cell {
+  padding-right: 15px !important;
+}
+
 .hidden {
   opacity: 0;
 }
@@ -83,7 +87,6 @@
 .table-view-cell h1 {
   font-size: 20px;
   font-weight: normal;
-  padding: 30px 0 4px 0;
   margin: 0;
 }
 

@@ -125,6 +125,7 @@ var BizPage = React.createClass({
   render: function () {
     var biz = this.state.biz,
         bizImage = '/img/biz' + biz.id + '.jpg',
+        bizLogo = '/img/logo' + biz.id + '.png',
         headerStyle = {
           backgroundImage: 'url(' + bizImage + ')'
         },
@@ -138,56 +139,69 @@ var BizPage = React.createClass({
             onClick={function () { actions.toggleSave(biz.id); return(false); }}>
             <span className="icon icon-bookmark"></span> {saved ? 'Member' : 'Save'}
           </button>
-
-          <div className="caption">
-            <div className="content-padded">
-              <h1>{biz.name}</h1>
-              <p>{biz.address}</p>
-            </div>
-          </div>
         </header>
+
         <div className="content">
-          <ul className="table-view">
-            <li className="table-view-cell">
-              <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
-            </li>
-            <li className="table-view-cell media">
-              <span className="media-object pull-left icon icon-phone"></span>
-              <div className="media-body">
-                <p>
-                  <a href="tel:713-222-3333">(832) 564-0918</a>
-                </p>
-              </div>
-            </li>
-            <li className="table-view-cell media">
-              <span className="media-object pull-left icon icon-envelop"></span>
-              <div className="media-body">
-                <p>
-                  <a href="mailto:social@deansdowntown.com">social@deansdowntown.com</a>
-                </p>
-              </div>
-            </li>
-            <li className="table-view-cell">
-              <img className="media-object pull-left big" src={bizImage} />
-              <img className="media-object pull-left big" src={bizImage} />
-            </li>
-          </ul>
           <div className="card">
-            <div className="content-padded">
-              {biz.id == 1 && store.favorites.indexOf(biz.id) == -1 &&
-                <p>Save us and get members only perks from Dean's Downtown!</p>
-              }
-              {biz.id == 1 && store.favorites.indexOf(biz.id) !== -1 &&
-                <div>
+            <ul className="table-view no-nav">
+              <li className="table-view-cell table-view-cell-divider">
+                <h1>{biz.name}</h1>
+                <p>{biz.address}</p>
+              </li>
+              <li className="table-view-cell media">
+                <img className="media-object pull-left big" src={bizLogo} />
+                <div className="media-body">
+                  <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
+                </div>
+              </li>
+              <li className="table-view-cell media">
+                <span className="media-object pull-left icon icon-phone"></span>
+                <div className="media-body">
+                  <p>
+                    <a href="tel:713-222-3333">(832) 564-0918</a>
+                  </p>
+                </div>
+              </li>
+              <li className="table-view-cell media">
+                <span className="media-object pull-left icon icon-envelop"></span>
+                <div className="media-body">
+                  <p>
+                    <a href="mailto:social@deansdowntown.com">social@deansdowntown.com</a>
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div className="card">
+            {biz.id == 1 && store.favorites.indexOf(biz.id) == -1 &&
+              <ul className="table-view no-nav">
+                <li className="table-view-cell">
+                  <p>Save us and get members only perks from Dean's Downtown!</p>
+                </li>
+              </ul>
+            }
+            {biz.id == 1 && store.favorites.indexOf(biz.id) !== -1 &&
+              <ul className="table-view no-nav">
+                <li className="table-view-cell table-view-cell-divider">
                   <p>
                     <a href={"#/biz/" + biz.id + "/perk"} className="btn btn-block btn-primary">
                       <span className="icon icon-clock"></span> Start Insta Hour
                     </a>
                   </p>
                   <p dangerouslySetInnerHTML={{ __html: store.perks[0].description }} />
-                </div>
-              }
-            </div>
+                </li>
+              </ul>
+            }
+          </div>
+
+          <div className="card">
+            <ul className="table-view no-nav">
+              <li className="table-view-cell">
+                <img className="media-object pull-left big" src={bizImage} />
+                <img className="media-object pull-left big" src={bizImage} />
+              </li>
+            </ul>
           </div>
         </div>
       </div>
