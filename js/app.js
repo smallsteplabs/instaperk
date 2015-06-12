@@ -158,7 +158,7 @@ var BizPage = React.createClass({
                     <span className="icon icon-clock"></span> Start Insta Hour
                   </a>
                 </p>
-                <p>{store.perks[0].description}</p>
+                <p dangerouslySetInnerHTML={{ __html: store.perks[0].description }} />
               </li>
             }
           </ul>
