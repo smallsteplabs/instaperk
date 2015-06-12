@@ -109,8 +109,8 @@ var CountdownTimer = React.createClass({
 
     var seconds = parseInt(totalSeconds % 60);
     var minutes = parseInt(totalSeconds / 60) % 60;
-    var hours = parseInt(totalSeconds / 3600);
-    var days = parseInt(totalSeconds / (24 * 3600));
+    var hours = parseInt(totalSeconds / 3600) % 3600;
+    var days = parseInt(totalSeconds / 86400) % 86400;
 
     if (days > 0) {
       return days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';

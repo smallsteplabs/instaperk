@@ -19,8 +19,8 @@ var store = fluxify.createStore({
       bizId: 1,
       name: 'Insta Hour',
       description: "Get 50% off drinks $10 and under.<br />Sunday 5pm - 2am<br />Tuesday 5pm - 2am<br />Wednesday 5pm - 2am<br />Thursday  5pm - 2am ",
-      startIn: 10,
-      duration: 30
+      startIn: 20,
+      duration: 3600 
     }]
   },
 
