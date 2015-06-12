@@ -68,9 +68,9 @@ var BizListItem = React.createClass({
               {biz.address}
             </p>
             <p>
-              <button className={"btn btn-outlined" + (saved ? ' btn-positive' : '') }
+              <button className={"btn" + (saved ? ' btn-positive' : '') }
                 onClick={function () { actions.toggleSave(biz.id); return(false); }}>
-                <span className="icon icon-bookmark"></span> {saved ? 'saved' : 'save'}
+                <span className="icon icon-bookmark"></span> {saved ? 'Member' : 'Save'}
               </button>
               {hasPerk &&
                 <span className="icon icon-clock"></span>
@@ -106,19 +106,39 @@ var BizList = React.createClass({
 });
 
 var BizPage = React.createClass({
-  render: function () {
-    var biz, headerStyle;
+  getInitialState: function () {
+    return ({ biz: null });
+  },
+
+  componentWillMount: function () {
+    var _this = this;
+
     bizService.findById(this.props.bizId).done(function (result) {
-      biz = result;
-      bizImage = '/img/biz' + biz.id + '.jpg';
-      headerStyle = {
-        backgroundImage: 'url(' + bizImage + ')'
-      };
+      _this.setState({ biz: result });
     });
+
+    store.on('change:favorites', function (favorites) {
+      _this.setState({});
+    });
+  },
+
+  render: function () {
+    var biz = this.state.biz,
+        bizImage = '/img/biz' + biz.id + '.jpg',
+        headerStyle = {
+          backgroundImage: 'url(' + bizImage + ')'
+        },
+        saved = store.favorites.indexOf(biz.id) !== -1;
     return (
       <div className={"page " + this.props.position}>
         <header className="bar bar-tall" style={headerStyle}>
           <a href="#" className="icon icon-arrow-left2 pull-left"></a>
+
+          <button className={"pull-right btn btn-primary" + (saved ? ' btn-positive' : '') }
+            onClick={function () { actions.toggleSave(biz.id); return(false); }}>
+            <span className="icon icon-bookmark"></span> {saved ? 'Member' : 'Save'}
+          </button>
+
           <div className="caption">
             <div className="content-padded">
               <h1>{biz.name}</h1>
@@ -151,17 +171,24 @@ var BizPage = React.createClass({
               <img className="media-object pull-left big" src={bizImage} />
               <img className="media-object pull-left big" src={bizImage} />
             </li>
-            {biz.id == 1 &&
-              <li className="table-view-cell">
-                <p>
-                  <a href={"#/biz/" + biz.id + "/perk"} className="btn btn-block btn-primary">
-                    <span className="icon icon-clock"></span> Start Insta Hour
-                  </a>
-                </p>
-                <p dangerouslySetInnerHTML={{ __html: store.perks[0].description }} />
-              </li>
-            }
           </ul>
+          <div className="card">
+            <div className="content-padded">
+              {biz.id == 1 && store.favorites.indexOf(biz.id) == -1 &&
+                <p>Save us and get members only perks from Dean's Downtown!</p>
+              }
+              {biz.id == 1 && store.favorites.indexOf(biz.id) !== -1 &&
+                <div>
+                  <p>
+                    <a href={"#/biz/" + biz.id + "/perk"} className="btn btn-block btn-primary">
+                      <span className="icon icon-clock"></span> Start Insta Hour
+                    </a>
+                  </p>
+                  <p dangerouslySetInnerHTML={{ __html: store.perks[0].description }} />
+                </div>
+              }
+            </div>
+          </div>
         </div>
       </div>
     );
