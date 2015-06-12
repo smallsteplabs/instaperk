@@ -239,12 +239,11 @@ var PerkPage = React.createClass({
         <div className="content">
           <div className="content-padded centered">
             <img src="/img/logo1.png" style={{ width: '40%' }} />
-            <h4>{perk.description}</h4>
-            <br />
 
             {!this.state.started &&
               <div>
-                <p>Next perk starts in</p>
+                <h4>Get 50% all drinks $10 and under<br />in the next</h4>
+                <br />
                 <h3>
                   <CountdownTimer
                     initialTimeRemaining={perk.startIn * 1000}
@@ -256,8 +255,9 @@ var PerkPage = React.createClass({
 
             {this.state.started && !this.state.completed &&
               <div>
-                <p>Perk ends in</p>
-                <h1 className="text-positive">
+                <h4>Get 50% all drinks $10 and under<br />for the next</h4>
+                <br />
+                <h1 className="countdown text-positive">
                   <CountdownTimer
                     initialTimeRemaining={perk.duration * 1000}
                     completeCallback={function () { actions.endPerk(1) }}
