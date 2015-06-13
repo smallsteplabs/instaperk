@@ -337,12 +337,10 @@ var SearchPage = React.createClass({
     return (
       <div>
         <Header text={this.props.filterized ? 'Find a Place' : 'Explore Places'} back="false" />
-        {this.props.filterized &&
-          <SearchBar
-            searchHandler={this.searchHandler}
-            {...this.props}
-          />
-        }
+        <SearchBar
+          searchHandler={this.searchHandler}
+          {...this.props}
+        />
         <Navigation tab={this.props.tab} />
         <div className="content">
           <BizList
