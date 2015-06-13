@@ -1,11 +1,11 @@
 var notify = function (message) {
   $('#message').text(message);
-  $('#notification').show('fast');
+  $('#notification').show();
   setTimeout(function () {
-    $('#notification').hide('fast', function () {
+    $('#notification').hide(function () {
       $('#message').text('');
     });
-  }, 4000);
+  }, 6000);
 }
 
 var store = fluxify.createStore({
