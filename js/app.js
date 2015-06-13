@@ -115,7 +115,14 @@ var BizList = React.createClass({
 
 var BizPage = React.createClass({
   getInitialState: function () {
-    return ({ biz: null });
+    return ({
+      biz: null,
+      showContact: false
+    });
+  },
+
+  toggleContact: function () {
+    this.setState({ showContact: !this.state.showContact });
   },
 
   componentWillMount: function () {
@@ -153,6 +160,12 @@ var BizPage = React.createClass({
           <div className="card">
             <ul className="table-view no-nav">
               <li className="table-view-cell table-view-cell-divider">
+                <button
+                  className="pull-right btn btn-circle"
+                  onClick={this.toggleContact}>
+                  <span className="icon icon-phone"></span>
+                </button>
+
                 <h1>{biz.name}</h1>
                 <p>{biz.address}</p>
               </li>
@@ -162,24 +175,31 @@ var BizPage = React.createClass({
                   <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
                 </div>
               </li>
-              <li className="table-view-cell media">
-                <span className="media-object pull-left icon icon-phone"></span>
-                <div className="media-body">
-                  <p>
-                    <a href="tel:713-222-3333">(832) 564-0918</a>
-                  </p>
-                </div>
-              </li>
-              <li className="table-view-cell media">
-                <span className="media-object pull-left icon icon-envelop"></span>
-                <div className="media-body">
-                  <p>
-                    <a href="mailto:social@deansdowntown.com">social@deansdowntown.com</a>
-                  </p>
-                </div>
-              </li>
             </ul>
           </div>
+
+          {this.state.showContact &&
+            <div className="card">
+              <ul className="table-view no-nav">
+                <li className="table-view-cell media">
+                  <span className="media-object pull-left icon icon-phone"></span>
+                  <div className="media-body">
+                    <p>
+                      <a href="tel:713-222-3333">(832) 564-0918</a>
+                    </p>
+                  </div>
+                </li>
+                <li className="table-view-cell media">
+                  <span className="media-object pull-left icon icon-envelop"></span>
+                  <div className="media-body">
+                    <p>
+                      <a href="mailto:social@deansdowntown.com">social@deansdowntown.com</a>
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          }
 
           <div className="card">
             {biz.id == 1 && store.favorites.indexOf(biz.id) == -1 &&

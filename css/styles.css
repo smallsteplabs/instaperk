@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.btn-circle {
+  border-radius: 15px;
+}
+
 .bar-header-secondary {
   background: #ddd;
 }
