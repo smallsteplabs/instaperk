@@ -22,6 +22,11 @@ var Navigation = React.createClass({
           <span className="icon icon-home3"></span>
           <span className="tab-label">Home</span>
         </a>
+        <a onClick={function () { actions.changeTab('explore'); }}
+          className={'tab-item' + (tab == 'explore' ? ' active' : '')}>
+          <span className="icon icon-location"></span>
+          <span className="tab-label">Explore</span>
+        </a>
         <a onClick={function () { actions.changeTab('search'); }}
           className={'tab-item' + (tab == 'search' ? ' active' : '')}>
           <span className="icon icon-search"></span>
@@ -39,7 +44,8 @@ var Navigation = React.createClass({
 
 var SearchBar = React.createClass({
   componentDidMount: function () {
-    React.findDOMNode(this.refs.searchKey).focus();
+    if (this.props.filterized)
+      React.findDOMNode(this.refs.searchKey).focus();
   },
 
   searchHandler: function () {
@@ -311,6 +317,16 @@ var SearchPage = React.createClass({
     return({ businesses: [] });
   },
 
+  componentDidMount: function () {
+    var _this = this;
+
+    if (!this.props.filterized) {
+      _this.props.service.findAll().done(function (results) {
+        _this.setState({ businesses: results });
+      });
+    }
+  },
+
   searchHandler: function (key) {
     this.props.service.findByName(key).done(function (result) {
       this.setState({searchKey: key, businesses: result});
@@ -320,11 +336,19 @@ var SearchPage = React.createClass({
   render: function () {
     return (
       <div>
-        <Header text="Find Places" back="false" />
-        <SearchBar searchHandler={this.searchHandler} />
+        <Header text={this.props.filterized ? 'Find a Place' : 'Explore Places'} back="false" />
+        {this.props.filterized &&
+          <SearchBar
+            searchHandler={this.searchHandler}
+            {...this.props}
+          />
+        }
         <Navigation tab={this.props.tab} />
         <div className="content">
-          <BizList businesses={this.state.businesses} />
+          <BizList
+            businesses={this.state.businesses}
+            {...this.props}
+          />
         </div>
       </div>
     );
@@ -457,7 +481,7 @@ var HomePage = React.createClass({
               </p>
               <button
                 className="btn btn-block btn-primary btn-outlined"
-                onClick={function () { actions.changeTab('search'); }}>
+                onClick={function () { actions.changeTab('explore'); }}>
                 Find Your Favorite Places
               </button>
             </div>
@@ -523,8 +547,14 @@ var MainPage = React.createClass({
             {...this.state}
           />
         }
+        {tab == 'explore' &&
+          <SearchPage service={bizService}
+            {...this.state}
+          />
+        }
         {tab == 'search' &&
           <SearchPage service={bizService}
+            filterized
             {...this.state}
           />
         }

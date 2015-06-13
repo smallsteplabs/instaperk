@@ -27,7 +27,7 @@ bizService = (function() {
     var results = businesses.filter(function(biz) {
       return biz.name.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
     });
-    deferred.resolve(results);
+    deferred.resolve(searchKey ? results : []);
     return deferred.promise();
   },
 
