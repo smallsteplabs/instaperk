@@ -6,6 +6,10 @@
   background: #ddd;
 }
 
+.bar input[type="search"] {
+  height: 34px;
+}
+
 .bar-tall {
   height: 10em;
   background-color: #aaa;

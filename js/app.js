@@ -38,14 +38,22 @@ var Navigation = React.createClass({
 });
 
 var SearchBar = React.createClass({
+  componentDidMount: function () {
+    React.findDOMNode(this.refs.searchKey).focus();
+  },
+
   searchHandler: function () {
-    this.props.searchHandler(this.refs.searchKey.getDOMNode().value);
+    this.props.searchHandler(React.findDOMNode(this.refs.searchKey).value);
   },
 
   render: function () {
     return (
       <div className="bar bar-standard bar-header-secondary">
-        <input type="search" ref="searchKey" onChange={this.searchHandler}/>
+        <input type="search"
+          ref="searchKey"
+          onChange={this.searchHandler}
+          placeholder="Enter Name"
+        />
       </div>
     );
   }
@@ -281,14 +289,6 @@ var PerkPage = React.createClass({
 var SearchPage = React.createClass({
   getInitialState: function () {
     return({ businesses: [] });
-  },
-
-  componentDidMount: function () {
-    var _this = this;
-
-    this.props.service.findAll().done(function (results) {
-      _this.setState({searchKey: '', businesses: results});
-    });
   },
 
   searchHandler: function (key) {
