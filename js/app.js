@@ -465,7 +465,7 @@ var HomePage = React.createClass({
 
     return (
       <div>
-        <Header text={_new ? 'InstaPerk' : 'My Feed'} back="false" />
+        <Header text={_new ? 'InstaPerk' : 'My Perks'} back="false" />
         <div className="content">
           {this.state.businesses.length === 0 && _new &&
             <div className="content-padded">
@@ -479,20 +479,21 @@ var HomePage = React.createClass({
               <button
                 className="btn btn-block btn-primary btn-outlined"
                 onClick={function () { actions.changeTab('explore'); }}>
-                Find Your Favorite Places
+                Find and Save Favorite Places
               </button>
             </div>
           }
           {this.state.businesses.length === 0 && !_new &&
             <div className="content-padded">
-              <h5 style={{textAlign:'center'}}>No favorite place with running perks.</h5>
+              <br />
+              <h4 style={{textAlign:'center'}}>New perks for you are coming soon.</h4>
               <p style={{textAlign:'center'}}>
-                <span className="icon icon-search" style={{fontSize:100,color:'#ddd'}}></span>
+                <span className="icon icon-clock" style={{fontSize:100,color:'#ddd'}}></span>
               </p>
               <button
                 className="btn btn-block btn-primary btn-outlined"
-                onClick={function () { actions.changeTab('search'); }}>
-                Find More Places
+                onClick={function () { actions.changeTab('explore'); }}>
+                Find and Save More Places
               </button>
             </div>
           }
