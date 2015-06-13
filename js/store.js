@@ -12,7 +12,7 @@ var store = fluxify.createStore({
   id: 'store',
 
   initialState: {
-    tab: 'home',
+    tab: 'explore',
     favorites: [],
     perks: [{
       id: 1,

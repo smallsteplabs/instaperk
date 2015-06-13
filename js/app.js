@@ -58,7 +58,7 @@ var SearchBar = React.createClass({
         <input type="search"
           ref="searchKey"
           onChange={this.searchHandler}
-          placeholder="Enter Name"
+          placeholder="Search place"
         />
       </div>
     );
@@ -73,7 +73,8 @@ var BizListItem = React.createClass({
 
     return (
       <li className="table-view-cell media">
-        <a href={"#biz/" + biz.id} className="navigate-right">
+        <span className="badge">{biz.distance + ' mi'}</span>
+        <a href={"#biz/" + biz.id}>
           <img className="media-object small pull-left"
             src={"img/biz" + biz.id + '.jpg'} />
           <div className="media-body">
