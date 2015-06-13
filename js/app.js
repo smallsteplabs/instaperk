@@ -73,15 +73,13 @@ var BizListItem = React.createClass({
 
     return (
       <li className="table-view-cell media">
-        <span className="badge">{biz.distance + ' mi'}</span>
-        <a href={"#biz/" + biz.id}>
+        <a href={"#biz/" + biz.id} className="navigate-right">
+          <span className="badge">{biz.distance + ' mi'}</span>
           <img className="media-object small pull-left"
             src={"img/biz" + biz.id + '.jpg'} />
           <div className="media-body">
-            {biz.name}
-            <p className="normal">
-              {biz.address}
-            </p>
+            <span>{biz.name}</span>
+            <p>{biz.address}<br />{biz.city}</p>
             <p>
               <button className={"btn" + (saved ? ' btn-positive' : '') }
                 onClick={function () { actions.toggleSave(biz.id); return(false); }}>

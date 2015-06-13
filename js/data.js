@@ -38,10 +38,10 @@ bizService = (function() {
   },
 
   businesses = [
-    { id: 1, name: "Dean's Downtown", address: "316 Main St, Houston, TX", distance: 0.1 },
-    { id: 2, name: "Roma's Pizza", address: "233 Main St, Houston, TX", distance: 0.4 },
-    { id: 3, name: "Fusion Taco", address: "801 Congress, Houston, TX", distance: 1.1 },
-    { id: 4, name: "Frank's Pizza", address: "417 Travis St, Houston, TX", distance: 1.7 }
+    { id: 1, name: "Dean's Downtown", address: "316 Main St", city: "Houston, TX", distance: 0.1 },
+    { id: 2, name: "Roma's Pizza", address: "233 Main St", city: "Houston, TX", distance: 0.4 },
+    { id: 3, name: "Fusion Taco", address: "801 Congress", city: "Houston, TX", distance: 1.1 },
+    { id: 4, name: "Frank's Pizza", address: "417 Travis St", city: "Houston, TX", distance: 1.7 }
   ];
 
   // The public API

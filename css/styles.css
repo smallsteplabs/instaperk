@@ -12,6 +12,7 @@
 
 .bar input[type="search"] {
   height: 34px;
+  padding: 0 15px;
 }
 
 .bar-tall {
@@ -94,8 +95,13 @@
   margin: 0;
 }
 
-.table-view-cell p.normal {
-  margin-bottom: 5px;
+.table-view-cell .media-body p {
+  line-height: 1.1em;
+  margin: 3px 0 7px 0;
+}
+
+.table-view-cell .media-body p:last-child {
+  margin-bottom: 0;
 }
 
 input[type=search] {
