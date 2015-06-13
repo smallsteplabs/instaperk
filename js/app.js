@@ -263,12 +263,6 @@ var PerkPage = React.createClass({
                     completeCallback={function () { actions.endPerk(1); }}
                   />
                 </h1>
-                <br />
-                <div className="card">
-                  <div className="content-padded">
-                    <p>Show this to the bartender when making your purchase.</p>
-                  </div>
-                </div>
               </div>
             }
 
