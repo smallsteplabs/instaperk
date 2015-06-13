@@ -2,7 +2,7 @@ var Header = React.createClass({
   render: function () {
     return (
       <header className="bar bar-nav">
-        <a href="#" onClick={function () { window.history.go(-1); return(false); }} 
+        <a href="#" onClick={function () { window.history.go(-1); return(false); }}
           className={"icon icon-arrow-left2 pull-left" + (this.props.back === "true" ? "" : " hidden")}>
         </a>
         <h1 className="title">{this.props.text}</h1>
@@ -17,17 +17,17 @@ var Navigation = React.createClass({
 
     return (
       <nav className="bar bar-tab">
-        <a onClick={function () { actions.changeTab('home') }}
+        <a onClick={function () { actions.changeTab('home'); }}
           className={'tab-item' + (tab == 'home' ? ' active' : '')}>
           <span className="icon icon-home3"></span>
           <span className="tab-label">Home</span>
         </a>
-        <a onClick={function () { actions.changeTab('search') }}
+        <a onClick={function () { actions.changeTab('search'); }}
           className={'tab-item' + (tab == 'search' ? ' active' : '')}>
           <span className="icon icon-search"></span>
           <span className="tab-label">Search</span>
         </a>
-        <a onClick={function () { actions.changeTab('favorites') }}
+        <a onClick={function () { actions.changeTab('favorites'); }}
           className={'tab-item' + (tab == 'favorites' ? ' active' : '')}>
           <span className="icon icon-bookmark"></span>
           <span className="tab-label">Saves</span>
@@ -40,7 +40,7 @@ var Navigation = React.createClass({
 var SearchBar = React.createClass({
   searchHandler: function () {
     this.props.searchHandler(this.refs.searchKey.getDOMNode().value);
-  },  
+  },
 
   render: function () {
     return (
@@ -48,7 +48,7 @@ var SearchBar = React.createClass({
         <input type="search" ref="searchKey" onChange={this.searchHandler}/>
       </div>
     );
-  }   
+  }
 });
 
 var BizListItem = React.createClass({
@@ -94,7 +94,7 @@ var BizList = React.createClass({
               saved={store.favorites.indexOf(biz.id) !== -1}
               hasPerk={store.perks[0].bizId == biz.id}
             />
-          )
+          );
         });
 
     return (
@@ -217,12 +217,12 @@ var PerkPage = React.createClass({
   componentWillMount: function () {
     var _this = this;
 
-    this.setState({ started: store.perks[0].startIn == 0 ? true : false });
-    this.setState({ completed: store.perks[0].duration == 0 ? true : false });
+    this.setState({ started: store.perks[0].startIn === 0 ? true : false });
+    this.setState({ completed: store.perks[0].duration === 0 ? true : false });
 
     store.on('change:perks', function (perks) {
-      _this.setState({ started: perks[0].startIn == 0 ? true : false });
-      _this.setState({ completed: perks[0].duration == 0 ? true : false });
+      _this.setState({ started: perks[0].startIn === 0 ? true : false });
+      _this.setState({ completed: perks[0].duration === 0 ? true : false });
     });
   },
 
@@ -247,7 +247,7 @@ var PerkPage = React.createClass({
                 <h3>
                   <CountdownTimer
                     initialTimeRemaining={perk.startIn * 1000}
-                    completeCallback={function () { actions.startPerk(1) }}
+                    completeCallback={function () { actions.startPerk(1); }}
                   />
                 </h3>
               </div>
@@ -260,7 +260,7 @@ var PerkPage = React.createClass({
                 <h1 className="countdown text-positive">
                   <CountdownTimer
                     initialTimeRemaining={perk.duration * 1000}
-                    completeCallback={function () { actions.endPerk(1) }}
+                    completeCallback={function () { actions.endPerk(1); }}
                   />
                 </h1>
                 <br />
@@ -286,7 +286,7 @@ var PerkPage = React.createClass({
 
 var SearchPage = React.createClass({
   getInitialState: function () {
-    return {businesses: []}
+    return({ businesses: [] });
   },
 
   componentDidMount: function () {
@@ -301,7 +301,7 @@ var SearchPage = React.createClass({
     this.props.service.findByName(key).done(function (result) {
       this.setState({searchKey: key, businesses: result});
     }.bind(this));
-  }, 
+  },
 
   render: function () {
     return (
@@ -319,7 +319,7 @@ var SearchPage = React.createClass({
 
 var FavoritesPage = React.createClass({
   getInitialState: function () {
-    return { businesses: [] }
+    return({ businesses: [] });
   },
 
   componentDidMount: function () {
@@ -342,7 +342,7 @@ var FavoritesPage = React.createClass({
         <Header text="Favorite Places" back="false" />
         <Navigation tab={this.props.tab} />
         <div className="content">
-          {this.state.businesses.length == 0 &&
+          {this.state.businesses.length === 0 &&
             <div className="content-padded">
               <h6 style={{textAlign:'center'}}>You haven't chosen your favorite places yet.</h6>
               <p style={{textAlign:'center'}}>
@@ -350,7 +350,7 @@ var FavoritesPage = React.createClass({
               </p>
               <button
                 className="btn btn-block btn-primary btn-outlined"
-                onClick={function () { actions.changeTab('search') }}>
+                onClick={function () { actions.changeTab('search'); }}>
                 Find Your Favorite Places
               </button>
             </div>
@@ -402,7 +402,7 @@ var PerkModal = React.createClass({
 
 var HomePage = React.createClass({
   getInitialState: function () {
-    return { businesses: [] }
+    return({ businesses: [] });
   },
 
   componentDidMount: function () {
@@ -410,14 +410,14 @@ var HomePage = React.createClass({
 
     if (store.perks.length > 0) {
       _this.props.service.findByIds(store.favorites.filter(function (id) {
-        return store.perks[0].bizId == id
+        return(store.perks[0].bizId == id);
       })).done(function (results) {
         _this.setState({ businesses: results });
       });
 
       store.on('change:favorites', function (favorites) {
         _this.props.service.findByIds(favorites.filter(function (id) {
-          return store.perks[0].bizId == id
+          return(store.perks[0].bizId == id);
         })).done(function (results) {
           _this.setState({ businesses: results });
         });
@@ -432,7 +432,7 @@ var HomePage = React.createClass({
       <div>
         <Header text={_new ? 'InstaPerk' : 'My Feed'} back="false" />
         <div className="content">
-          {this.state.businesses.length == 0 && _new &&
+          {this.state.businesses.length === 0 && _new &&
             <div className="content-padded">
               <br />
               <h1 className="centered">
@@ -443,12 +443,12 @@ var HomePage = React.createClass({
               </p>
               <button
                 className="btn btn-block btn-primary btn-outlined"
-                onClick={function () { actions.changeTab('search') }}>
+                onClick={function () { actions.changeTab('search'); }}>
                 Find Your Favorite Places
               </button>
             </div>
           }
-          {this.state.businesses.length == 0 && !_new &&
+          {this.state.businesses.length === 0 && !_new &&
             <div className="content-padded">
               <h5 style={{textAlign:'center'}}>No favorite place with running perks.</h5>
               <p style={{textAlign:'center'}}>
@@ -456,7 +456,7 @@ var HomePage = React.createClass({
               </p>
               <button
                 className="btn btn-block btn-primary btn-outlined"
-                onClick={function () { actions.changeTab('search') }}>
+                onClick={function () { actions.changeTab('search'); }}>
                 Find More Places
               </button>
             </div>
@@ -474,11 +474,11 @@ var HomePage = React.createClass({
 
 var MainPage = React.createClass({
   getInitialState: function () {
-    return {
+    return({
       tab: store.tab,
       favorites: store.favorites,
       perks: store.perks
-    }
+    });
   },
 
   componentDidMount: function () {
@@ -505,7 +505,7 @@ var MainPage = React.createClass({
         {tab == 'home' &&
           <HomePage
             service={bizService}
-            new={this.state.favorites.length == 0}
+            new={this.state.favorites.length === 0}
             {...this.state}
           />
         }
