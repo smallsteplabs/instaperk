@@ -1,3 +1,7 @@
+function DescNumberSort(a, b) {
+  return (parseInt(b) - parseInt(a));
+}
+
 var Header = React.createClass({
   render: function () {
     return (
@@ -130,7 +134,7 @@ var PerkList = React.createClass({
         <div className="card">
           <ul className="table-view no-nav">
             <li className="table-view-cell">
-              <p>Save us and get members only perks from Dean's Downtown!</p>
+              <p>New Perk Coming Soon.</p>
             </li>
           </ul>
         </div>
@@ -203,7 +207,12 @@ var BizPage = React.createClass({
         headerStyle = {
           backgroundImage: 'url(' + bizImage + ')'
         },
-        saved = store.favorites.indexOf(biz.id) !== -1;
+        saved = store.favorites.indexOf(biz.id) !== -1,
+        perkIds = Object.keys(store.perks)
+                        .sort(DescNumberSort)
+                        .filter(function (id) {
+                          return (store.perks[id].bizId == biz.id);
+                        });
     return (
       <div className={"page " + this.props.position}>
         <header className="bar bar-tall" style={headerStyle}>
@@ -260,7 +269,18 @@ var BizPage = React.createClass({
             </div>
           }
 
-          <PerkList perkIds={[2, 1]} />
+          {!saved &&
+            <div className="card">
+              <ul className="table-view no-nav">
+                <li className="table-view-cell">
+                  <p>Save us and get members only perks from Dean's Downtown!</p>
+                </li>
+              </ul>
+            </div>
+          }
+          {saved &&
+            <PerkList perkIds={perkIds} />
+          }
 
           <div className="card">
             <ul className="table-view no-nav">
