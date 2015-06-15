@@ -96,6 +96,60 @@ var BizListItem = React.createClass({
   }
 });
 
+var PerkListItem = React.createClass({
+  render: function () {
+    var perk = this.props.perk,
+        perkImage = '/img/perk' + perk.id + '.jpg';
+
+    return (
+      <li className="table-view-cell media">
+        <a href={'#perk/' + perk.id} className="btn btn-positive">
+          Redeem
+        </a>
+        <img className="media-object pull-left big" src={perkImage} />
+        <div className="media-body">
+          {perk.name}
+          <p>{perk.description}</p>
+        </div>
+        <div className="media-footer">
+          <p><small dangerouslySetInnerHTML={{ __html: perk.details }} /></p>
+        </div>
+      </li>
+    );
+  }
+});
+
+var PerkList = React.createClass({
+  render: function () {
+    var _perks = this.props.perkIds.map(function (id) {
+      return <PerkListItem perk={store.perks[id]} />;
+    });
+
+    if (this.props.perkIds.length === 0) {
+      return (
+        <div className="card">
+          <ul className="table-view no-nav">
+            <li className="table-view-cell">
+              <p>Save us and get members only perks from Dean's Downtown!</p>
+            </li>
+          </ul>
+        </div>
+      );
+    }
+
+    return (
+      <div className="card">
+        <ul className="table-view top-nav">
+          <li className="table-view-cell table-view-divider">
+            Members Only Perks
+          </li>
+          {_perks}
+        </ul>
+      </div>
+    );
+  }
+});
+
 var BizList = React.createClass({
   render: function () {
     var _this = this;
@@ -164,7 +218,7 @@ var BizPage = React.createClass({
         <div className="content">
           <div className="card">
             <ul className="table-view no-nav">
-              <li className="table-view-cell table-view-cell-divider">
+              <li className="table-view-cell table-view-divider">
                 <button
                   className="pull-right btn btn-circle"
                   onClick={this.toggleContact}>
@@ -206,27 +260,7 @@ var BizPage = React.createClass({
             </div>
           }
 
-          <div className="card">
-            {biz.id == 1 && store.favorites.indexOf(biz.id) == -1 &&
-              <ul className="table-view no-nav">
-                <li className="table-view-cell">
-                  <p>Save us and get members only perks from Dean's Downtown!</p>
-                </li>
-              </ul>
-            }
-            {biz.id == 1 && store.favorites.indexOf(biz.id) !== -1 &&
-              <ul className="table-view no-nav">
-                <li className="table-view-cell table-view-cell-divider">
-                  <p>
-                    <a href={"#/biz/" + biz.id + "/perk"} className="btn btn-block btn-primary">
-                      <span className="icon icon-clock"></span> Start Insta Hour
-                    </a>
-                  </p>
-                  <p dangerouslySetInnerHTML={{ __html: store.perks[0].description }} />
-                </li>
-              </ul>
-            }
-          </div>
+          <PerkList perkIds={[2, 1]} />
 
           <div className="card">
             <ul className="table-view no-nav">
@@ -248,30 +282,28 @@ var PerkPage = React.createClass({
   },
 
   componentWillMount: function () {
-    var _this = this;
+    var _this = this,
+        perk = this.props.perk;
 
-    this.setState({ started: store.perks[0].startIn === 0 ? true : false });
-    this.setState({ completed: store.perks[0].duration === 0 ? true : false });
+    this.setState({ started: perk.startIn === 0 ? true : false });
+    this.setState({ completed: perk.duration === 0 ? true : false });
 
     store.on('change:perks', function (perks) {
-      _this.setState({ started: perks[0].startIn === 0 ? true : false });
-      _this.setState({ completed: perks[0].duration === 0 ? true : false });
+      _this.setState({ started: perks[perk.id].startIn === 0 ? true : false });
+      _this.setState({ completed: perks[perk.id].duration === 0 ? true : false });
     });
   },
 
   render: function () {
-    var perk = store.perks[0],
-      bizImage = '/img/biz' + this.props.bizId + '.jpg',
-      headerStyle = {
-        backgroundImage: 'url(' + bizImage + ')'
-      };
+    var perk = this.props.perk,
+      bizImage = '/img/logo' + perk.bizId + '.png';
 
     return (
       <div className={"page " + this.props.position}>
         <Header text={perk.name} back="true" />
         <div className="content">
           <div className="content-padded centered">
-            <img src="/img/logo1.png" style={{ width: '40%' }} />
+            <img src={bizImage} style={{ width: '40%' }} />
 
             {!this.state.started &&
               <div>
@@ -280,7 +312,7 @@ var PerkPage = React.createClass({
                 <h3>
                   <CountdownTimer
                     initialTimeRemaining={perk.startIn * 1000}
-                    completeCallback={function () { actions.startPerk(1); }}
+                    completeCallback={function () { actions.startPerk(perk.id); }}
                   />
                 </h3>
               </div>
@@ -293,7 +325,7 @@ var PerkPage = React.createClass({
                 <h1 className="countdown text-positive">
                   <CountdownTimer
                     initialTimeRemaining={perk.duration * 1000}
-                    completeCallback={function () { actions.endPerk(1); }}
+                    completeCallback={function () { actions.endPerk(perk.id); }}
                   />
                 </h1>
               </div>
@@ -577,8 +609,9 @@ var App = React.createClass({
     router.addRoute('biz/:id', function (id) {
       this.slidePage(<BizPage {...this.state} key={"biz" + id} bizId={id} />);
     }.bind(this));
-    router.addRoute('/biz/:id/perk', function (id) {
-      this.slidePage(<PerkPage {...this.state} key={"perk" + id} bizId={id} />);
+    router.addRoute('perk/:id', function (id) {
+      var perk = store.perks[id];
+      this.slidePage(<PerkPage {...this.state} key={"perk" + id} perk={perk} />);
     }.bind(this));
     router.start();
   }

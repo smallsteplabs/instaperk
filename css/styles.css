@@ -64,8 +64,16 @@
   padding-right: 15px !important;
 }
 
+.table-view.top-nav .table-view-cell > .btn {
+  top: 25px;
+}
+
 .hidden {
   opacity: 0;
+}
+
+.media-object {
+  margin-bottom: 10px;
 }
 
 .media-object.big {
@@ -98,6 +106,15 @@
 .table-view-cell .media-body p {
   line-height: 1.1em;
   margin: 3px 0 7px 0;
+}
+
+.table-view-cell .media-footer {
+  clear: left;
+  margin-top: 0.5em;
+}
+
+.table-view-cell .media-footer p {
+  line-height: 1em;
 }
 
 .table-view-cell .media-body p:last-child {

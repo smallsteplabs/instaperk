@@ -14,14 +14,26 @@ var store = fluxify.createStore({
   initialState: {
     tab: 'home',
     favorites: [],
-    perks: [{
-      id: 1,
-      bizId: 1,
-      name: 'Insta Hour',
-      description: "On Demand Happy Hour.<br />Get 50% off drinks $10 and under.<br />Sunday 5pm - 2am<br />Tuesday 5pm - 2am<br />Wednesday 5pm - 2am<br />Thursday  5pm - 2am ",
-      startIn: 20,
-      duration: 3600 
-    }]
+    perks: {
+      1: {
+        id: 1,
+        bizId: 1,
+        name: 'Insta Hour',
+        description: "On Demand Happy Hour.",
+        details: "Get 50% off drinks $10 and under.<br />Sunday 5pm - 2am<br />Tuesday 5pm - 2am<br />Wednesday 5pm - 2am<br />Thursday  5pm - 2am",
+        startIn: 20,
+        duration: 3600 
+      },
+      2: {
+        id: 2,
+        bizId: 1,
+        name: 'New Draught Cocktail',
+        description: "Be The First To Try Our New Draught Cocktail.",
+        details: "The Easy Credit Mule, Cucumber Serrano Infused Vodka, Fresh Lime Juice, House Made Ginger Beer.<br />Get A Complimentary Easy Credit Mule Friday July 11th 5pm - 10pm.",
+        startIn: 20,
+        duration: 3600 
+      }
+    }
   },
 
   actionCallbacks: {
@@ -45,18 +57,18 @@ var store = fluxify.createStore({
     },
 
     startPerk: function (updater, id) {
-      var _perks = store.perks.slice();
-      _perks[0].startIn = 0;
+      var _perks = $.extend(true, {}, store.perks);
+      _perks[id].startIn = 0;
       updater.set({ perks: _perks });
-      notify(_perks[0].name + ' has started.');
+      notify(_perks[id].name + ' has started.');
     },
 
     endPerk: function (updater, id) {
-      var _perks = store.perks.slice();
-      _perks[0].startIn = 25 * 60 * 60;
-      _perks[0].duration = 30;
+      var _perks = $.extend(true, {}, store.perks);
+      _perks[id].startIn = 25 * 60 * 60;
+      _perks[id].duration = 30;
       updater.set({ perks: _perks });
-      notify(_perks[0].name + ' has ended.');
+      notify(_perks[id].name + ' has ended.');
     }
   }
 });
