@@ -159,7 +159,7 @@ var BizList = React.createClass({
               key={biz.id}
               biz={biz}
               saved={store.favorites.indexOf(biz.id) !== -1}
-              hasPerk={store.perks[0].bizId == biz.id}
+              hasPerk={biz.id == 1}
             />
           );
         });
@@ -477,14 +477,14 @@ var HomePage = React.createClass({
 
     if (store.perks.length > 0) {
       _this.props.service.findByIds(store.favorites.filter(function (id) {
-        return(store.perks[0].bizId == id);
+        return(id == 1);
       })).done(function (results) {
         _this.setState({ businesses: results });
       });
 
       store.on('change:favorites', function (favorites) {
         _this.props.service.findByIds(favorites.filter(function (id) {
-          return(store.perks[0].bizId == id);
+          return(id == 1);
         })).done(function (results) {
           _this.setState({ businesses: results });
         });
