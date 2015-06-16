@@ -259,7 +259,7 @@ var BizPage = React.createClass({
             <div className="card">
               <ul className="table-view no-nav">
                 <li className="table-view-cell">
-                  <p>New Perk Coming Soon.</p>
+                  <p>New Perks Coming Soon.</p>
                 </li>
               </ul>
             </div>
