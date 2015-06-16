@@ -21,11 +21,6 @@ var Navigation = React.createClass({
 
     return (
       <nav className="bar bar-tab">
-        <a onClick={function () { actions.changeTab('home'); }}
-          className={'tab-item' + (tab == 'home' ? ' active' : '')}>
-          <span className="icon icon-home3"></span>
-          <span className="tab-label">Home</span>
-        </a>
         <a onClick={function () { actions.changeTab('explore'); }}
           className={'tab-item' + (tab == 'explore' ? ' active' : '')}>
           <span className="icon icon-location"></span>
@@ -40,6 +35,11 @@ var Navigation = React.createClass({
           className={'tab-item' + (tab == 'favorites' ? ' active' : '')}>
           <span className="icon icon-bookmark"></span>
           <span className="tab-label">Saves</span>
+        </a>
+        <a onClick={function () { actions.changeTab('home'); }}
+          className={'tab-item' + (tab == 'home' ? ' active' : '')}>
+          <span className="icon icon-clock"></span>
+          <span className="tab-label">Perks</span>
         </a>
       </nav>
     );
@@ -431,10 +431,17 @@ var FavoritesPage = React.createClass({
         <div className="content">
           {this.state.businesses.length === 0 &&
             <div className="content-padded">
-              <h6 style={{textAlign:'center'}}>You haven't chosen your favorite places yet.</h6>
-              <p style={{textAlign:'center'}}>
-                <span className="icon icon-search" style={{fontSize:100,color:'#ddd'}}></span>
+              <br />
+              <h4 className="centered">No favorite place saved yet.</h4>
+              <br />
+              <p className="centered">
+                <span
+                  className="icon icon-search"
+                  style={{fontSize:100,color:'#ddd'}}>
+                </span>
               </p>
+              <br />
+              <br />
               <button
                 className="btn btn-block btn-primary btn-outlined"
                 onClick={function () { actions.changeTab('search'); }}>
@@ -445,42 +452,6 @@ var FavoritesPage = React.createClass({
           {this.state.businesses.length > 0 &&
             <BizList businesses={this.state.businesses} />
           }
-        </div>
-      </div>
-    );
-  }
-});
-
-var PerkModal = React.createClass({
-  render: function () {
-    return (
-      <div id="perk" className="modal">
-        <header className="bar bar-nav">
-          <a className="icon icon-close pull-right"
-            onClick={function () { $('#perk').removeClass('active'); }}>
-          </a>
-          <h1 className="title">Redeem a Perk</h1>
-        </header>
-
-        <div className="content">
-          <img className="img img-responsive" src="img/perk1.jpg" />
-          <div className="content-padded">
-            <span className="badge badge-positive pull-right">
-              <CountdownTimer initialTimeRemaining={6000000} />
-            </span>
-            <h4>
-              Dean's Downtown
-            </h4>
-            <h3>
-              Dean's Old Fashions 50% off
-            </h3>
-            <h4><strike>$6</strike> $3</h4>
-            <div className="card">
-              <div className="content-padded">
-                <p>Show This When Making Your Purchase</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     );
@@ -513,35 +484,40 @@ var HomePage = React.createClass({
   },
 
   render: function () {
-    var _new = this.props.new;
-
     return (
       <div>
-        <Header text={_new ? 'InstaPerk' : 'My Perks'} back="false" />
+        <Header text={store.intro ? 'InstaPerk' : 'My Perks'} back="false" />
         <div className="content">
-          {this.state.businesses.length === 0 && _new &&
+          {this.state.businesses.length === 0 && store.intro &&
             <div className="content-padded">
               <br />
               <h1 className="centered">
                 Perks from places you love.
               </h1>
-              <p style={{textAlign:'center'}}>
+              <br />
+              <p className="centered">
                 <span className="icon icon-bookmark" style={{fontSize:100,color:'#ddd'}}></span>
               </p>
+              <br />
+              <br />
+              <br />
               <button
                 className="btn btn-block btn-primary btn-outlined"
                 onClick={function () { actions.changeTab('explore'); }}>
-                Find and Save Favorite Places
+                Start Here
               </button>
             </div>
           }
-          {this.state.businesses.length === 0 && !_new &&
+          {this.state.businesses.length === 0 && !store.intro &&
             <div className="content-padded">
               <br />
-              <h4 style={{textAlign:'center'}}>New perks for you are coming soon.</h4>
-              <p style={{textAlign:'center'}}>
+              <h4 className="centered">New Perks for You Coming Soon.</h4>
+              <br />
+              <p className="centered">
                 <span className="icon icon-clock" style={{fontSize:100,color:'#ddd'}}></span>
               </p>
+              <br />
+              <br />
               <button
                 className="btn btn-block btn-primary btn-outlined"
                 onClick={function () { actions.changeTab('explore'); }}>
@@ -553,8 +529,9 @@ var HomePage = React.createClass({
             <BizList businesses={this.state.businesses} />
           }
         </div>
-        <Navigation tab={this.props.tab} />
-        <PerkModal />
+        {!store.intro &&
+          <Navigation tab={this.props.tab} />
+        }
       </div>
     );
   }

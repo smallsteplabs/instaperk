@@ -12,6 +12,7 @@ var store = fluxify.createStore({
   id: 'store',
 
   initialState: {
+    intro: true,
     tab: 'home',
     favorites: [],
     perks: {
@@ -38,6 +39,8 @@ var store = fluxify.createStore({
 
   actionCallbacks: {
     changeTab: function (updater, tab) {
+      if (store.intro)
+        updater.set({ intro: false });
       updater.set({ tab: tab });
     },
 
