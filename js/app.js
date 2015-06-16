@@ -107,6 +107,11 @@ var PerkListItem = React.createClass({
 
     return (
       <li className="table-view-cell media">
+        {this.props.showBiz &&
+          <div className="media-header">
+            <h5>Dean's Downtown</h5>
+          </div>
+        }
         <a href={'#perk/' + perk.id} className="btn btn-positive">
           Redeem
         </a>
@@ -129,28 +134,6 @@ var PerkList = React.createClass({
       return <PerkListItem perk={store.perks[id]} />;
     });
 
-    if (this.props.perkIds.length === 0) {
-      return (
-        <div className="card">
-          <ul className="table-view no-nav">
-            <li className="table-view-cell">
-              <p>New Perk Coming Soon.</p>
-            </li>
-          </ul>
-        </div>
-      );
-    }
-
-    return (
-      <div className="card">
-        <ul className="table-view top-nav">
-          <li className="table-view-cell table-view-divider">
-            Members Only Perks
-          </li>
-          {_perks}
-        </ul>
-      </div>
-    );
   }
 });
 
@@ -278,8 +261,26 @@ var BizPage = React.createClass({
               </ul>
             </div>
           }
-          {saved &&
-            <PerkList perkIds={perkIds} />
+          {saved && perkIds.length === 0 &&
+            <div className="card">
+              <ul className="table-view no-nav">
+                <li className="table-view-cell">
+                  <p>New Perk Coming Soon.</p>
+                </li>
+              </ul>
+            </div>
+          }
+          {saved && perkIds.length > 0 &&
+            <div className="card">
+              <ul className="table-view top-nav">
+                <li className="table-view-cell table-view-divider">
+                  Members Only Perks
+                </li>
+                {perkIds.map(function (id) {
+                  return <PerkListItem perk={store.perks[id]} />;
+                })}
+              </ul>
+            </div>
           }
 
           <div className="card">
@@ -459,36 +460,17 @@ var FavoritesPage = React.createClass({
 });
 
 var HomePage = React.createClass({
-  getInitialState: function () {
-    return({ businesses: [] });
-  },
-
-  componentDidMount: function () {
-    var _this = this;
-
-    if (store.perks.length > 0) {
-      _this.props.service.findByIds(store.favorites.filter(function (id) {
-        return(id == 1);
-      })).done(function (results) {
-        _this.setState({ businesses: results });
-      });
-
-      store.on('change:favorites', function (favorites) {
-        _this.props.service.findByIds(favorites.filter(function (id) {
-          return(id == 1);
-        })).done(function (results) {
-          _this.setState({ businesses: results });
-        });
-      });
-    }
-  },
-
   render: function () {
+    var perkIds = Object.keys(store.perks)
+                        .sort(DescNumberSort)
+                        .filter(function (id) {
+                          return (store.favorites.indexOf(store.perks[id].bizId) !== -1);
+                        });
     return (
       <div>
         <Header text={store.intro ? 'InstaPerk' : 'My Perks'} back="false" />
         <div className="content">
-          {this.state.businesses.length === 0 && store.intro &&
+          {store.intro &&
             <div className="content-padded">
               <br />
               <h1 className="centered">
@@ -496,7 +478,10 @@ var HomePage = React.createClass({
               </h1>
               <br />
               <p className="centered">
-                <span className="icon icon-bookmark" style={{fontSize:100,color:'#ddd'}}></span>
+                <span
+                  className="icon icon-bookmark"
+                  style={{fontSize:100,color:'#ddd'}}>
+                </span>
               </p>
               <br />
               <br />
@@ -508,13 +493,16 @@ var HomePage = React.createClass({
               </button>
             </div>
           }
-          {this.state.businesses.length === 0 && !store.intro &&
+          {!store.intro && perkIds.length === 0 &&
             <div className="content-padded">
               <br />
               <h4 className="centered">New Perks for You Coming Soon.</h4>
               <br />
               <p className="centered">
-                <span className="icon icon-clock" style={{fontSize:100,color:'#ddd'}}></span>
+                <span
+                  className="icon icon-clock"
+                  style={{fontSize:100,color:'#ddd'}}>
+                </span>
               </p>
               <br />
               <br />
@@ -525,8 +513,12 @@ var HomePage = React.createClass({
               </button>
             </div>
           }
-          {this.state.businesses.length > 0 &&
-            <BizList businesses={this.state.businesses} />
+          {!store.intro && perkIds.length > 0 &&
+            <ul className="table-view top-nav">
+              {perkIds.map(function (id) {
+                return <PerkListItem perk={store.perks[id]} showBiz="true" />;
+              })}
+            </ul>
           }
         </div>
         {!store.intro &&
@@ -570,7 +562,6 @@ var MainPage = React.createClass({
         {tab == 'home' &&
           <HomePage
             service={bizService}
-            new={this.state.favorites.length === 0}
             {...this.state}
           />
         }

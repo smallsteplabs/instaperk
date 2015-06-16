@@ -108,6 +108,10 @@
   margin: 3px 0 7px 0;
 }
 
+.table-view-cell .media-header h5 {
+  margin-top: 5px;
+}
+
 .table-view-cell .media-footer {
   clear: left;
   margin-top: 0.5em;
