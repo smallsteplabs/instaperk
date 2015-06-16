@@ -23,7 +23,7 @@ var store = fluxify.createStore({
         description: "On Demand Happy Hour.",
         details: "Get 50% off drinks $10 and under.<br />Sunday 5pm - 2am<br />Tuesday 5pm - 2am<br />Wednesday 5pm - 2am<br />Thursday  5pm - 2am",
         startIn: 20,
-        duration: 3600 
+        duration: 3600
       },
       2: {
         id: 2,
@@ -32,7 +32,7 @@ var store = fluxify.createStore({
         description: "Be The First To Try Our New Draught Cocktail.",
         details: "The Easy Credit Mule, Cucumber Serrano Infused Vodka, Fresh Lime Juice, House Made Ginger Beer.<br />Get A Complimentary Easy Credit Mule Friday July 11th 5pm - 10pm.",
         startIn: 20,
-        duration: 3600 
+        duration: 3600
       }
     }
   },
