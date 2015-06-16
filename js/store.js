@@ -31,8 +31,8 @@ var store = fluxify.createStore({
         name: 'New Draught Cocktail',
         description: "Be The First To Try Our New Draught Cocktail.",
         details: "The Easy Credit Mule, Cucumber Serrano Infused Vodka, Fresh Lime Juice, House Made Ginger Beer.<br />Get A Complimentary Easy Credit Mule Friday July 11th 5pm - 10pm.",
-        startIn: 20,
-        duration: 3600
+        startIn: 25 * 24 * 3600 + 17 * 3600,
+        duration: 5 * 3600
       }
     }
   },

@@ -321,12 +321,12 @@ var PerkPage = React.createClass({
               <div>
                 <h4>Get 50% all drinks $10 and under<br />in the next</h4>
                 <br />
-                <h3>
+                <h2>
                   <CountdownTimer
                     initialTimeRemaining={perk.startIn * 1000}
                     completeCallback={function () { actions.startPerk(perk.id); }}
                   />
-                </h3>
+                </h2>
               </div>
             }
 
