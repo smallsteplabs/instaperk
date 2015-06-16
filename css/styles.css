@@ -65,7 +65,7 @@
 }
 
 .table-view.top-nav .table-view-cell > .btn {
-  top: 25px;
+  top: 30px;
 }
 
 .hidden {
@@ -73,6 +73,7 @@
 }
 
 .media-object {
+  margin-top: 5px;
   margin-bottom: 10px;
 }
 
@@ -104,12 +105,18 @@
 }
 
 .table-view-cell .media-body p {
-  line-height: 1.1em;
-  margin: 3px 0 7px 0;
+  line-height: 1.2em;
+  margin: 5px 0 5px 0;
 }
 
-.table-view-cell .media-header h5 {
-  margin-top: 5px;
+.table-view-cell .media-body p.when {
+  text-transform: uppercase;
+  margin: 3px 0;
+}
+
+.table-view-cell .media-header > a {
+  display: inline-block; 
+  margin: 5px 0;
 }
 
 .table-view-cell .media-footer {

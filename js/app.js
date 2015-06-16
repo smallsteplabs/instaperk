@@ -115,13 +115,16 @@ var PerkListItem = React.createClass({
         <a href={'#perk/' + perk.id} className="btn btn-positive">
           Redeem
         </a>
-        <img className="media-object pull-left big" src={perkImage} />
+        <img className="media-object pull-left small" src={perkImage} />
         <div className="media-body">
-          {perk.name}
+          <p className="when"><small>
+            {perk.when}
+          </small></p>
+          <span>{perk.name}</span>
           <p>{perk.description}</p>
         </div>
         <div className="media-footer">
-          <p><small dangerouslySetInnerHTML={{ __html: perk.details }} /></p>
+          <p><small>{perk.details}</small></p>
         </div>
       </li>
     );
@@ -519,7 +522,9 @@ var HomePage = React.createClass({
                   <PerkListItem
                     perk={store.perks[id]}
                     header={
-                      <h5>{biz[store.perks[id].bizId].name}</h5>
+                      <a href={"#biz/" + store.perks[id].bizId}>
+                        {biz[store.perks[id].bizId].name}
+                      </a>
                     } />
                 );
               })}
