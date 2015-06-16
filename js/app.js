@@ -107,9 +107,9 @@ var PerkListItem = React.createClass({
 
     return (
       <li className="table-view-cell media">
-        {this.props.showBiz &&
+        {this.props.header &&
           <div className="media-header">
-            <h5>Dean's Downtown</h5>
+            {this.props.header}
           </div>
         }
         <a href={'#perk/' + perk.id} className="btn btn-positive">
@@ -125,15 +125,6 @@ var PerkListItem = React.createClass({
         </div>
       </li>
     );
-  }
-});
-
-var PerkList = React.createClass({
-  render: function () {
-    var _perks = this.props.perkIds.map(function (id) {
-      return <PerkListItem perk={store.perks[id]} />;
-    });
-
   }
 });
 
@@ -463,9 +454,17 @@ var HomePage = React.createClass({
   render: function () {
     var perkIds = Object.keys(store.perks)
                         .sort(DescNumberSort)
+                        .map(function (id) { return(parseInt(id)); })
                         .filter(function (id) {
                           return (store.favorites.indexOf(store.perks[id].bizId) !== -1);
-                        });
+                        }),
+        biz = {};
+
+    // populate biz
+    bizService.findByIds(perkIds).done(function (results) {
+      results.forEach(function (b) { biz[b.id] = b; });
+    });
+
     return (
       <div>
         <Header text={store.intro ? 'InstaPerk' : 'My Perks'} back="false" />
@@ -516,7 +515,13 @@ var HomePage = React.createClass({
           {!store.intro && perkIds.length > 0 &&
             <ul className="table-view top-nav">
               {perkIds.map(function (id) {
-                return <PerkListItem perk={store.perks[id]} showBiz="true" />;
+                return (
+                  <PerkListItem
+                    perk={store.perks[id]}
+                    header={
+                      <h5>{biz[store.perks[id].bizId].name}</h5>
+                    } />
+                );
               })}
             </ul>
           }
