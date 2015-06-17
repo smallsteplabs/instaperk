@@ -19,6 +19,7 @@ var store = fluxify.createStore({
       1: {
         id: 1,
         bizId: 1,
+        kind: "On-Going",
         when: "Sun - Thu, 5pm - 2am",
         name: 'Insta Hour',
         description: "On Demand Happy Hour.",
@@ -29,6 +30,7 @@ var store = fluxify.createStore({
       2: {
         id: 2,
         bizId: 1,
+        kind: "Event",
         when: "Fri, Jul 11th, 5pm - 10pm",
         name: 'New Draught Cocktail',
         description: "Be The First To Try Our New Draught Cocktail.",

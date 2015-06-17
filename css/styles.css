@@ -64,17 +64,13 @@
   padding-right: 15px !important;
 }
 
-.table-view.top-nav .table-view-cell > .btn {
-  top: 30px;
-}
-
 .hidden {
   opacity: 0;
 }
 
 .media-object {
-  margin-top: 5px;
-  margin-bottom: 10px;
+  margin-top: 3px;
+  margin-bottom: 7px;
 }
 
 .media-object.big {
@@ -109,14 +105,16 @@
   margin: 5px 0 5px 0;
 }
 
-.table-view-cell .media-body p.when {
+.table-view-cell p.when {
   text-transform: uppercase;
   margin: 3px 0;
 }
 
-.table-view-cell .media-header > a {
-  display: inline-block; 
-  margin: 5px 0;
+.table-view-cell p.when .badge {
+  border-radius: 2px;
+  padding: 3px 4px;
+  color: #fff;
+  background-color: #ccc;
 }
 
 .table-view-cell .media-footer {

@@ -107,25 +107,21 @@ var PerkListItem = React.createClass({
 
     return (
       <li className="table-view-cell media">
-        {this.props.header &&
-          <div className="media-header">
-            {this.props.header}
+        <a href={'#perk/' + perk.id} className="navigate-right">
+          <img className="media-object pull-left small" src={perkImage} />
+          <div className="media-body">
+            <p className="when"><small>
+              <span className="badge">{perk.kind}</span>
+              &nbsp;
+              {perk.when}
+            </small></p>
+            <span>{perk.name}</span>
+            <p>{perk.description}</p>
           </div>
-        }
-        <a href={'#perk/' + perk.id} className="btn btn-positive">
-          Redeem
+          <div className="media-footer">
+            <p><small>{perk.details}</small></p>
+          </div>
         </a>
-        <img className="media-object pull-left small" src={perkImage} />
-        <div className="media-body">
-          <p className="when"><small>
-            {perk.when}
-          </small></p>
-          <span>{perk.name}</span>
-          <p>{perk.description}</p>
-        </div>
-        <div className="media-footer">
-          <p><small>{perk.details}</small></p>
-        </div>
       </li>
     );
   }
@@ -516,16 +512,13 @@ var HomePage = React.createClass({
             </div>
           }
           {!store.intro && perkIds.length > 0 &&
-            <ul className="table-view top-nav">
+            <ul className="table-view">
+              <li className="table-view-cell table-view-divider">
+                Dean's Downtown
+              </li>
               {perkIds.map(function (id) {
                 return (
-                  <PerkListItem
-                    perk={store.perks[id]}
-                    header={
-                      <a href={"#biz/" + store.perks[id].bizId}>
-                        {biz[store.perks[id].bizId].name}
-                      </a>
-                    } />
+                  <PerkListItem perk={store.perks[id]} />
                 );
               })}
             </ul>
