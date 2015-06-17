@@ -207,6 +207,7 @@ var BizPage = React.createClass({
               <br />
               <h1>{biz.name}</h1>
               <p><small>{biz.address} &ndash; {biz.city}</small></p>
+              <br />
               <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
               <p>
                 <button
@@ -288,12 +289,20 @@ var BizPage = React.createClass({
 
 var PerkPage = React.createClass({
   getInitialState: function () {
-    return ({ started: false, completed: false });
+    return ({
+      biz : null,
+      started: false,
+      completed: false
+    });
   },
 
   componentWillMount: function () {
     var _this = this,
         perk = this.props.perk;
+
+    bizService.findById(this.props.perk.bizId).done(function (result) {
+      _this.setState({ biz: result });
+    });
 
     this.setState({ started: perk.startIn === 0 ? true : false });
     this.setState({ completed: perk.duration === 0 ? true : false });
@@ -306,18 +315,25 @@ var PerkPage = React.createClass({
 
   render: function () {
     var perk = this.props.perk,
-      bizImage = '/img/logo' + perk.bizId + '.png';
+        biz = this.state.biz,
+        perkImage = '/img/perk' + perk.id + '.jpg';
 
     return (
       <div className={"page " + this.props.position}>
         <Header text={perk.name} back="true" />
         <div className="content">
           <div className="content-padded centered">
-            <img src={bizImage} style={{ width: '40%' }} />
+            <h5>{biz.name}</h5>
+            <p><img src={perkImage} style={{ width: '50%' }} /></p>
 
             {!this.state.started &&
               <div>
-                <h4>Get 50% all drinks $10 and under<br />in the next</h4>
+                <br />
+                <h4>{"Get " + perk.name}</h4>
+                <h5><span className="badge">{perk.when}</span></h5>
+                <p>{perk.details}</p>
+
+                <h5>&mdash; In The Next &mdash;</h5>
                 <br />
                 <h2>
                   <CountdownTimer
@@ -327,20 +343,13 @@ var PerkPage = React.createClass({
                 </h2>
               </div>
             }
-
             {this.state.started && !this.state.completed &&
               <div>
-                <h4>Get 50% all drinks $10 and under<br />for the next</h4>
                 <br />
-                <h1 className="countdown text-positive">
-                  <CountdownTimer
-                    initialTimeRemaining={perk.duration * 1000}
-                    completeCallback={function () { actions.endPerk(perk.id); }}
-                  />
-                </h1>
+                <h4>{"Get " + perk.name + " Now!"}</h4>
+                <p>{perk.details}</p>
               </div>
             }
-
             {this.state.completed &&
               <div>
                 <p>Perk has ended</p>

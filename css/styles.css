@@ -150,7 +150,11 @@ input[type=search] {
 
 .countdown {
   font-weight: normal;
-  font-size: 4em;
+}
+
+.countdown span {
+  font-size: 1em;
+  color: #ccc;
 }
 
 #notification {
