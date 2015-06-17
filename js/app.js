@@ -195,29 +195,28 @@ var BizPage = React.createClass({
             onClick={function () { actions.toggleSave(biz.id); return(false); }}>
             <span className="icon icon-bookmark"></span> {saved ? 'Member' : 'Save'}
           </button>
+
+          <div className="logo-container">
+            <img className="logo" src={bizLogo} />
+          </div>
         </header>
 
         <div className="content">
-          <div className="card">
-            <ul className="table-view no-nav">
-              <li className="table-view-cell table-view-divider">
+          <ul className="table-view no-nav">
+            <li className="table-view-cell centered">
+              <br />
+              <h1>{biz.name}</h1>
+              <p><small>{biz.address} &ndash; {biz.city}</small></p>
+              <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
+              <p>
                 <button
                   className="pull-right btn btn-circle"
                   onClick={this.toggleContact}>
                   <span className="icon icon-phone"></span>
                 </button>
-
-                <h1>{biz.name}</h1>
-                <p>{biz.address}</p>
-              </li>
-              <li className="table-view-cell media">
-                <img className="media-object pull-left big" src={bizLogo} />
-                <div className="media-body">
-                  <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
+              </p>
+            </li>
+          </ul>
 
           {this.state.showContact &&
             <div className="card">

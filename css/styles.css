@@ -51,9 +51,23 @@
   font-size: 1.3em;
   font-weight: normal;
 }
+
 .bar-tall p {
   margin-bottom: 0;
   color: #fff;
+}
+
+.bar-tall .logo-container {
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.bar-tall .logo-container .logo {
+  width: 20%;
+  margin-left: -10%;
+  margin-bottom: -10%;
 }
 
 .content > .table-view:first-child {
