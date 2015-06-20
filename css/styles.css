@@ -1,6 +1,10 @@
 .centered {
   text-align: center;
 }
+.text-big {
+  font-size: 4em;
+  font-weight: normal;
+}
 
 .btn-circle {
   border-radius: 15px;

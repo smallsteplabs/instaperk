@@ -326,7 +326,7 @@ var PerkPage = React.createClass({
             <h5>{biz.name}</h5>
             <p><img src={perkImage} style={{ width: '50%' }} /></p>
 
-            {!this.state.started &&
+            {!this.state.started && perk.kind == 'Event'  &&
               <div>
                 <br />
                 <h4>{"Get " + perk.name}</h4>
@@ -343,11 +343,32 @@ var PerkPage = React.createClass({
                 </h2>
               </div>
             }
+            {!this.state.started && perk.kind !== 'Event' &&
+              <div>
+                <br />
+                <h4>{"Get " + perk.name}</h4>
+                <h5><span className="badge">{perk.when}</span></h5>
+                <p>{perk.details}</p>
+
+                <br />
+                <button className="btn btn-block btn-primary"
+                    onClick={function () { actions.startPerk(perk.id); }}>
+                  {"Start Your "+ perk.name + " Now"}
+                </button>
+              </div>
+            }
             {this.state.started && !this.state.completed &&
               <div>
                 <br />
-                <h4>{"Get " + perk.name + " Now!"}</h4>
+                <h4>{perk.name + " In Progress"}</h4>
                 <p>{perk.details}</p>
+                <h5>&mdash; For The Next &mdash;</h5>
+                <h1 className="text-positive text-big">
+                  <CountdownTimer
+                    initialTimeRemaining={perk.duration * 1000}
+                    completeCallback={function () { actions.endPerk(perk.id); }}
+                  />
+                </h1>
               </div>
             }
             {this.state.completed &&
