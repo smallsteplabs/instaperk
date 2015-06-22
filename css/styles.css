@@ -1,3 +1,22 @@
+.bg-dark {
+  background: #e71e62;
+}
+
+.bg-dark h1 {
+  font-size: 3em;
+  color: #fff;
+}
+
+.bg-dark h5 {
+  font-size: 1.3em;
+  color: #fff;
+}
+
+.bg-dark .btn {
+  color: #fff;
+  border-color: #fff;
+}
+
 .centered {
   text-align: center;
 }

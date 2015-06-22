@@ -493,54 +493,67 @@ var HomePage = React.createClass({
       results.forEach(function (b) { biz[b.id] = b; });
     });
 
-    return (
+    if (store.intro) return (
+      <div className="content bg-dark">
+        <div className="content-padded">
+          <br />
+          <h1 className="centered">
+            InstaPerk
+          </h1>
+          <h5 className="centered">
+            Perks from places<br />you love
+          </h5>
+          <br />
+          <p className="centered">
+            <span
+              className="icon icon-bookmark"
+              style={{fontSize:100,color:'#ddd'}}>
+            </span>
+          </p>
+          <br />
+          <br />
+          <br />
+          <button
+            className="btn btn-block btn-primary btn-outlined"
+            onClick={function () { actions.changeTab('explore'); }}>
+            Start Here
+          </button>
+        </div>
+      </div>
+    );
+
+    if (!store.intro && perkIds.length === 0) return (
       <div>
         <Header text={store.intro ? 'InstaPerk' : 'My Perks'} back="false" />
         <div className="content">
-          {store.intro &&
-            <div className="content-padded">
-              <br />
-              <h1 className="centered">
-                Perks from places you love.
-              </h1>
-              <br />
-              <p className="centered">
-                <span
-                  className="icon icon-bookmark"
-                  style={{fontSize:100,color:'#ddd'}}>
-                </span>
-              </p>
-              <br />
-              <br />
-              <br />
-              <button
-                className="btn btn-block btn-primary btn-outlined"
-                onClick={function () { actions.changeTab('explore'); }}>
-                Start Here
-              </button>
-            </div>
-          }
-          {!store.intro && perkIds.length === 0 &&
-            <div className="content-padded">
-              <br />
-              <h4 className="centered">New Perks for You Coming Soon.</h4>
-              <br />
-              <p className="centered">
-                <span
-                  className="icon icon-clock"
-                  style={{fontSize:100,color:'#ddd'}}>
-                </span>
-              </p>
-              <br />
-              <br />
-              <button
-                className="btn btn-block btn-primary btn-outlined"
-                onClick={function () { actions.changeTab('explore'); }}>
-                Find and Save More Places
-              </button>
-            </div>
-          }
-          {!store.intro && perkIds.length > 0 &&
+          <div className="content-padded">
+            <br />
+            <h4 className="centered">New Perks for You Coming Soon.</h4>
+            <br />
+            <p className="centered">
+              <span
+                className="icon icon-clock"
+                style={{fontSize:100,color:'#ddd'}}>
+              </span>
+            </p>
+            <br />
+            <br />
+            <button
+              className="btn btn-block btn-primary btn-outlined"
+              onClick={function () { actions.changeTab('explore'); }}>
+              Find and Save More Places
+            </button>
+          </div>
+        </div>
+        <Navigation tab={this.props.tab} />
+      </div>
+    );
+
+    if (!store.intro && perkIds.length > 0) return (
+      <div>
+        <Header text={store.intro ? 'InstaPerk' : 'My Perks'} back="false" />
+        <div className="content">
+          <div className="content-padded">
             <ul className="table-view">
               <li className="table-view-cell table-view-divider">
                 Dean's Downtown
@@ -548,14 +561,12 @@ var HomePage = React.createClass({
               {perkIds.map(function (id) {
                 return (
                   <PerkListItem perk={store.perks[id]} />
-                );
+                )
               })}
             </ul>
-          }
+          </div>
         </div>
-        {!store.intro &&
-          <Navigation tab={this.props.tab} />
-        }
+        <Navigation tab={this.props.tab} />
       </div>
     );
   }
