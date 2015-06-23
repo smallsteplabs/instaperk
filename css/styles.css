@@ -1,5 +1,6 @@
 .bg-dark {
-  background: #e71e62;
+  /* background: #e71e62; */
+  background: #e71e62 url(../img/bg.jpg) no-repeat top center;
 }
 
 .bg-dark h1 {
