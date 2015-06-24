@@ -79,7 +79,7 @@ var store = fluxify.createStore({
     },
 
     sendMessage: function (updater) {
-      notify('Thanks for sending us a message! We\'ll response as soon as possible.');
+      notify('Thanks for sending us a message! We\'ll get back to you as soon as possible.');
     }
   }
 });
