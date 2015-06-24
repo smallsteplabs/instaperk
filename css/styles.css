@@ -209,6 +209,10 @@ input[type=search] {
   color: #4CD964;
 }
 
+.text-right {
+  text-align: right;
+}
+
 .badge.small {
   width: px;
   height: 16px;

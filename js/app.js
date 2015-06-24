@@ -153,12 +153,23 @@ var BizPage = React.createClass({
   getInitialState: function () {
     return ({
       biz: null,
-      showContact: false
+      showContact: false,
+      showMessage: false
     });
   },
 
   toggleContact: function () {
     this.setState({ showContact: !this.state.showContact });
+  },
+
+  toggleMessage: function () {
+    this.setState({ showMessage: !this.state.showMessage });
+  },
+
+  sendMessage: function () {
+    actions.sendMessage();
+    this.toggleMessage();
+    return false;
   },
 
   componentWillMount: function () {
@@ -209,9 +220,21 @@ var BizPage = React.createClass({
               <p><small>{biz.address} &ndash; {biz.city}</small></p>
               <br />
               <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
-              <p>
+              <br />
+              <p className="text-right" style={{lineHeight:'1.8em'}}>
+                <small>
+                  Questions or to book a party?
+                </small>
+                &nbsp;
                 <button
-                  className="pull-right btn btn-circle"
+                  className="btn btn-circle"
+                  onClick={this.toggleMessage}>
+                  <span className="icon icon-bubbles2"></span>
+                </button>
+                <span>&nbsp;</span>
+                <span>&nbsp;</span>
+                <button
+                  className="btn btn-circle"
                   onClick={this.toggleContact}>
                   <span className="icon icon-phone"></span>
                 </button>
@@ -239,6 +262,21 @@ var BizPage = React.createClass({
                   </div>
                 </li>
               </ul>
+            </div>
+          }
+
+          {this.state.showMessage &&
+            <div className="card">
+              <div className="content-padded">
+                <form onSubmit={this.sendMessage}>
+                  <input type="text" placeholder="Name" />
+                  <input type="text" placeholder="Email address" />
+                  <textarea rows="3" placeholder="Message"></textarea>
+                  <button className="btn btn-primary btn-block">
+                    Send Message
+                  </button>
+                </form>
+              </div>
             </div>
           }
 
