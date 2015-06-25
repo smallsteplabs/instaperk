@@ -192,10 +192,17 @@ var BizPage = React.createClass({
           backgroundImage: 'url(' + bizImage + ')'
         },
         saved = store.favorites.indexOf(biz.id) !== -1,
-        perkIds = Object.keys(store.perks)
+        bdayPerkIds = Object.keys(store.perks)
                         .sort(DescNumberSort)
                         .filter(function (id) {
-                          return (store.perks[id].bizId == biz.id);
+                          const perk = store.perks[id];
+                          return (perk.bizId == biz.id && perk.kind == 'Birthday');
+                        }),
+        memberPerkIds = Object.keys(store.perks)
+                        .sort(DescNumberSort)
+                        .filter(function (id) {
+                          const perk = store.perks[id];
+                          return (perk.bizId == biz.id && perk.kind !== 'Birthday');
                         });
     return (
       <div className={"page " + this.props.position}>
@@ -289,7 +296,19 @@ var BizPage = React.createClass({
               </ul>
             </div>
           }
-          {saved && perkIds.length === 0 &&
+          {saved && bdayPerkIds.length > 0 &&
+            <div className="card">
+              <ul className="table-view top-nav">
+                <li className="table-view-cell table-view-divider">
+                  Birthday Perks
+                </li>
+                {bdayPerkIds.map(function (id) {
+                  return <PerkListItem perk={store.perks[id]} />;
+                })}
+              </ul>
+            </div>
+          }
+          {saved && memberPerkIds.length === 0 &&
             <div className="card">
               <ul className="table-view no-nav">
                 <li className="table-view-cell">
@@ -298,13 +317,13 @@ var BizPage = React.createClass({
               </ul>
             </div>
           }
-          {saved && perkIds.length > 0 &&
+          {saved && memberPerkIds.length > 0 &&
             <div className="card">
               <ul className="table-view top-nav">
                 <li className="table-view-cell table-view-divider">
                   Members Only Perks
                 </li>
-                {perkIds.map(function (id) {
+                {memberPerkIds.map(function (id) {
                   return <PerkListItem perk={store.perks[id]} />;
                 })}
               </ul>
@@ -364,7 +383,7 @@ var PerkPage = React.createClass({
             <h5>{biz.name}</h5>
             <p><img src={perkImage} style={{ width: '50%' }} /></p>
 
-            {!this.state.started && perk.kind == 'Event'  &&
+            {!this.state.started && perk.kind !== 'On-Going'  &&
               <div>
                 <br />
                 <h4>{"Get " + perk.name}</h4>
@@ -381,7 +400,7 @@ var PerkPage = React.createClass({
                 </h2>
               </div>
             }
-            {!this.state.started && perk.kind !== 'Event' &&
+            {!this.state.started && perk.kind == 'On-Going' &&
               <div>
                 <br />
                 <h4>{"Get " + perk.name}</h4>

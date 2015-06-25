@@ -37,6 +37,17 @@ var store = fluxify.createStore({
         details: "The Easy Credit Mule, Cucumber Serrano Infused Vodka, Fresh Lime Juice, House Made Ginger Beer. Get A Complimentary Easy Credit Mule.",
         startIn: 25 * 24 * 3600 + 17 * 3600,
         duration: 5 * 3600
+      },
+      3: {
+        id: 3,
+        bizId: 1,
+        kind: "Birthday",
+        when: "Oct 1st - Oct 14th",
+        name: 'Happy Early Birthday',
+        description: "Stop by and get any two appetizers on us!",
+        details: "Just show this screen to your server.",
+        startIn: 24 * 3600,
+        duration: 5 * 3600
       }
     }
   },
