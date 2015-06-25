@@ -383,7 +383,17 @@ var PerkPage = React.createClass({
             <h5>{biz.name}</h5>
             <p><img src={perkImage} style={{ width: '50%' }} /></p>
 
-            {!this.state.started && perk.kind !== 'On-Going'  &&
+            {!this.state.started && perk.kind == 'Birthday'  &&
+              <div>
+                <br />
+                <h4>Happy Birtday!</h4>
+                <h5><span className="badge">{perk.when}</span></h5>
+                <p>{perk.description}</p>
+                <p>{perk.details}</p>
+              </div>
+            }
+
+            {!this.state.started && perk.kind == 'Event'  &&
               <div>
                 <br />
                 <h4>{"Get " + perk.name}</h4>
