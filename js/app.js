@@ -220,12 +220,12 @@ var BizPage = React.createClass({
               <p><small>{biz.address} &ndash; {biz.city}</small></p>
               <br />
               <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
-              <br />
-              <p className="text-right" style={{lineHeight:'1.8em'}}>
-                <small>
-                  Questions or to book a party?
-                </small>
-                &nbsp;
+            </li>
+            <li className="table-view-cell centered">
+              <p><small>
+                  Questions or to book a party &ndash; Contact Us
+              </small></p>
+              <p>
                 <button
                   className="btn btn-circle"
                   onClick={this.toggleMessage}>
