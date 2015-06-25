@@ -296,19 +296,8 @@ var BizPage = React.createClass({
               </ul>
             </div>
           }
-          {saved && bdayPerkIds.length > 0 &&
-            <div className="card">
-              <ul className="table-view top-nav">
-                <li className="table-view-cell table-view-divider">
-                  Birthday Perks
-                </li>
-                {bdayPerkIds.map(function (id) {
-                  return <PerkListItem perk={store.perks[id]} />;
-                })}
-              </ul>
-            </div>
-          }
-          {saved && memberPerkIds.length === 0 &&
+
+          {saved && Object.keys(store.perks).length === 0 &&
             <div className="card">
               <ul className="table-view no-nav">
                 <li className="table-view-cell">
@@ -317,18 +306,25 @@ var BizPage = React.createClass({
               </ul>
             </div>
           }
-          {saved && memberPerkIds.length > 0 &&
-            <div className="card">
-              <ul className="table-view top-nav">
-                <li className="table-view-cell table-view-divider">
-                  Members Only Perks
-                </li>
-                {memberPerkIds.map(function (id) {
-                  return <PerkListItem perk={store.perks[id]} />;
-                })}
-              </ul>
-            </div>
-          }
+
+          {saved && Object.keys(store.perks).length > 0 &&
+            ['Event', 'On-Going', 'Birthday'].map(function (kind) {
+            const perkIds = Object.keys(store.perks)
+                            .sort(DescNumberSort)
+                            .filter(function (id) {
+                              const perk = store.perks[id];
+                              return (perk.bizId == biz.id && perk.kind == kind);
+                            });
+            return (
+              <div className="card">
+                <ul className="table-view top-nav">
+                  {perkIds.map(function (id) {
+                    return <PerkListItem perk={store.perks[id]} />;
+                  })}
+                </ul>
+              </div>
+            );
+          })}
 
           <div className="card">
             <ul className="table-view no-nav">

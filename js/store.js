@@ -16,8 +16,8 @@ var store = fluxify.createStore({
     tab: 'home',
     favorites: [],
     perks: {
-      1: {
-        id: 1,
+      2: {
+        id: 2,
         bizId: 1,
         kind: "On-Going",
         when: "Sun - Thu, 5pm - 2am",
@@ -27,8 +27,8 @@ var store = fluxify.createStore({
         startIn: 20,
         duration: 3600
       },
-      2: {
-        id: 2,
+      3: {
+        id: 3,
         bizId: 1,
         kind: "Event",
         when: "Fri, Jul 11th, 5pm - 10pm",
@@ -38,8 +38,8 @@ var store = fluxify.createStore({
         startIn: 25 * 24 * 3600 + 17 * 3600,
         duration: 5 * 3600
       },
-      3: {
-        id: 3,
+      1: {
+        id: 1,
         bizId: 1,
         kind: "Birthday",
         when: "Oct 1st - Oct 14th",
