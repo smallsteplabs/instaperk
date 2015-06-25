@@ -270,8 +270,8 @@ var BizPage = React.createClass({
               <div className="content-padded">
                 <form onSubmit={this.sendMessage}>
                   <input type="text" placeholder="Name" />
-                  <input type="text" placeholder="Email address" />
-                  <textarea rows="3" placeholder="Message"></textarea>
+                  <p><small>* Please include the best way to contact you</small></p>
+                  <textarea rows="3" placeholder="Message*"></textarea>
                   <button className="btn btn-primary btn-block">
                     Send Message
                   </button>
