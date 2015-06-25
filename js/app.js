@@ -390,17 +390,25 @@ var PerkPage = React.createClass({
                 <h5><span className="badge">{perk.when}</span></h5>
                 <p>{perk.description}</p>
                 <p>{perk.details}</p>
+                <h5>&mdash; Starts In &mdash;</h5>
+                <br />
+                <h2>
+                  <CountdownTimer
+                    initialTimeRemaining={perk.startIn * 1000}
+                    completeCallback={function () { actions.startPerk(perk.id); }}
+                  />
+                </h2>
               </div>
             }
 
             {!this.state.started && perk.kind == 'Event'  &&
               <div>
                 <br />
-                <h4>{"Get " + perk.name}</h4>
+                <h4>{perk.name}</h4>
                 <h5><span className="badge">{perk.when}</span></h5>
                 <p>{perk.details}</p>
 
-                <h5>&mdash; In The Next &mdash;</h5>
+                <h5>&mdash; Starts In &mdash;</h5>
                 <br />
                 <h2>
                   <CountdownTimer
