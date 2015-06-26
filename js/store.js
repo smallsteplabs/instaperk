@@ -89,7 +89,7 @@ var store = fluxify.createStore({
       notify(_perks[id].name + ' has ended.');
     },
 
-    sendMessage: function (updater) {
+    sendMessage: function (updater, from, to, message) {
       notify('Thanks for sending us a message! We\'ll get back to you as soon as possible.');
     }
   }
@@ -112,7 +112,7 @@ var actions = {
     fluxify.doAction('endPerk', id);
   },
 
-  sendMessage: function () {
+  sendMessage: function (from, to, msg) {
     fluxify.doAction('sendMessage');
   }
 };

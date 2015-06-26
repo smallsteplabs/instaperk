@@ -69,6 +69,48 @@ var SearchBar = React.createClass({
   }
 });
 
+var MessageBox = React.createClass({
+  componentDidMount: function () {
+    React.findDOMNode(this.refs.from).focus();
+  },
+
+  submitHandler: function () {
+    this.props.deliveryHandler(
+      React.findDOMNode(this.refs.from).value,
+      React.findDOMNode(this.refs.to).value,
+      React.findDOMNode(this.refs.message).value
+    );
+    return false;
+  },
+
+  closeHandler: function () {
+    this.props.closeHandler();
+    return false;
+  },
+
+  render: function () {
+    return (
+      <div className="bar bar-standard bar-message">
+        <button
+          className="btn btn-link pull-right"
+          onClick={this.closeHandler}>
+          <span className="icon icon-cross"></span>
+        </button>
+        <h1 className="title">{`To: ${this.props.to}`}</h1>
+        <form onSubmit={this.submitHandler}>
+          <input type="text" ref="from" placeholder="Your Name" />
+          <input type="hidden" ref="to" value="1" />
+          <p><small>* Please include the best way to contact you</small></p>
+          <textarea rows="3" ref="message" placeholder="Your Message*"></textarea>
+          <button className="btn btn-primary btn-block">
+            Send Message
+          </button>
+        </form>
+      </div>
+    );
+  }
+});
+
 var BizListItem = React.createClass({
   render: function () {
     var biz = this.props.biz,
@@ -191,19 +233,7 @@ var BizPage = React.createClass({
         headerStyle = {
           backgroundImage: 'url(' + bizImage + ')'
         },
-        saved = store.favorites.indexOf(biz.id) !== -1,
-        bdayPerkIds = Object.keys(store.perks)
-                        .sort(DescNumberSort)
-                        .filter(function (id) {
-                          const perk = store.perks[id];
-                          return (perk.bizId == biz.id && perk.kind == 'Birthday');
-                        }),
-        memberPerkIds = Object.keys(store.perks)
-                        .sort(DescNumberSort)
-                        .filter(function (id) {
-                          const perk = store.perks[id];
-                          return (perk.bizId == biz.id && perk.kind !== 'Birthday');
-                        });
+        saved = store.favorites.indexOf(biz.id) !== -1;
     return (
       <div className={"page " + this.props.position}>
         <header className="bar bar-tall" style={headerStyle}>
@@ -218,6 +248,14 @@ var BizPage = React.createClass({
             <img className="logo" src={bizLogo} />
           </div>
         </header>
+
+        {this.state.showMessage &&
+          <MessageBox
+            to={biz.name}
+            deliveryHandler={this.sendMessage}
+            closeHandler={this.toggleMessage}
+          />
+        }
 
         <div className="content">
           <ul className="table-view no-nav">
@@ -269,21 +307,6 @@ var BizPage = React.createClass({
                   </div>
                 </li>
               </ul>
-            </div>
-          }
-
-          {this.state.showMessage &&
-            <div className="card">
-              <div className="content-padded">
-                <form onSubmit={this.sendMessage}>
-                  <input type="text" placeholder="Name" />
-                  <p><small>* Please include the best way to contact you</small></p>
-                  <textarea rows="3" placeholder="Message*"></textarea>
-                  <button className="btn btn-primary btn-block">
-                    Send Message
-                  </button>
-                </form>
-              </div>
             </div>
           }
 
