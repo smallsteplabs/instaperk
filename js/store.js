@@ -44,8 +44,8 @@ var store = fluxify.createStore({
         kind: "Birthday",
         when: "Oct 1st - Oct 14th",
         name: 'Happy Early Birthday',
-        description: "Stop by and get any two appetizers on us!",
-        details: "Just show this screen to your server.",
+        description: "Stop by and get any two appetizers on us! Just show this screen to your server.",
+        details: "",
         startIn: 24 * 3600,
         duration: 5 * 3600
       }

@@ -162,6 +162,9 @@ var PerkListItem = React.createClass({
           </div>
           <div className="media-footer">
             <p><small>{perk.details}</small></p>
+            {perk.kind == 'Birthday' &&
+              <p><small>If there's anything we can do to make your celebration better please contact us!</small></p>
+            }
           </div>
         </a>
       </li>
