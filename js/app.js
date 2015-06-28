@@ -96,7 +96,7 @@ var MessageBox = React.createClass({
           onClick={this.closeHandler}>
           <span className="icon icon-cross"></span>
         </button>
-        <h1 className="title">{`To: ${this.props.to}`}</h1>
+        <h1 className="title">{'To: ' + this.props.to}</h1>
         <form onSubmit={this.submitHandler}>
           <input type="text" ref="from" placeholder="Your Name" />
           <input type="hidden" ref="to" value="1" />
@@ -335,10 +335,10 @@ var BizPage = React.createClass({
 
           {saved && Object.keys(store.perks).length > 0 &&
             ['Event', 'On-Going', 'Birthday'].map(function (kind) {
-            const perkIds = Object.keys(store.perks)
+            var perkIds = Object.keys(store.perks)
                             .sort(DescNumberSort)
                             .filter(function (id) {
-                              const perk = store.perks[id];
+                              var perk = store.perks[id];
                               return (perk.bizId == biz.id && perk.kind == kind);
                             });
             return (
@@ -658,7 +658,7 @@ var HomePage = React.createClass({
               {perkIds.map(function (id) {
                 return (
                   <PerkListItem perk={store.perks[id]} />
-                )
+                );
               })}
             </ul>
           </div>
