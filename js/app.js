@@ -247,8 +247,26 @@ var BizPage = React.createClass({
             <span className="icon icon-bookmark"></span> {saved ? 'Member' : 'Save'}
           </button>
 
-          <div className="logo-container">
-            <img className="logo" src={bizLogo} />
+          <div className="logo-container centered">
+            <div className="logo-overlay">
+              <img className="logo" src={bizLogo} />
+              <h1>{biz.name}</h1>
+              <p><small>{biz.address} &ndash; {biz.city}</small></p>
+              <p>
+                <button
+                  className="btn btn-link"
+                  onClick={this.toggleMessage}>
+                  <span className="icon icon-bubbles2"></span>
+                </button>
+                <span>&nbsp;</span>
+                <span>&nbsp;</span>
+                <button
+                  className="btn btn-link"
+                  onClick={this.toggleContact}>
+                  <span className="icon icon-phone"></span>
+                </button>
+              </p>
+            </div>
           </div>
         </header>
 
@@ -263,30 +281,12 @@ var BizPage = React.createClass({
         <div className="content">
           <ul className="table-view no-nav">
             <li className="table-view-cell centered">
-              <br />
-              <h1>{biz.name}</h1>
-              <p><small>{biz.address} &ndash; {biz.city}</small></p>
-              <br />
               <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
             </li>
             <li className="table-view-cell centered">
               <p><small>
                   Questions or to book a party &ndash; Contact Us
               </small></p>
-              <p>
-                <button
-                  className="btn btn-circle"
-                  onClick={this.toggleMessage}>
-                  <span className="icon icon-bubbles2"></span>
-                </button>
-                <span>&nbsp;</span>
-                <span>&nbsp;</span>
-                <button
-                  className="btn btn-circle"
-                  onClick={this.toggleContact}>
-                  <span className="icon icon-phone"></span>
-                </button>
-              </p>
             </li>
           </ul>
 

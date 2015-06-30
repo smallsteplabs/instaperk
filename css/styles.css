@@ -40,27 +40,35 @@
 }
 
 .bar-tall {
-  height: 10em;
+  height: 215px;
   background-color: #aaa;
   background-position: top center;
   background-repeat: no-repeat;
   background-size: 100%;
+  padding: 0;
+  overflow: hidden;
 }
 
 .bar-tall ~ .content {
-  padding-top: 10em;
+  padding-top: 215px;
 }
 
 .bar-tall > .icon {
   color: #fff;
-  padding: 5px;
-  background-color: rgba(0, 0, 0, 0.25);
 }
+
+.bar-tall > .icon.pull-left {
+  margin-left: 15px;
+} 
 
 .bar-tall .btn .icon {
   top: 1px;
   font-size: 1em;
 }
+
+.bar-tall > .btn.pull-right {
+  margin-right: 15px;
+} 
 
 .bar-tall .caption {
   position: absolute;
@@ -70,29 +78,44 @@
 }
 
 .bar-tall h1 {
-  position: relative;
-  text-align: left;
   color: #fff;
-  font-size: 1.3em;
+  font-size: 1.2em;
   font-weight: normal;
+  margin-bottom: 5px;
 }
 
 .bar-tall p {
-  margin-bottom: 0;
+  margin-bottom: 5px;
   color: #fff;
 }
 
-.bar-tall .logo-container {
-  text-align: center;
+.bar-tall .logo-container .btn-link {
+  color: #ddd;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border: 1px solid #ddd;
+  line-height: 32px;
+}
+
+.bar-tall .logo-container .logo-overlay {
+  padding: 44px 0 15px;
+  background: rgba(0, 0, 0, 0.5);
+  height: 215px;
   width: 100%;
-  position: absolute;
-  bottom: 0;
 }
 
 .bar-tall .logo-container .logo {
-  width: 20%;
-  margin-left: -10%;
-  margin-bottom: -10%;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  border: 2px solid #fff;
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+.bar-tall .logo-container .btn {
+  top: 0;
 }
 
 .bar-message {
