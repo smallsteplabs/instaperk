@@ -40,7 +40,7 @@
 }
 
 .bar-tall {
-  height: 215px;
+  height: 210px;
   background-color: #aaa;
   background-position: top center;
   background-repeat: no-repeat;
@@ -50,7 +50,7 @@
 }
 
 .bar-tall ~ .content {
-  padding-top: 215px;
+  padding-top: 210px;
 }
 
 .bar-tall > .icon {
@@ -85,7 +85,7 @@
 }
 
 .bar-tall p {
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   color: #fff;
 }
 
@@ -99,14 +99,17 @@
 }
 
 .bar-tall .logo-container .logo-overlay {
-  padding: 44px 0 15px;
+  padding: 80px 0 15px;
   background: rgba(0, 0, 0, 0.5);
-  height: 215px;
+  height: 210px;
   width: 100%;
 }
 
 .bar-tall .logo-container .logo {
+  position: absolute;
+  top: 10px;
   width: 60px;
+  margin-left: -30px;
   height: 60px;
   border-radius: 30px;
   border: 2px solid #fff;

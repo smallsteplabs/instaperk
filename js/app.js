@@ -265,6 +265,10 @@ var BizPage = React.createClass({
                   onClick={this.toggleContact}>
                   <span className="icon icon-phone"></span>
                 </button>
+                <br />
+                <small>
+                    Questions or to book a party &ndash; Contact Us
+                </small>
               </p>
             </div>
           </div>
@@ -282,11 +286,6 @@ var BizPage = React.createClass({
           <ul className="table-view no-nav">
             <li className="table-view-cell centered">
               <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
-            </li>
-            <li className="table-view-cell centered">
-              <p><small>
-                  Questions or to book a party &ndash; Contact Us
-              </small></p>
             </li>
           </ul>
 
