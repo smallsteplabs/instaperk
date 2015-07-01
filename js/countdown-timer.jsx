@@ -50,6 +50,15 @@ var CountdownTimer = React.createClass({
   },
 
   componentDidMount: function() {
+    var options = {
+      scaleColor: false,
+      trackColor: 'rgba(76, 217, 100, 0.3)',
+      barColor: '#4CD964',
+      lineWidth: 6,
+      lineCap: 'butt',
+      size: 75
+    };
+    $('.chart').easyPieChart(options);
     this.tick();
   },
 
@@ -94,6 +103,19 @@ var CountdownTimer = React.createClass({
       return;
     }
 
+    // update charts
+    if (this.state.timeRemaining > 0) {
+      var totalSeconds = Math.round(this.state.timeRemaining / 1000);
+      var seconds = parseInt(totalSeconds % 60);
+      var minutes = parseInt(totalSeconds / 60) % 60;
+      var hours = parseInt(totalSeconds / 3600) % 24;
+      var days = parseInt(totalSeconds / 86400) % 365;
+
+      $('.chart.minutes').data('easyPieChart').update(minutes * 100 / 60);
+      if (minutes === 0) $('.chart.hours').data('easyPieChart').update(hours * 100 / 24);
+      if (hours === 0) $('.chart.days').data('easyPieChart').update(days * 100 / 30);
+    }
+
     if (this.props.tickCallback) {
       this.props.tickCallback(timeRemaining);
     }
@@ -123,12 +145,37 @@ var CountdownTimer = React.createClass({
     }
   },
 
+  getPieCharts: function(milliseconds) {
+    if (this.props.formatFunc) {
+      return this.props.formatFunc(milliseconds);
+    }
+
+    var totalSeconds = Math.round(milliseconds / 1000);
+
+    var seconds = parseInt(totalSeconds % 60);
+    var minutes = parseInt(totalSeconds / 60) % 60;
+    var hours = parseInt(totalSeconds / 3600) % 24;
+    var days = parseInt(totalSeconds / 86400) % 365;
+
+    return(
+      <ul style={{margin:0, padding:0}}>
+        {days > 0 &&
+          <li className="chart days" data-percent={days * 100 / 30}><span>{days}</span><small>days</small></li>
+        }
+        {hours > 0 &&
+          <li className="chart hours" data-percent={hours * 100 / 24}><span>{hours}</span><small>hours</small></li>
+        }
+        <li className="chart minutes" data-percen={minutes * 100 / 60}><span>{minutes}</span><small>mins</small></li>
+      </ul>
+    )
+  },
+
   render: function() {
     var timeRemaining = this.state.timeRemaining;
 
     return (
       <div className='timer'>
-        {this.getFormattedTime(timeRemaining)}
+        {this.getPieCharts(timeRemaining)}
       </div>
     );
   }
