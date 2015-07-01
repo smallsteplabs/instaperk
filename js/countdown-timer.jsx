@@ -112,15 +112,14 @@ var CountdownTimer = React.createClass({
       var days = parseInt(totalSeconds / 86400) % 365;
 
       $('.chart.minutes').data('easyPieChart').update(minutes * 100 / 60);
-      if (minutes === 0) $('.chart.hours').data('easyPieChart').update(hours * 100 / 24);
-      if (hours === 0) $('.chart.days').data('easyPieChart').update(days * 100 / 30);
+      $('.chart.hours').data('easyPieChart').update(hours * 100 / 24);
+      $('.chart.days').data('easyPieChart').update(days * 100 / 30);
     }
 
     if (this.props.tickCallback) {
       this.props.tickCallback(timeRemaining);
     }
   },
-
 
   getFormattedTime: function(milliseconds) {
     if (this.props.formatFunc) {
@@ -159,13 +158,9 @@ var CountdownTimer = React.createClass({
 
     return(
       <ul style={{margin:0, padding:0}}>
-        {days > 0 &&
-          <li className="chart days" data-percent={days * 100 / 30}><span>{days}</span><small>days</small></li>
-        }
-        {hours > 0 &&
-          <li className="chart hours" data-percent={hours * 100 / 24}><span>{hours}</span><small>hours</small></li>
-        }
-        <li className="chart minutes" data-percen={minutes * 100 / 60}><span>{minutes}</span><small>mins</small></li>
+        <li className="chart days" data-percent={0}><span>{days}</span><small>days</small></li>
+        <li className="chart hours" data-percent={0}><span>{hours}</span><small>hours</small></li>
+        <li className="chart minutes" data-percen={0}><span>{minutes}</span><small>mins</small></li>
       </ul>
     )
   },
