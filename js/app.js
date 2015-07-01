@@ -459,12 +459,13 @@ var PerkPage = React.createClass({
                 <h4>{perk.name + " In Progress"}</h4>
                 <p>{perk.details}</p>
                 <h5>&mdash; For The Next &mdash;</h5>
-                <h1 className="text-positive text-big">
+                <br />
+                <h2>
                   <CountdownTimer
                     initialTimeRemaining={perk.duration * 1000}
                     completeCallback={function () { actions.endPerk(perk.id); }}
                   />
-                </h1>
+                </h2>
               </div>
             }
             {this.state.completed &&
