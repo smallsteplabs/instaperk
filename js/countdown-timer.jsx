@@ -114,12 +114,17 @@ var CountdownTimer = React.createClass({
     }
 
     // update percent
+    $('.chart.seconds').data('easyPieChart').update(seconds * 100 / 60);
     $('.chart.minutes').data('easyPieChart').update(minutes * 100 / 60);
     $('.chart.hours').data('easyPieChart').update(hours * 100 / 24);
     $('.chart.days').data('easyPieChart').update(days * 100 / 30);
 
     // update visibility
-    if (days === 0) $('.chart.days').hide();
+    if (days > 0) {
+      $('.chart.days').show(); $('.chart.seconds').hide();
+    } else {
+      $('.chart.days').hide(); $('.chart.seconds').show();
+    }
     if (hours === 0 && days === 0) $('.chart.hours').hide();
 
     if (countdownComplete) {
@@ -168,6 +173,7 @@ var CountdownTimer = React.createClass({
           <li className="chart days" data-percent={days * 100 / 30}><span>{days}</span><small>days</small></li>
           <li className="chart hours" data-percent={hours * 100 / 24}><span>{hours}</span><small>hours</small></li>
           <li className="chart minutes" data-percent={minutes * 100 / 60 }><span>{minutes}</span><small>mins</small></li>
+          <li className="chart seconds" data-percent={seconds * 100 / 60 }><span>{seconds}</span><small>secs</small></li>
         </ul>
       </div>
     );
