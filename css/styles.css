@@ -30,8 +30,11 @@
   border-radius: 15px;
 }
 
-.bar-header-secondary {
-  background: #ddd;
+.bar-header-secondary .icon-search {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  color: #999;
 }
 
 .bar input[type="search"] {

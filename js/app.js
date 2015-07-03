@@ -62,8 +62,9 @@ var SearchBar = React.createClass({
         <input type="search"
           ref="searchKey"
           onChange={this.searchHandler}
-          placeholder="Search place"
+          placeholder="Search"
         />
+        <span className="icon icon-search"></span>
       </div>
     );
   }
