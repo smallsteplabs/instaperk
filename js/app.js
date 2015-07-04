@@ -7,7 +7,7 @@ var Header = React.createClass({
     return (
       <header className="bar bar-nav">
         <a href="#" onClick={function () { window.history.go(-1); return(false); }}
-          className={"icon icon-arrow-left2 pull-left" + (this.props.back === "true" ? "" : " hidden")}>
+          className={"icon icon-left-nav pull-left" + (this.props.back === "true" ? "" : " hidden")}>
         </a>
         <h1 className="title">{this.props.text}</h1>
       </header>
@@ -33,12 +33,12 @@ var Navigation = React.createClass({
         </a>
         <a onClick={function () { actions.changeTab('favorites'); }}
           className={'tab-item' + (tab == 'favorites' ? ' active' : '')}>
-          <span className="icon icon-bookmark"></span>
+          <span className="icon icon-bookmark-o"></span>
           <span className="tab-label">Saves</span>
         </a>
         <a onClick={function () { actions.changeTab('home'); }}
           className={'tab-item' + (tab == 'home' ? ' active' : '')}>
-          <span className="icon icon-clock"></span>
+          <span className="icon icon-chronometer"></span>
           <span className="tab-label">Perks</span>
         </a>
       </nav>
@@ -95,7 +95,7 @@ var MessageBox = React.createClass({
         <button
           className="btn btn-link pull-right"
           onClick={this.closeHandler}>
-          <span className="icon icon-cross"></span>
+          <span className="icon icon-close"></span>
         </button>
         <h1 className="title">{'To: ' + this.props.to}</h1>
         <form onSubmit={this.submitHandler}>
@@ -130,10 +130,11 @@ var BizListItem = React.createClass({
             <p>
               <button className={"btn" + (saved ? ' btn-positive' : '') }
                 onClick={function () { actions.toggleSave(biz.id); return(false); }}>
-                <span className="icon icon-bookmark"></span> {saved ? 'Member' : 'Save'}
+                <span className={"icon icon-bookmark" + (!saved ? '-o' : '')}>
+                </span> {saved ? 'Member' : 'Save'}
               </button>
               {hasPerk &&
-                <span className="icon icon-clock"></span>
+                <span className="icon icon-chronometer"></span>
               }
             </p>
           </div>
@@ -241,11 +242,11 @@ var BizPage = React.createClass({
     return (
       <div className={"page " + this.props.position}>
         <header className="bar bar-tall" style={headerStyle}>
-          <a href="#" className="icon icon-arrow-left2 pull-left"></a>
+          <a href="#" className="icon icon-left-nav pull-left"></a>
 
-          <button className={"pull-right btn btn-primary" + (saved ? ' btn-positive' : '') }
+          <button className={"pull-right btn" + (saved ? ' btn-positive' : '') }
             onClick={function () { actions.toggleSave(biz.id); return(false); }}>
-            <span className="icon icon-bookmark"></span> {saved ? 'Member' : 'Save'}
+            <span className={"icon icon-bookmark" + (!saved? '-o' : '')}></span> {saved ? 'Member' : 'Save'}
           </button>
 
           <div className="logo-container centered">
@@ -257,7 +258,7 @@ var BizPage = React.createClass({
                 <button
                   className="btn btn-link"
                   onClick={this.toggleMessage}>
-                  <span className="icon icon-bubbles2"></span>
+                  <span className="icon icon-chat"></span>
                 </button>
                 <span>&nbsp;</span>
                 <span>&nbsp;</span>
@@ -294,7 +295,7 @@ var BizPage = React.createClass({
             <div className="card">
               <ul className="table-view no-nav">
                 <li className="table-view-cell media">
-                  <span className="media-object pull-left icon icon-phone"></span>
+                  <span className="media-object pull-left icon icon-phone-square"></span>
                   <div className="media-body">
                     <p>
                       <a href="tel:713-222-3333">(832) 564-0918</a>
@@ -302,7 +303,7 @@ var BizPage = React.createClass({
                   </div>
                 </li>
                 <li className="table-view-cell media">
-                  <span className="media-object pull-left icon icon-envelop"></span>
+                  <span className="media-object pull-left icon icon-envelope-square"></span>
                   <div className="media-body">
                     <p>
                       <a href="mailto:social@deansdowntown.com">social@deansdowntown.com</a>
@@ -604,7 +605,7 @@ var HomePage = React.createClass({
           <br />
           <p className="centered">
             <span
-              className="icon icon-bookmark"
+              className="icon icon-bookmark-o"
               style={{fontSize:100,color:'#ddd'}}>
             </span>
           </p>
@@ -614,7 +615,7 @@ var HomePage = React.createClass({
           <button
             className="btn btn-block btn-primary btn-outlined"
             onClick={function () { actions.changeTab('explore'); }}>
-            Start Here
+            Get Started 
           </button>
         </div>
       </div>
@@ -630,7 +631,7 @@ var HomePage = React.createClass({
             <br />
             <p className="centered">
               <span
-                className="icon icon-clock"
+                className="icon icon-chronometer"
                 style={{fontSize:100,color:'#ddd'}}>
               </span>
             </p>
