@@ -144,6 +144,12 @@
   font-size: 1em;
 }
 
+.fixed-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%
+}
+
 .content > .table-view:first-child {
   margin-top: -2px;
 }

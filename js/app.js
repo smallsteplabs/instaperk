@@ -456,7 +456,7 @@ var CarRequestPage = React.createClass({
             </ul>
           </div>
 
-          <div style={{position:'absolute',bottom:0,width:'100%'}}>
+          <div className="fixed-bottom">
             <div className="card">
               <ul className="table-view no-nav">
                 <li className="table-view-cell media">
@@ -725,14 +725,15 @@ var HomePage = React.createClass({
               style={{fontSize:100,color:'#ddd'}}>
             </span>
           </p>
-          <br />
-          <br />
-          <br />
-          <button
-            className="btn btn-block btn-primary btn-outlined"
-            onClick={function () { actions.changeTab('explore'); }}>
-            Get Started 
-          </button>
+        </div>
+        <div className="fixed-bottom">
+          <div className="content-padded">
+            <button
+              className="btn btn-block btn-primary"
+              onClick={function () { actions.changeTab('explore'); }}>
+              Get Started 
+            </button>
+          </div>
         </div>
       </div>
     );
