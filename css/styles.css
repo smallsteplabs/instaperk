@@ -1,5 +1,18 @@
 /* instaperk theme */
 
+body {
+  background: #f50057;
+}
+/* body:before{
+  display: block;
+  content: " ";
+  height: 20px;
+  top: 0;
+  background: rgba(0,0,0,0.8);
+  position: -webkit-sticky;
+  position: sticky;
+} */
+
 .tab-item.active,.tab-item:active {
   color: #f50057 !important;
 }
