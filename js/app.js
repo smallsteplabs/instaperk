@@ -438,7 +438,7 @@ var CarRequestPage = React.createClass({
     return (
       <div>
         <Header text="CONFIRMATION" back="true" />
-        <div className="content" style={{background:'url(/img/route1.jpg) center center no-repeat'}}>
+        <div className="content" style={{background:'url(/img/route1.jpg) top center no-repeat'}}>
           <div className="card">
             <ul className="table-view no-nav">
               <li className="table-view-cell media">
