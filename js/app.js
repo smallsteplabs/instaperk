@@ -297,7 +297,7 @@ var BizPage = React.createClass({
         }
 
         <div className="content">
-          <ul className="table-view no-nav">
+          <ul className="table-view no-nav more-padding">
             <li className="table-view-cell centered">
               <p>Great classic cocktails and a genuine appreciation for Houston’s past, present and future.</p>
             </li>
@@ -333,7 +333,8 @@ var BizPage = React.createClass({
                   Choose Your Ride
                 </li>
                 <li className="table-view-cell media">
-                  <a href={"#biz/" + biz.id} className="navigate-right">
+                  <a href={"#biz/" + biz.id + "/car-request/uberX"}
+                     className="navigate-right">
                     <span className="badge">4 mins</span>
                     <img src="img/uberX.jpg" className="media-object small natural pull-left" />
                     <div className="media-body">
@@ -343,7 +344,8 @@ var BizPage = React.createClass({
                   </a>
                 </li>
                 <li className="table-view-cell media">
-                  <a href={"#biz/" + biz.id} className="navigate-right">
+                  <a href={"#biz/" + biz.id + "/car-request/uberXL"}
+                     className="navigate-right">
                     <span className="badge">5 mins</span>
                     <img src="img/uberXL.jpg" className="media-object small natural pull-left" />
                     <div className="media-body">
@@ -353,7 +355,8 @@ var BizPage = React.createClass({
                   </a>
                 </li>
                 <li className="table-view-cell media">
-                  <a href={"#biz/" + biz.id} className="navigate-right">
+                  <a href={"#biz/" + biz.id + "/car-request/uberSELECT"}
+                     className="navigate-right">
                     <span className="badge">4 mins</span>
                     <img src="img/uberSELECT.jpg" className="media-object small natural pull-left" />
                     <div className="media-body">
@@ -363,7 +366,8 @@ var BizPage = React.createClass({
                   </a>
                 </li>
                 <li className="table-view-cell media">
-                  <a href={"#biz/" + biz.id} className="navigate-right">
+                  <a href={"#biz/" + biz.id + "/car-request/uberBLACK"}
+                     className="navigate-right">
                     <span className="badge">4 mins</span>
                     <img src="img/uberBLACK.jpg" className="media-object small natural pull-left" />
                     <div className="media-body">
@@ -422,6 +426,56 @@ var BizPage = React.createClass({
                 <img className="media-object pull-left big" src={bizImage} />
               </li>
             </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var CarRequestPage = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <Header text="CONFIRMATION" back="true" />
+        <div className="content" style={{background:'url(/img/route1.jpg) center center no-repeat'}}>
+          <div className="card">
+            <ul className="table-view no-nav">
+              <li className="table-view-cell media">
+                <span className="icon icon-home media-object pull-left"></span>
+                <div className="media-body" style={{lineHeight:'32px'}}>
+                  702 Cleveland Street
+                </div>
+              </li>
+              <li className="table-view-cell media">
+                <span className="icon icon-location media-object pull-left"></span>
+                <div className="media-body" style={{lineHeight:'32px'}}>
+                  Dean's Downtown
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div style={{position:'absolute',bottom:0,width:'100%'}}>
+            <div className="card">
+              <ul className="table-view no-nav">
+                <li className="table-view-cell media">
+                  <span className="icon icon-cc-visa media-object pull-left"></span>
+                  <div className="media-body" style={{lineHeight:'32px'}}>
+                    Personal **** 9649
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="content-padded">
+              <button className="btn btn-primary btn-block">
+                {"Request " + this.props.carKind}
+              </button>
+            </div>
+            <p className="centered"><small className="badge">
+              Pickup time is approximately 4 mins
+            </small></p>
           </div>
         </div>
       </div>
@@ -800,6 +854,14 @@ var App = React.createClass({
     }.bind(this));
     router.addRoute('biz/:id', function (id) {
       this.slidePage(<BizPage {...this.state} key={"biz" + id} bizId={id} />);
+    }.bind(this));
+    router.addRoute('biz/:id/car-request/:carKind', function (id, carKind) {
+      this.slidePage(
+        <CarRequestPage {...this.state}
+          key={"car" + id}
+          bizId={id}
+          carKind={carKind} />
+      );
     }.bind(this));
     router.addRoute('perk/:id', function (id) {
       var perk = store.perks[id];
