@@ -1,3 +1,25 @@
+/* instaperk theme */
+
+.tab-item.active,.tab-item:active {
+  color: #f50057 !important;
+}
+
+.bar-nav .title {
+  color: #fff !important;
+}
+
+.bar-nav,
+.btn-primary {
+  border-color: #f50057 !important;
+  background: #f50057 !important;
+}
+
+.btn-primary.btn-outlined {
+  color: #f50057 !important;
+  border-color: #f50057 !important;
+  background: transparent !important;
+}
+
 .bg-dark {
   /* background: #e71e62; */
   background: #1b0a03 url(../img/bg.jpg) no-repeat top center;
@@ -62,7 +84,8 @@
   padding-top: 210px;
 }
 
-.bar-tall > .icon {
+.bar-tall > .icon,
+.bar-nav > .icon {
   color: #fff;
 }
 

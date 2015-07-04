@@ -56,8 +56,8 @@ var CountdownTimer = React.createClass({
   componentDidMount: function() {
     var options = {
       scaleColor: false,
-      trackColor: 'rgba(76, 217, 100, 0.3)',
-      barColor: '#4CD964',
+      trackColor: '#f8bbd0',
+      barColor: '#f50057',
       lineWidth: 6,
       lineCap: 'butt',
       size: 75
