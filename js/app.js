@@ -436,9 +436,9 @@ var BizPage = React.createClass({
 var CarRequestPage = React.createClass({
   render: function () {
     return (
-      <div>
+      <div className={"page " + this.props.position}>
         <Header text="CONFIRMATION" back="true" />
-        <div className="content" style={{background:'url(/img/route1.jpg) top center no-repeat'}}>
+        <div className="content" style={{background:'#EFEFF4 url(/img/route1.jpg) top center no-repeat'}}>
           <div className="card">
             <ul className="table-view no-nav">
               <li className="table-view-cell media">
