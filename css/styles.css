@@ -14,7 +14,7 @@ body {
 } */
 
 .tab-item.active,.tab-item:active {
-  color: #f50057 !important;
+  color: #DFBA69 !important;
 }
 
 .bar-nav .title {
@@ -23,13 +23,13 @@ body {
 
 .bar-nav,
 .btn-primary {
-  border-color: #f50057 !important;
-  background: #f50057 !important;
+  border-color: #DFBA69 !important;
+  background: #DFBA69 !important;
 }
 
 .btn-primary.btn-outlined {
-  color: #f50057 !important;
-  border-color: #f50057 !important;
+  color: #DFBA69 !important;
+  border-color: #DFBA69 !important;
   background: transparent !important;
 }
 
