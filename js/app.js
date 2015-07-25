@@ -119,24 +119,27 @@ var BizListItem = React.createClass({
         hasPerk = this.props.hasPerk;
 
     return (
-      <li className="table-view-cell media">
-        <a href={"#biz/" + biz.id} className="navigate-right">
-          <span className="badge">{biz.distance + ' mi'}</span>
-          <img className="media-object small pull-left"
-            src={"img/biz" + biz.id + '.jpg'} />
+      <li className="table-view-cell media media-card">
+        <a href={"#biz/" + biz.id}>
+          <div
+            className="media-object"
+            style={{backgroundImage: 'url(img/biz'+ biz.id + '.jpg)'}}>
+            {hasPerk &&
+              <div className="media-object-caption">
+                <small>
+                  <span className="icon icon-chronometer"></span> 3 perks running
+                </small>
+              </div>
+            }
+          </div>
           <div className="media-body">
-            <span>{biz.name}</span>
-            <p>{biz.address}<br />{biz.city}</p>
-            <p>
-              <button className={"btn" + (saved ? ' btn-positive' : '') }
-                onClick={function () { actions.toggleSave(biz.id); return(false); }}>
-                <span className={"icon icon-bookmark" + (!saved ? '-o' : '')}>
-                </span> {saved ? 'Member' : 'Save'}
-              </button>
-              {hasPerk &&
-                <span className="icon icon-chronometer"></span>
-              }
-            </p>
+            <button className={"pull-right btn" + (saved ? ' btn-positive' : '') }
+              onClick={function (e) { e.preventDefault(); actions.toggleSave(biz.id); }}>
+              <span className={"icon icon-bookmark" + (!saved ? '-o' : '')}>
+              </span> {saved ? 'Member' : 'Save'}
+            </button>
+            {biz.name}
+            <p>{biz.address} &middot; <small>{biz.distance + ' mi'}</small></p>
           </div>
         </a>
       </li>
@@ -189,7 +192,7 @@ var BizList = React.createClass({
         });
 
     return (
-      <ul className="table-view">
+      <ul className="table-view no-nav">
         {items}
       </ul>
     );
