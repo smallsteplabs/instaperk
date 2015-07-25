@@ -191,7 +191,7 @@ body {
 }
 
 .table-view {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 .table-view.no-nav .table-view-cell {
   padding-right: 15px !important;

@@ -307,100 +307,92 @@ var BizPage = React.createClass({
           </ul>
 
           {this.state.showContact &&
-            <div className="card">
-              <ul className="table-view no-nav">
-                <li className="table-view-cell media">
-                  <span className="media-object pull-left icon icon-phone-square"></span>
-                  <div className="media-body">
-                    <p>
-                      <a href="tel:713-222-3333">(832) 564-0918</a>
-                    </p>
-                  </div>
-                </li>
-                <li className="table-view-cell media">
-                  <span className="media-object pull-left icon icon-envelope-square"></span>
-                  <div className="media-body">
-                    <p>
-                      <a href="mailto:social@deansdowntown.com">social@deansdowntown.com</a>
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <ul className="table-view no-nav">
+              <li className="table-view-cell media">
+                <span className="media-object pull-left icon icon-phone-square"></span>
+                <div className="media-body">
+                  <p>
+                    <a href="tel:713-222-3333">(832) 564-0918</a>
+                  </p>
+                </div>
+              </li>
+              <li className="table-view-cell media">
+                <span className="media-object pull-left icon icon-envelope-square"></span>
+                <div className="media-body">
+                  <p>
+                    <a href="mailto:social@deansdowntown.com">social@deansdowntown.com</a>
+                  </p>
+                </div>
+              </li>
+            </ul>
           }
 
           {this.state.showCar &&
-            <div className="card">
-              <ul className="table-view">
-                <li className="table-view-cell table-view-divider">
-                  Choose Your Ride
-                </li>
-                <li className="table-view-cell media">
-                  <a href={"#biz/" + biz.id + "/car-request/uberX"}
-                     className="navigate-right">
-                    <span className="badge">4 mins</span>
-                    <img src="img/uberX.jpg" className="media-object small natural pull-left" />
-                    <div className="media-body">
-                      uberX
-                      <p>$5-6</p>
-                    </div>
-                  </a>
-                </li>
-                <li className="table-view-cell media">
-                  <a href={"#biz/" + biz.id + "/car-request/uberXL"}
-                     className="navigate-right">
-                    <span className="badge">5 mins</span>
-                    <img src="img/uberXL.jpg" className="media-object small natural pull-left" />
-                    <div className="media-body">
-                      uberXL
-                      <p>$8-11</p>
-                    </div>
-                  </a>
-                </li>
-                <li className="table-view-cell media">
-                  <a href={"#biz/" + biz.id + "/car-request/uberSELECT"}
-                     className="navigate-right">
-                    <span className="badge">4 mins</span>
-                    <img src="img/uberSELECT.jpg" className="media-object small natural pull-left" />
-                    <div className="media-body">
-                      uberSELECT
-                      <p>$10-16</p>
-                    </div>
-                  </a>
-                </li>
-                <li className="table-view-cell media">
-                  <a href={"#biz/" + biz.id + "/car-request/uberBLACK"}
-                     className="navigate-right">
-                    <span className="badge">4 mins</span>
-                    <img src="img/uberBLACK.jpg" className="media-object small natural pull-left" />
-                    <div className="media-body">
-                      uberBLACK
-                      <p>$15-16</p>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <ul className="table-view">
+              <li className="table-view-cell table-view-divider">
+                Choose Your Ride
+              </li>
+              <li className="table-view-cell media">
+                <a href={"#biz/" + biz.id + "/car-request/uberX"}
+                   className="navigate-right">
+                  <span className="badge">4 mins</span>
+                  <img src="img/uberX.jpg" className="media-object small natural pull-left" />
+                  <div className="media-body">
+                    uberX
+                    <p>$5-6</p>
+                  </div>
+                </a>
+              </li>
+              <li className="table-view-cell media">
+                <a href={"#biz/" + biz.id + "/car-request/uberXL"}
+                   className="navigate-right">
+                  <span className="badge">5 mins</span>
+                  <img src="img/uberXL.jpg" className="media-object small natural pull-left" />
+                  <div className="media-body">
+                    uberXL
+                    <p>$8-11</p>
+                  </div>
+                </a>
+              </li>
+              <li className="table-view-cell media">
+                <a href={"#biz/" + biz.id + "/car-request/uberSELECT"}
+                   className="navigate-right">
+                  <span className="badge">4 mins</span>
+                  <img src="img/uberSELECT.jpg" className="media-object small natural pull-left" />
+                  <div className="media-body">
+                    uberSELECT
+                    <p>$10-16</p>
+                  </div>
+                </a>
+              </li>
+              <li className="table-view-cell media">
+                <a href={"#biz/" + biz.id + "/car-request/uberBLACK"}
+                   className="navigate-right">
+                  <span className="badge">4 mins</span>
+                  <img src="img/uberBLACK.jpg" className="media-object small natural pull-left" />
+                  <div className="media-body">
+                    uberBLACK
+                    <p>$15-16</p>
+                  </div>
+                </a>
+              </li>
+            </ul>
           }
 
           {!saved &&
-            <div className="card">
-              <ul className="table-view no-nav">
-                <li className="table-view-cell">
-                  <p>Save us and get members only perks from Dean's Downtown!</p>
-                </li>
-              </ul>
-            </div>
+            <ul className="table-view no-nav">
+              <li className="table-view-cell">
+                <p>Save us and get members only perks from Dean's Downtown!</p>
+              </li>
+            </ul>
           }
 
           {saved && Object.keys(store.perks).length === 0 &&
-            <div className="card">
-              <ul className="table-view no-nav">
-                <li className="table-view-cell">
-                  <p>New Perks Coming Soon.</p>
-                </li>
-              </ul>
-            </div>
+            <ul className="table-view no-nav">
+              <li className="table-view-cell">
+                <p>New Perks Coming Soon.</p>
+              </li>
+            </ul>
           }
 
           {saved && Object.keys(store.perks).length > 0 &&
@@ -412,24 +404,20 @@ var BizPage = React.createClass({
                               return (perk.bizId == biz.id && perk.kind == kind);
                             });
             return (
-              <div className="card">
-                <ul className="table-view top-nav">
-                  {perkIds.map(function (id) {
-                    return <PerkListItem perk={store.perks[id]} />;
-                  })}
-                </ul>
-              </div>
+              <ul className="table-view top-nav">
+                {perkIds.map(function (id) {
+                  return <PerkListItem perk={store.perks[id]} />;
+                })}
+              </ul>
             );
           })}
 
-          <div className="card">
-            <ul className="table-view no-nav">
-              <li className="table-view-cell">
-                <img className="media-object pull-left big" src={bizImage} />
-                <img className="media-object pull-left big" src={bizImage} />
-              </li>
-            </ul>
-          </div>
+          <ul className="table-view no-nav">
+            <li className="table-view-cell">
+              <img className="media-object pull-left big" src={bizImage} />
+              <img className="media-object pull-left big" src={bizImage} />
+            </li>
+          </ul>
         </div>
       </div>
     );
