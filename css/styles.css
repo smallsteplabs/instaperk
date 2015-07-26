@@ -204,7 +204,9 @@ body {
 .table-view.chat {
   margin-bottom: 50px;
 }
-.table-view.chat .table-view-cell {
+.table-view.chat .table-view-cell, 
+.table-view.chat .table-view-divider {
+  background-image: none;
   padding: 0 15px 10px 15px;
 }
 
