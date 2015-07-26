@@ -263,11 +263,11 @@ var BizPage = React.createClass({
               <h1>{biz.name}</h1>
               <p><small>{biz.address} &ndash; {biz.city}</small></p>
               <p>
-                <button
+                <a
                   className="btn btn-link"
-                  onClick={this.toggleMessage}>
+                  href={"#biz/" + biz.id + "/chat"}>
                   <span className="icon icon-chat"></span>
-                </button>
+                </a>
                 <span>&nbsp;</span>
                 <span>&nbsp;</span>
                 <button
@@ -474,115 +474,157 @@ var CarRequestPage = React.createClass({
   }
 });
 
-var PerkPage = React.createClass({
-  getInitialState: function () {
-    return ({
-      biz : null,
-      started: false,
-      completed: false
-    });
-  },
-
-  componentWillMount: function () {
-    var _this = this,
-        perk = this.props.perk;
-
-    bizService.findById(this.props.perk.bizId).done(function (result) {
-      _this.setState({ biz: result });
-    });
-
-    this.setState({ started: perk.startIn === 0 ? true : false });
-    this.setState({ completed: perk.duration === 0 ? true : false });
-
-    store.on('change:perks', function (perks) {
-      _this.setState({ started: perks[perk.id].startIn === 0 ? true : false });
-      _this.setState({ completed: perks[perk.id].duration === 0 ? true : false });
-    });
-  },
-
+var CarRequestPage = React.createClass({
   render: function () {
-    var perk = this.props.perk,
-        biz = this.state.biz,
-        perkImage = '/img/perk' + perk.id + '.jpg';
-
     return (
       <div className={"page " + this.props.position}>
-        <Header text={perk.name} back="true" />
-        <div className="content">
-          <div className="content-padded centered">
-            <h5>{biz.name}</h5>
-            <p><img src={perkImage} style={{ width: '50%' }} /></p>
-
-            {!this.state.started && perk.kind == 'Birthday'  &&
-              <div>
-                <br />
-                <h4>Happy Birtday!</h4>
-                <h5><span className="badge">{perk.when}</span></h5>
-                <p>{perk.description}</p>
-                <p>{perk.details}</p>
-                <h5>&mdash; Starts In &mdash;</h5>
-                <br />
-                <h2>
-                  <CountdownTimer
-                    initialTimeRemaining={perk.startIn * 1000}
-                    completeCallback={function () { actions.startPerk(perk.id); }}
-                  />
-                </h2>
-              </div>
-            }
-
-            {!this.state.started && perk.kind == 'Event'  &&
-              <div>
-                <br />
-                <h4>{perk.name}</h4>
-                <h5><span className="badge">{perk.when}</span></h5>
-                <p>{perk.details}</p>
-
-                <h5>&mdash; Starts In &mdash;</h5>
-                <br />
-                <h2>
-                  <CountdownTimer
-                    initialTimeRemaining={perk.startIn * 1000}
-                    completeCallback={function () { actions.startPerk(perk.id); }}
-                  />
-                </h2>
-              </div>
-            }
-            {!this.state.started && perk.kind == 'On-Going' &&
-              <div>
-                <br />
-                <h4>{"Get " + perk.name}</h4>
-                <h5><span className="badge">{perk.when}</span></h5>
-                <p>{perk.details}</p>
-
-                <br />
-                <button className="btn btn-block btn-primary"
-                    onClick={function () { actions.startPerk(perk.id); }}>
-                  {"Start Your "+ perk.name + " Now"}
-                </button>
-              </div>
-            }
-            {this.state.started && !this.state.completed &&
-              <div>
-                <br />
-                <h4>{perk.name + " In Progress"}</h4>
-                <p>{perk.details}</p>
-                <h5>&mdash; For The Next &mdash;</h5>
-                <br />
-                <h2>
-                  <CountdownTimer
-                    initialTimeRemaining={perk.duration * 1000}
-                    completeCallback={function () { actions.endPerk(perk.id); }}
-                  />
-                </h2>
-              </div>
-            }
-            {this.state.completed &&
-              <div>
-                <p>Perk has ended</p>
-              </div>
-            }
+        <Header text="CONFIRMATION" back="true" />
+        <div className="content" style={{background:'#EFEFF4 url(/img/route1.jpg) top center no-repeat'}}>
+          <div className="card">
+            <ul className="table-view no-nav">
+              <li className="table-view-cell media">
+                <span className="icon icon-home media-object pull-left"></span>
+                <div className="media-body" style={{lineHeight:'32px'}}>
+                  702 Cleveland Street
+                </div>
+              </li>
+              <li className="table-view-cell media">
+                <span className="icon icon-location media-object pull-left"></span>
+                <div className="media-body" style={{lineHeight:'32px'}}>
+                  Dean's Downtown
+                </div>
+              </li>
+            </ul>
           </div>
+
+          <div className="fixed-bottom">
+            <div className="card">
+              <ul className="table-view no-nav">
+                <li className="table-view-cell media">
+                  <span className="icon icon-cc-visa media-object pull-left"></span>
+                  <div className="media-body" style={{lineHeight:'32px'}}>
+                    Personal **** 9649
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="content-padded">
+              <button className="btn btn-primary btn-block">
+                {"Request " + this.props.carKind}
+              </button>
+            </div>
+            <p className="centered"><small className="badge">
+              Pickup time is approximately 4 mins
+            </small></p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var ChatPage = React.createClass({
+  render: function () {
+    return (
+      <div className={"page " + this.props.position}>
+        <Header text="Chat with Dean's Downtown" back="true" />
+        <div className="bar bar-standard bar-footer-secondary bar-small">
+          <p><small>* Please include the best way to contact you</small></p>
+        </div>
+        <div className="bar bar-standard bar-footer">
+          <form>
+            <input
+              type="text"
+              placeholder="Your Message"
+              style={{marginTop: 2, padding: '5px'}}
+            />
+          </form>
+        </div>
+        <div className="content">
+          <ul className="table-view no-nav chat">
+            <li className="table-view-divider centered">
+              <small>Yesterday, 9.30 AM</small>
+            </li>
+
+            <li className="table-view-cell media">
+              <div className="media-body">
+                <div className="badge badge-primary badge-chat pull-right">
+                  Hi, I'm Rian.<br />
+                  I'd like to book for my birthday party. Can you arrange that?<br />
+                  My phone number is 812.323.4567<br />
+                </div>
+              </div>
+            </li>
+            
+            <li className="table-view-divider centered">
+              <small>Today, 11.23 AM</small>
+            </li>
+
+            <li className="table-view-cell media">
+              <img src="img/logo1.png" className="media-object bottom tiny circle pull-left" />
+              <div className="media-body" style={{paddingLeft: 25}}>
+                <span className="badge badge-inverted badge-chat-meta">
+                  <small>Dean's Downtown</small>
+                </span>
+                <br />
+                <div className="badge badge-chat">
+                  Sure! When?
+                </div>
+              </div>
+            </li>
+
+            <li className="table-view-cell media">
+              <div className="media-body">
+                <div className="badge badge-primary badge-chat pull-right">
+                  It will be Nop 11. Saturday, I believe.
+                </div>
+              </div>
+            </li>
+
+            <li className="table-view-cell media">
+              <img src="img/logo1.png" className="media-object bottom tiny circle pull-left" />
+              <div className="media-body" style={{paddingLeft: 25}}>
+                <span className="badge badge-inverted badge-chat-meta">
+                  <small>Dean's Downtown</small>
+                </span>
+                <br />
+                <div className="badge badge-chat">
+                  Great! How many people will attend?
+                </div>
+              </div>
+            </li>
+
+            <li className="table-view-cell media">
+              <div className="media-body">
+                <div className="badge badge-primary badge-chat pull-right">
+                  20 max
+                </div>
+              </div>
+            </li>
+
+            <li className="table-view-cell media">
+              <img src="img/logo1.png" className="media-object bottom tiny circle pull-left" />
+              <div className="media-body" style={{paddingLeft: 25}}>
+                <span className="badge badge-inverted badge-chat-meta">
+                  <small>Dean's Downtown</small>
+                </span>
+                <br />
+                <div className="badge badge-chat">
+                  Awesome! We'll arrange it for you.
+                </div>
+              </div>
+            </li>
+
+            <li className="table-view-cell media">
+              <div className="media-body">
+                <div className="badge badge-primary badge-chat pull-right">
+                  Thanks! Looking forward to it.
+                </div>
+              </div>
+            </li>
+
+          </ul>
         </div>
       </div>
     );
@@ -858,6 +900,9 @@ var App = React.createClass({
     router.addRoute('perk/:id', function (id) {
       var perk = store.perks[id];
       this.slidePage(<PerkPage {...this.state} key={"perk" + id} perk={perk} />);
+    }.bind(this));
+    router.addRoute('biz/:id/chat', function (id) {
+      this.slidePage(<ChatPage {...this.state} key={"chat" + id} bizId={id} />);
     }.bind(this));
     router.start();
   }

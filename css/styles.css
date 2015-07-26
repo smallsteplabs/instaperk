@@ -78,6 +78,11 @@ body {
   color: #999;
 }
 
+.bar-small {
+  height: auto;
+  box-shadow: none;
+}
+
 .bar input[type="search"] {
   height: 34px;
   padding: 0 15px;
@@ -196,6 +201,12 @@ body {
 .table-view.no-nav .table-view-cell {
   padding-right: 15px !important;
 }
+.table-view.chat {
+  margin-bottom: 50px;
+}
+.table-view.chat .table-view-cell {
+  padding: 0 15px 10px 15px;
+}
 
 .hidden {
   opacity: 0;
@@ -248,6 +259,19 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 5px;
+}
+.media-object.tiny {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+}
+.media-object.tiny.circle {
+  border-radius: 12px;
+}
+.media-object.bottom {
+  position: absolute;
+  left: 10px;
+  bottom: 0;
 }
 
 .media-body p > .icon {
@@ -370,4 +394,28 @@ input[type=search] {
   position: absolute;
   left: 0;
   top: 0;
+}
+
+/* chat */
+
+.badge-primary {
+  background: #DFBA69 !important;
+}
+
+.badge-chat-meta {
+  padding: 0 10px 3px !important;
+}
+.badge-chat {
+  font-size: 0.9rem;
+  text-align: left;
+  line-height: 1.2rem;
+  border-radius: 15px 15px 15px 0;
+  padding: 6px 10px 7px;
+  margin-right: 30px;
+}
+
+.badge-chat.pull-right {
+  border-radius: 15px 15px 0 15px;
+  margin-left: 40px;
+  margin-right: 0;
 }
