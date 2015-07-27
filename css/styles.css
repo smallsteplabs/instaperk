@@ -230,6 +230,7 @@ body {
   display: block !important;
   position: relative;
   height: 11rem;
+  background: rgba(0, 0, 0, 0.4);
 }
 .media-card .media-body {
   position: absolute;
