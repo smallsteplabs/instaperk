@@ -419,6 +419,121 @@ var BizPage = React.createClass({
   }
 });
 
+var PerkPage = React.createClass({
+  getInitialState: function () {
+    return ({
+      biz : null,
+      started: false,
+      completed: false
+    });
+  },
+
+  componentWillMount: function () {
+    var _this = this,
+        perk = this.props.perk;
+
+    bizService.findById(this.props.perk.bizId).done(function (result) {
+      _this.setState({ biz: result });
+    });
+
+    this.setState({ started: perk.startIn === 0 ? true : false });
+    this.setState({ completed: perk.duration === 0 ? true : false });
+
+    store.on('change:perks', function (perks) {
+      _this.setState({ started: perks[perk.id].startIn === 0 ? true : false });
+      _this.setState({ completed: perks[perk.id].duration === 0 ? true : false });
+    });
+  },
+
+  render: function () {
+    var perk = this.props.perk,
+        biz = this.state.biz,
+        perkImage = '/img/perk' + perk.id + '.jpg';
+
+    return (
+      <div className={"page " + this.props.position}>
+        <Header text={perk.name} back="true" />
+        <div className="content">
+          <div className="content-padded centered">
+            <h5>{biz.name}</h5>
+            <p><img src={perkImage} style={{ width: '50%' }} /></p>
+
+            {!this.state.started && perk.kind == 'Birthday'  &&
+              <div>
+                <br />
+                <h4>Happy Birtday!</h4>
+                <h5><span className="badge">{perk.when}</span></h5>
+                <p>{perk.description}</p>
+                <p>{perk.details}</p>
+                <h5>&mdash; Starts In &mdash;</h5>
+                <br />
+                <h2>
+                  <CountdownTimer
+                    initialTimeRemaining={perk.startIn * 1000}
+                    completeCallback={function () { actions.startPerk(perk.id); }}
+                  />
+                </h2>
+              </div>
+            }
+
+            {!this.state.started && perk.kind == 'Event'  &&
+              <div>
+                <br />
+                <h4>{perk.name}</h4>
+                <h5><span className="badge">{perk.when}</span></h5>
+                <p>{perk.details}</p>
+
+                <h5>&mdash; Starts In &mdash;</h5>
+                <br />
+                <h2>
+                  <CountdownTimer
+                    initialTimeRemaining={perk.startIn * 1000}
+                    completeCallback={function () { actions.startPerk(perk.id); }}
+                  />
+                </h2>
+              </div>
+            }
+            {!this.state.started && perk.kind == 'On-Going' &&
+              <div>
+                <br />
+                <h4>{"Get " + perk.name}</h4>
+                <h5><span className="badge">{perk.when}</span></h5>
+                <p>{perk.details}</p>
+
+                <br />
+                <button className="btn btn-block btn-primary"
+                    onClick={function () { actions.startPerk(perk.id); }}>
+                  {"Start Your "+ perk.name + " Now"}
+                </button>
+              </div>
+            }
+            {this.state.started && !this.state.completed &&
+              <div>
+                <br />
+                <h4>{perk.name + " In Progress"}</h4>
+                <p>{perk.details}</p>
+                <h5>&mdash; For The Next &mdash;</h5>
+                <br />
+                <h2>
+                  <CountdownTimer
+                    initialTimeRemaining={perk.duration * 1000}
+                    completeCallback={function () { actions.endPerk(perk.id); }}
+                  />
+                </h2>
+              </div>
+            }
+            {this.state.completed &&
+              <div>
+                <p>Perk has ended</p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
 var CarRequestPage = React.createClass({
   render: function () {
     return (
