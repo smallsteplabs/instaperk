@@ -119,26 +119,21 @@ var BizListItem = React.createClass({
         hasPerk = this.props.hasPerk;
 
     return (
-      <li className="table-view-cell media media-card">
+      <li className="table-view-cell media media-card"
+          style={{backgroundImage: 'url(img/biz'+ biz.id + '.jpg)'}}>
         <a href={"#biz/" + biz.id}>
-          <div
-            className="media-object"
-            style={{backgroundImage: 'url(img/biz'+ biz.id + '.jpg)'}}>
-            {hasPerk &&
-              <div className="media-object-caption">
-                <small>
-                  <span className="icon icon-chronometer"></span> 3 perks running
-                </small>
-              </div>
-            }
-          </div>
           <div className="media-body">
-            <button className={"pull-right btn" + (saved ? ' btn-positive' : '') }
-              onClick={function (e) { e.preventDefault(); actions.toggleSave(biz.id); }}>
-              <span className={"icon icon-bookmark" + (!saved ? '-o' : '')}>
-              </span> {saved ? 'Member' : 'Save'}
-            </button>
-            {biz.name}
+            <div className="media-action">
+              <button className={"pull-right btn" + (saved ? ' btn-positive' : '') }
+                onClick={function (e) { e.preventDefault(); actions.toggleSave(biz.id); }}>
+                <span className={"icon icon-bookmark" + (!saved ? '-o' : '')}>
+                </span> {saved ? 'Member' : 'Save'}
+              </button>
+              {hasPerk &&
+                <span className="icon icon-chronometer pull-right"></span>
+              }
+            </div>
+            <h3>{biz.name}</h3>
             <p>{biz.address} &middot; <small>{biz.distance + ' mi'}</small></p>
           </div>
         </a>
@@ -533,7 +528,7 @@ var ChatPage = React.createClass({
           <p><small>* Please include the best way to contact you</small></p>
         </div>
         <div className="bar bar-standard bar-footer">
-          <form>
+          <form onSubmit={this.submitHandler}>
             <input
               type="text"
               placeholder="Your Message"
