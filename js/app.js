@@ -912,18 +912,16 @@ var HomePage = React.createClass({
       <div>
         <Header text={store.intro ? 'InstaPerk' : 'My Perks'} back="false" />
         <div className="content">
-          <div className="content-padded">
-            <ul className="table-view">
-              <li className="table-view-cell table-view-divider">
-                Dean's Downtown
-              </li>
-              {perkIds.map(function (id) {
-                return (
-                  <PerkListItem perk={store.perks[id]} />
-                );
-              })}
-            </ul>
-          </div>
+          <ul className="table-view">
+            <li className="table-view-cell table-view-divider">
+              Dean's Downtown
+            </li>
+            {perkIds.map(function (id) {
+              return (
+                <PerkListItem perk={store.perks[id]} />
+              );
+            })}
+          </ul>
         </div>
         <Navigation tab={this.props.tab} />
       </div>
