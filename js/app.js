@@ -856,7 +856,7 @@ var HomePage = React.createClass({
         <div className="content-padded">
           <br />
           <h1 className="centered">
-            InstaPerk
+            Instaperk
           </h1>
           <h5 className="centered">
             Perks from places<br />you love
@@ -883,7 +883,7 @@ var HomePage = React.createClass({
 
     if (!store.intro && perkIds.length === 0) return (
       <div>
-        <Header text={store.intro ? 'InstaPerk' : 'My Perks'} back="false" />
+        <Header text={store.intro ? 'Instaperk' : 'My Perks'} back="false" />
         <div className="content">
           <div className="content-padded">
             <br />
@@ -910,7 +910,7 @@ var HomePage = React.createClass({
 
     if (!store.intro && perkIds.length > 0) return (
       <div>
-        <Header text={store.intro ? 'InstaPerk' : 'My Perks'} back="false" />
+        <Header text={store.intro ? 'Instaperk' : 'My Perks'} back="false" />
         <div className="content">
           <ul className="table-view">
             <li className="table-view-cell table-view-divider">
