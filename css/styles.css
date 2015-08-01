@@ -57,6 +57,8 @@ body {
   text-align: center;
 }
 
+.mb0 { margin-bottom: 0 !important; }
+
 .text-big {
   font-size: 5em;
   font-weight: normal;

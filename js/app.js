@@ -424,7 +424,8 @@ var PerkPage = React.createClass({
     return ({
       biz : null,
       started: false,
-      completed: false
+      completed: false,
+      showInvite: false
     });
   },
 
@@ -445,6 +446,10 @@ var PerkPage = React.createClass({
     });
   },
 
+  toggleInvite: function () {
+    this.setState({ showInvite: !this.state.showInvite});
+  },
+
   render: function () {
     var perk = this.props.perk,
         biz = this.state.biz,
@@ -453,6 +458,13 @@ var PerkPage = React.createClass({
     return (
       <div className={"page " + this.props.position}>
         <Header text={perk.name} back="true" />
+        <div className="bar bar-standard bar-footer">
+          <button
+             onClick={this.toggleInvite}
+             className="btn btn-primary btn-block">
+            Invite Friends
+          </button>
+        </div>
         <div className="content">
           <div className="content-padded centered">
             <h5>{biz.name}</h5>
@@ -529,6 +541,45 @@ var PerkPage = React.createClass({
             }
           </div>
         </div>
+
+        {this.state.showInvite &&
+          <div className="fixed-bottom" style={{marginBottom: '44px'}}>
+            <ul className="table-view mb0">
+              <li className="table-view-cell media">
+                <a className="navigate-right">
+                  <span className="icon icon-facebook-square media-object pull-left"></span>
+                  <div className="media-body" style={{lineHeight:'32px'}}>
+                    Facebook
+                  </div>
+                </a>
+              </li>
+              <li className="table-view-cell media">
+                <a className="navigate-right">
+                  <span className="icon icon-twitter-square media-object pull-left"></span>
+                  <div className="media-body" style={{lineHeight:'32px'}}>
+                    Twitter
+                  </div>
+                </a>
+              </li>
+              <li className="table-view-cell media">
+                <a className="navigate-right">
+                  <span className="icon icon-envelope-square media-object pull-left"></span>
+                  <div className="media-body" style={{lineHeight:'32px'}}>
+                    Text
+                  </div>
+                </a>
+              </li>
+              <li className="table-view-cell media">
+                <a className="navigate-right">
+                  <span className="icon icon-envelope-square media-object pull-left"></span>
+                  <div className="media-body" style={{lineHeight:'32px'}}>
+                    Email
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        }
       </div>
     );
   }
