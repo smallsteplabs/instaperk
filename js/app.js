@@ -539,7 +539,8 @@ var PerkPage = React.createClass({
           <div className="fixed-bottom" style={{marginBottom: '44px'}}>
             <ul className="table-view mb0">
               <li className="table-view-cell media">
-                <a className="navigate-right">
+                <a className="navigate-right"
+                   href={'https://www.facebook.com/sharer/sharer.php?app_id=142858009128896&sdk=joey&u=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F29.778524%2C-95.395847%2FDean%2527s%2C%2BMain%2BStreet%2C%2BHouston%2C%2BTX&display=popup&ref=plugin&src=share_button'}>
                   <span className="icon icon-facebook-square media-object pull-left"></span>
                   <div className="media-body" style={{lineHeight:'32px'}}>
                     Facebook
