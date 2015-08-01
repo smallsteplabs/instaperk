@@ -453,7 +453,8 @@ var PerkPage = React.createClass({
   render: function () {
     var perk = this.props.perk,
         biz = this.state.biz,
-        perkImage = '/img/perk' + perk.id + '.jpg';
+        perkImage = '/img/perk' + perk.id + '.jpg',
+        bizMapURL = 'https://www.google.com/maps/dir/29.778524,-95.395847/Dean%27s,+Main+Street,+Houston,+TX';
 
     return (
       <div className={"page " + this.props.position}>
@@ -554,7 +555,8 @@ var PerkPage = React.createClass({
                 </a>
               </li>
               <li className="table-view-cell media">
-                <a className="navigate-right">
+                <a className="navigate-right"
+                   href={"https://twitter.com/intent/tweet?text=I'm%20at%20Dean's%20Downtown%20now.%20Get%20here!&via=instaperkapp&url=" + encodeURIComponent(bizMapURL)}>
                   <span className="icon icon-twitter-square media-object pull-left"></span>
                   <div className="media-body" style={{lineHeight:'32px'}}>
                     Twitter
