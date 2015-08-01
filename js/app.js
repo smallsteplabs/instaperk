@@ -473,13 +473,11 @@ var PerkPage = React.createClass({
 
             {!this.state.started && perk.kind == 'Birthday'  &&
               <div>
-                <br />
                 <h4>Happy Birtday!</h4>
                 <h5><span className="badge">{perk.when}</span></h5>
                 <p>{perk.description}</p>
                 <p>{perk.details}</p>
                 <h5>&mdash; Starts In &mdash;</h5>
-                <br />
                 <h2>
                   <CountdownTimer
                     initialTimeRemaining={perk.startIn * 1000}
@@ -491,13 +489,11 @@ var PerkPage = React.createClass({
 
             {!this.state.started && perk.kind == 'Event'  &&
               <div>
-                <br />
                 <h4>{perk.name}</h4>
                 <h5><span className="badge">{perk.when}</span></h5>
                 <p>{perk.details}</p>
 
                 <h5>&mdash; Starts In &mdash;</h5>
-                <br />
                 <h2>
                   <CountdownTimer
                     initialTimeRemaining={perk.startIn * 1000}
@@ -508,12 +504,10 @@ var PerkPage = React.createClass({
             }
             {!this.state.started && perk.kind == 'On-Going' &&
               <div>
-                <br />
                 <h4>{"Get " + perk.name}</h4>
                 <h5><span className="badge">{perk.when}</span></h5>
                 <p>{perk.details}</p>
 
-                <br />
                 <button className="btn btn-block btn-primary"
                     onClick={function () { actions.startPerk(perk.id); }}>
                   {"Start Your "+ perk.name + " Now"}
@@ -522,11 +516,9 @@ var PerkPage = React.createClass({
             }
             {this.state.started && !this.state.completed &&
               <div>
-                <br />
                 <h4>{perk.name + " In Progress"}</h4>
                 <p>{perk.details}</p>
                 <h5>&mdash; For The Next &mdash;</h5>
-                <br />
                 <h2>
                   <CountdownTimer
                     initialTimeRemaining={perk.duration * 1000}
