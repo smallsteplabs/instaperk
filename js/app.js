@@ -120,7 +120,7 @@ var BizListItem = React.createClass({
 
     return (
       <li className="table-view-cell media media-card"
-          style={{backgroundImage: 'url(img/biz'+ biz.id + '.jpg)'}}>
+          style={{backgroundImage: 'url(./img/biz'+ biz.id + '.jpg)'}}>
         <a href={"#biz/" + biz.id}>
           <div className="media-body">
             <div className="media-action">
@@ -145,7 +145,7 @@ var BizListItem = React.createClass({
 var PerkListItem = React.createClass({
   render: function () {
     var perk = this.props.perk,
-        perkImage = '/img/perk' + perk.id + '.jpg';
+        perkImage = './img/perk' + perk.id + '.jpg';
 
     return (
       <li className="table-view-cell media">
@@ -236,8 +236,8 @@ var BizPage = React.createClass({
 
   render: function () {
     var biz = this.state.biz,
-        bizImage = '/img/biz' + biz.id + '.jpg',
-        bizLogo = '/img/logo' + biz.id + '.png',
+        bizImage = './img/biz' + biz.id + '.jpg',
+        bizLogo = './img/logo' + biz.id + '.png',
         headerStyle = {
           backgroundImage: 'url(' + bizImage + ')'
         },
@@ -331,7 +331,7 @@ var BizPage = React.createClass({
                 <a href={"#biz/" + biz.id + "/car-request/uberX"}
                    className="navigate-right">
                   <span className="badge">4 mins</span>
-                  <img src="img/uberX.jpg" className="media-object small natural pull-left" />
+                  <img src="./img/uberX.jpg" className="media-object small natural pull-left" />
                   <div className="media-body">
                     uberX
                     <p>$5-6</p>
@@ -342,7 +342,7 @@ var BizPage = React.createClass({
                 <a href={"#biz/" + biz.id + "/car-request/uberXL"}
                    className="navigate-right">
                   <span className="badge">5 mins</span>
-                  <img src="img/uberXL.jpg" className="media-object small natural pull-left" />
+                  <img src="./img/uberXL.jpg" className="media-object small natural pull-left" />
                   <div className="media-body">
                     uberXL
                     <p>$8-11</p>
@@ -353,7 +353,7 @@ var BizPage = React.createClass({
                 <a href={"#biz/" + biz.id + "/car-request/uberSELECT"}
                    className="navigate-right">
                   <span className="badge">4 mins</span>
-                  <img src="img/uberSELECT.jpg" className="media-object small natural pull-left" />
+                  <img src="./img/uberSELECT.jpg" className="media-object small natural pull-left" />
                   <div className="media-body">
                     uberSELECT
                     <p>$10-16</p>
@@ -364,7 +364,7 @@ var BizPage = React.createClass({
                 <a href={"#biz/" + biz.id + "/car-request/uberBLACK"}
                    className="navigate-right">
                   <span className="badge">4 mins</span>
-                  <img src="img/uberBLACK.jpg" className="media-object small natural pull-left" />
+                  <img src="./img/uberBLACK.jpg" className="media-object small natural pull-left" />
                   <div className="media-body">
                     uberBLACK
                     <p>$15-16</p>
@@ -453,7 +453,7 @@ var PerkPage = React.createClass({
   render: function () {
     var perk = this.props.perk,
         biz = this.state.biz,
-        perkImage = '/img/perk' + perk.id + '.jpg',
+        perkImage = './img/perk' + perk.id + '.jpg',
         bizMapURL = 'https://www.google.com/maps/dir/29.778524,-95.395847/Dean%27s,+Main+Street,+Houston,+TX';
 
     return (
@@ -585,7 +585,7 @@ var CarRequestPage = React.createClass({
     return (
       <div className={"page " + this.props.position}>
         <Header text="CONFIRMATION" back="true" />
-        <div className="content" style={{background:'#EFEFF4 url(/img/route1.jpg) top center no-repeat'}}>
+        <div className="content" style={{background:'#EFEFF4 url(./img/route1.jpg) top center no-repeat'}}>
           <div className="card">
             <ul className="table-view no-nav">
               <li className="table-view-cell media">
@@ -635,7 +635,7 @@ var CarRequestPage = React.createClass({
     return (
       <div className={"page " + this.props.position}>
         <Header text="CONFIRMATION" back="true" />
-        <div className="content" style={{background:'#EFEFF4 url(/img/route1.jpg) top center no-repeat'}}>
+        <div className="content" style={{background:'#EFEFF4 url(./img/route1.jpg) top center no-repeat'}}>
           <div className="card">
             <ul className="table-view no-nav">
               <li className="table-view-cell media">
@@ -718,7 +718,7 @@ var ChatPage = React.createClass({
             </li>
 
             <li className="table-view-cell media">
-              <img src="img/logo1.png" className="media-object bottom tiny circle pull-left" />
+              <img src="./img/logo1.png" className="media-object bottom tiny circle pull-left" />
               <div className="media-body" style={{paddingLeft: 25}}>
                 <span className="badge badge-inverted badge-chat-meta">
                   <small>Dean's Downtown</small>
@@ -739,7 +739,7 @@ var ChatPage = React.createClass({
             </li>
 
             <li className="table-view-cell media">
-              <img src="img/logo1.png" className="media-object bottom tiny circle pull-left" />
+              <img src="./img/logo1.png" className="media-object bottom tiny circle pull-left" />
               <div className="media-body" style={{paddingLeft: 25}}>
                 <span className="badge badge-inverted badge-chat-meta">
                   <small>Dean's Downtown</small>
@@ -760,7 +760,7 @@ var ChatPage = React.createClass({
             </li>
 
             <li className="table-view-cell media">
-              <img src="img/logo1.png" className="media-object bottom tiny circle pull-left" />
+              <img src="./img/logo1.png" className="media-object bottom tiny circle pull-left" />
               <div className="media-body" style={{paddingLeft: 25}}>
                 <span className="badge badge-inverted badge-chat-meta">
                   <small>Dean's Downtown</small>
